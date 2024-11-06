@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class AdminDeleteManagerComponent {
   username: string = '';
   confirmationMessage: string = '';
+  errorMessage: string = ''; // New variable to display error message if username is empty
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -27,16 +28,35 @@ export class AdminDeleteManagerComponent {
   }
 
   onSubmit() {
-    this.adminService.deleteManager(this.username).subscribe(
+    // Check if username is empty
+    if (!this.username.trim()) {
+      this.errorMessage = 'Please enter a username to delete.';
+      this.confirmationMessage = ''; // Clear any previous success messages
+      return;
+    }
+
+    // Show confirmation dialog
+    const isConfirmed = window.confirm(`Are you sure you want to delete manager ${this.username}?`);
+    if (!isConfirmed) {
+      this.confirmationMessage = 'Deletion cancelled.';
+      return;
+    }
+
+    // Proceed with deletion if confirmed
+    const managerData = { username: this.username };
+    this.adminService.deleteManager(managerData).subscribe(
       (response: { success: boolean; message: string }) => {
         if (response.success) {
           this.confirmationMessage = `Manager ${this.username} deleted successfully.`;
+          this.errorMessage = ''; // Clear any previous error messages
+          this.username = ''; // Clear the input field after deletion
         } else {
           this.confirmationMessage = `Failed to delete manager: ${response.message}`;
         }
       },
       (error: any) => {
         console.error('Error deleting manager:', error);
+        this.confirmationMessage = 'An error occurred while deleting the manager.';
       }
     );
   }

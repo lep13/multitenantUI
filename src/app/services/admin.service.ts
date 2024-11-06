@@ -1,8 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface CreateManagerResponse {
+  success: boolean;
+  message: string;
+}
+
+interface CreateManagerRequest {
+  username: string;
+  password: string;
+  group_limit: number;
+}
+
+interface RemoveManagerRequest {
+  username: string;
+}
+
+interface ApiResponse {
   success: boolean;
   message: string;
 }
@@ -15,14 +30,20 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  createManager(username: string, password: string, groups: number): Observable<CreateManagerResponse> {
-    return this.http.post<CreateManagerResponse>(`${this.apiUrl}/create_manager`, {
-      username,
-      password,
-      groups
+  createManager(data: CreateManagerRequest): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.apiUrl}/create-manager`, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     });
   }
-  deleteManager(username: string): Observable<{ success: boolean; message: string }> {
-    return this.http.delete<{ success: boolean; message: string }>(`${this.apiUrl}/delete_manager/${username}`);
+
+  deleteManager(data: RemoveManagerRequest): Observable<ApiResponse> {
+    return this.http.request<ApiResponse>('delete', `${this.apiUrl}/delete-manager`, {
+      body: data,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
 }

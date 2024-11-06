@@ -29,11 +29,17 @@ export class AdminCreateManagerComponent {
   navigateToDeleteManager() {
     this.currentPage = 'delete-manager';
     this.router.navigate(['/delete-manager']);
-  }  
+  }
 
   onSubmit() {
     if (this.groups !== null) {
-      this.adminService.createManager(this.username, this.password, this.groups).subscribe(
+      const managerData = {
+        username: this.username,
+        password: this.password,
+        group_limit: this.groups // assuming the backend expects 'group_limit'
+      };
+
+      this.adminService.createManager(managerData).subscribe(
         (response) => {
           if (response.success) {
             this.confirmationMessage = `Manager ${this.username} created successfully.`;
@@ -43,6 +49,7 @@ export class AdminCreateManagerComponent {
         },
         (error) => {
           console.error('Error creating manager:', error);
+          this.confirmationMessage = 'An error occurred while creating the manager.';
         }
       );
     }

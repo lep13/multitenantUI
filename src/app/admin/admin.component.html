@@ -19,8 +19,12 @@
   
   <!-- Main Content -->
   <div class="content">
-    <h3>User List</h3>
+    <div class="search-bar">
+      <input type="text" placeholder="Search by username" [(ngModel)]="searchTerm" />
+    </div>
+    
     <div class="user-list">
+      <h3>Managers List</h3>
       <table>
         <thead>
           <tr>
@@ -29,12 +33,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users | filter: searchTerm">
             <td>{{ user.username }}</td>
             <td>{{ user.group_limit }}</td>
-          </tr>          
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+  
