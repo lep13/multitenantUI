@@ -14,9 +14,10 @@ import { Router } from '@angular/router';
 
 export class AdminDeleteManagerComponent {
   username: string = '';
-  confirmationMessage: string = '';
-  errorMessage: string = ''; //display error message if username is empty
-  isModalOpen: boolean = false; // Track modal state
+  errorMessage: string = ''; // Display error message if username is empty
+  feedbackMessage: string = ''; // Message shown in the feedback modal
+  isConfirmationModalOpen: boolean = false; // Track confirmation modal state
+  isFeedbackModalOpen: boolean = false; // Track feedback modal state
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -31,70 +32,46 @@ export class AdminDeleteManagerComponent {
   openConfirmationModal() {
     if (!this.username.trim()) {
       this.errorMessage = 'Please enter a username to delete.';
-      this.confirmationMessage = ''; // Clear any previous success messages
+      this.feedbackMessage = ''; // Clear any previous feedback messages
     } else {
       this.errorMessage = ''; // Clear error message if any
-      this.isModalOpen = true; // Open modal
+      this.isConfirmationModalOpen = true; // Open confirmation modal
     }
   }
 
-  closeConfirmationModal() {
-    this.isModalOpen = false; // Close modal without deleting
-    this.confirmationMessage = 'Deletion cancelled.'; // Set cancellation message
+  // Close confirmation modal and show cancellation feedback
+  closeConfirmationModal(action: string) {
+    this.isConfirmationModalOpen = false; // Close confirmation modal
+    if (action === 'cancelled') {
+      this.feedbackMessage = 'Deletion cancelled.'; // Set cancellation message
+      this.isFeedbackModalOpen = true; // Show feedback modal
+    }
   }
 
+  // Confirm deletion and handle success or failure feedback
   confirmDelete() {
-    this.isModalOpen = false; // Close modal on confirmation
+    this.isConfirmationModalOpen = false; // Close confirmation modal on confirmation
     const managerData = { username: this.username };
     this.adminService.deleteManager(managerData).subscribe(
       (response: { success: boolean; message: string }) => {
         if (response.success) {
-          this.confirmationMessage = `Manager ${this.username} deleted successfully.`;
-          this.errorMessage = '';
-          this.username = ''; // Clear the input field after deletion
+          this.feedbackMessage = `Manager "${this.username}" was successfully deleted.`; // Success message
         } else {
-          this.confirmationMessage = `Failed to delete manager: ${response.message}`;
+          this.feedbackMessage = `Failed to delete manager: ${response.message}`; // Failure message
         }
+        this.isFeedbackModalOpen = true; // Show feedback modal
+        this.username = ''; // Clear the input field after deletion
       },
       (error: any) => {
-        console.error('Error deleting manager:', error);
-        this.confirmationMessage = 'An error occurred while deleting the manager.';
+        this.feedbackMessage = `Error: Manager "${this.username}" does not exist or another error occurred.`; // Error message
+        this.isFeedbackModalOpen = true; // Show feedback modal
       }
     );
   }
-}
 
-//   onSubmit() {
-//     // Check if username is empty
-//     if (!this.username.trim()) {
-//       this.errorMessage = 'Please enter a username to delete.';
-//       this.confirmationMessage = ''; // Clear any previous success messages
-//       return;
-//     }
-
-//     // Show confirmation dialog
-//     const isConfirmed = window.confirm(`Are you sure you want to delete manager ${this.username}?`);
-//     if (!isConfirmed) {
-//       this.confirmationMessage = 'Deletion cancelled.';
-//       return;
-//     }
-
-//     // Proceed with deletion if confirmed
-//     const managerData = { username: this.username };
-//     this.adminService.deleteManager(managerData).subscribe(
-//       (response: { success: boolean; message: string }) => {
-//         if (response.success) {
-//           this.confirmationMessage = `Manager ${this.username} deleted successfully.`;
-//           this.errorMessage = ''; // Clear any previous error messages
-//           this.username = ''; // Clear the input field after deletion
-//         } else {
-//           this.confirmationMessage = `Failed to delete manager: ${response.message}`;
-//         }
-//       },
-//       (error: any) => {
-//         console.error('Error deleting manager:', error);
-//         this.confirmationMessage = 'An error occurred while deleting the manager.';
-//       }
-//     );
-//   }
-// }
+    // Close feedback modal
+    closeFeedbackModal() {
+      this.isFeedbackModalOpen = false;
+      this.feedbackMessage = ''; // Clear feedback message after modal close
+    }
+  }
