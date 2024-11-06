@@ -28,6 +28,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/styles/admin-layout.scss",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -94,6 +95,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/styles/admin-layout.scss",
               {
                 "glob": "**/*",
                 "input": "public"

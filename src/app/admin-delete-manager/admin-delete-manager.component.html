@@ -1,0 +1,40 @@
+<div class="admin-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Admin Dashboard</h2>
+      <div class="admin-logo">
+        <span>Admin</span>
+        <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li (click)="navigateToDashboard()">Dashboard</li>
+        <li (click)="navigateToCreateManager()">Create Manager</li>
+        <li class="selected">Delete Manager</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Delete Manager</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            [(ngModel)]="username"
+            name="username"
+            required
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      <p *ngIf="confirmationMessage">{{ confirmationMessage }}</p>
+    </div>
+  </div>
+  

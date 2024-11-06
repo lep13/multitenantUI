@@ -5,9 +5,9 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../filter.pipe';
 import { UserService } from '../services/user.service';
 
-interface User {
+interface Manager {
   username: string;
-  tag: string;
+  group_limit: number;
 }
 
 @Component({
@@ -20,7 +20,7 @@ interface User {
 
 export class AdminComponent {
   searchTerm: string = '';
-  users: User[] = [];
+  users: Manager[] = [];
 
   constructor(
     private userService: UserService,
@@ -28,16 +28,16 @@ export class AdminComponent {
   ) {}  
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(
-      (data: User[]) => {
+    this.userService.getManagers().subscribe(
+      (data: Manager[]) => {
         console.log('Data received:', data); // to check if data is coming to the component
-        this.users = data;
+        this.users = data; // Keep this as `users` to match the rest of the component
       },
       (error) => {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching managers:', error);
       }
     );
-  }  
+  }     
 
   currentPage: string = 'dashboard';
 
@@ -45,6 +45,11 @@ export class AdminComponent {
     this.currentPage = 'dashboard';
     // this.router.navigate(['/admin']);
   }
+
+  navigateToDeleteManager() {
+    this.currentPage = 'delete-manager';
+    this.router.navigate(['/delete-manager']);
+  }  
 
   navigateToCreateManager() {
     this.currentPage = 'create-manager';

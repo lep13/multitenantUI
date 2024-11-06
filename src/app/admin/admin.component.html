@@ -13,32 +13,28 @@
       <ul>
         <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
         <li [class.selected]="currentPage === 'create-manager'" (click)="navigateToCreateManager()">Create Manager</li>
+        <li [class.selected]="currentPage === 'delete-manager'" (click)="navigateToDeleteManager()">Delete Manager</li>
       </ul>
     </div>
   
   <!-- Main Content -->
   <div class="content">
-    <div class="search-bar">
-      <input type="text" placeholder="Search by username" [(ngModel)]="searchTerm" />
-    </div>
-    
+    <h3>User List</h3>
     <div class="user-list">
-      <h3>User List</h3>
       <table>
         <thead>
           <tr>
             <th>Username</th>
-            <th>Tag</th>
+            <th>Group Limit</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users | filter: searchTerm">
+          <tr *ngFor="let user of users">
             <td>{{ user.username }}</td>
-            <td>{{ user.tag }}</td>
-          </tr>
+            <td>{{ user.group_limit }}</td>
+          </tr>          
         </tbody>
       </table>
     </div>
   </div>
 </div>
-  

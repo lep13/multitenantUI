@@ -14,21 +14,20 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('Error connecting to MongoDB:', error));
 
-// Define User schema and model
-const userSchema = new mongoose.Schema({
+// Define manager schema and model
+const managerSchema = new mongoose.Schema({
   username: String,
-  password: String, // This will not be returned in the API response
-  tag: String
+  group_limit: Number
 });
-const User = mongoose.model('User', userSchema, 'users'); // Third parameter specifies the collection name
+const Manager = mongoose.model('Manager', managerSchema, 'managers'); // Connects to the 'managers' collection
 
-// API endpoint to get all users (excluding passwords)
-app.get('/api/users', async (req, res) => {
+// API endpoint to get all managers
+app.get('/api/managers', async (req, res) => {
   try {
-    const users = await User.find({}, 'username tag'); // Exclude password field
-    res.json(users);
+    const managers = await Manager.find({}, 'username group_limit'); // Select only username and group_limit fields
+    res.json(managers);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching users' });
+    res.status(500).json({ message: 'Error fetching managers' });
   }
 });
 

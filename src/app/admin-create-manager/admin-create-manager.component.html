@@ -4,15 +4,15 @@
       <h2>Admin Dashboard</h2>
       <div class="admin-logo">
         <span>Admin</span>
-        <img src="path/to/admin-logo.png" alt="Admin Logo" />
+        <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
       </div>
-    </div>
-  
+  </div>
     <!-- Sidebar -->
     <div class="sidebar">
       <ul>
         <li (click)="navigateToDashboard()">Dashboard</li>
         <li class="selected">Create Manager</li>
+        <li [class.selected]="currentPage === 'delete-manager'" (click)="navigateToDeleteManager()">Delete Manager</li>
       </ul>
     </div>
   

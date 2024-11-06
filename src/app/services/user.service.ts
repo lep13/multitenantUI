@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface User {
+interface Manager {
   username: string;
-  tag: string;
+  group_limit: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:5000/api/users';
+  private apiUrl = 'http://localhost:5000/api/managers'; // Update URL to /api/managers
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+  getManagers(): Observable<Manager[]> {
+    return this.http.get<Manager[]>(this.apiUrl);
   }
 }
