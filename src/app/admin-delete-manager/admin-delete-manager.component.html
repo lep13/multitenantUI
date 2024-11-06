@@ -20,21 +20,25 @@
     <!-- Main Content -->
     <div class="content">
       <h3>Delete Manager</h3>
-      <form (ngSubmit)="onSubmit()">
+      <!-- <form (ngSubmit)="onSubmit()"> -->
         <div class="form-group">
           <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            [(ngModel)]="username"
-            name="username"
-            required
-            class="form-control"
-          />
+          <input type="text" [(ngModel)]="username" id="username" name="username" placeholder="Enter username to delete" required class="form-control" />
         </div>
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
-      <p *ngIf="confirmationMessage">{{ confirmationMessage }}</p>
+        <button (click)="openConfirmationModal()" class="btn btn-danger">Delete</button>
+        <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+      <!-- </form> -->
+        <!-- Error message for empty username -->
+        <p *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</p>
+        <!-- Confirmation message -->
+        <p *ngIf="confirmationMessage" class="text-success">{{ confirmationMessage }}</p>
+          <!-- Confirmation Modal -->
+        <div *ngIf="isModalOpen" class="modal-overlay">
+        <div class="modal-content">
+            <p>Are you sure you want to delete manager {{ username }}?</p>
+            <button (click)="confirmDelete()" class="btn btn-danger">Yes</button>
+            <button (click)="closeConfirmationModal()" class="btn btn-secondary">Cancel</button>
+        </div>
     </div>
   </div>
   
