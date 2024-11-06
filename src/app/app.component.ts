@@ -5,9 +5,10 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: '<router-outlet></router-outlet>', // allows child routes to display here
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'multitenantUI';
 }
+
