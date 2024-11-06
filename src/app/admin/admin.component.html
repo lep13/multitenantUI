@@ -1,0 +1,44 @@
+<div class="admin-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <h2>Admin Dashboard</h2>
+        <div class="admin-logo">
+          <span>Admin</span>
+          <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
+        </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-manager'" (click)="navigateToCreateManager()">Create Manager</li>
+      </ul>
+    </div>
+  
+  <!-- Main Content -->
+  <div class="content">
+    <div class="search-bar">
+      <input type="text" placeholder="Search by username" [(ngModel)]="searchTerm" />
+    </div>
+    
+    <div class="user-list">
+      <h3>User List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Tag</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users | filter: searchTerm">
+            <td>{{ user.username }}</td>
+            <td>{{ user.tag }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  

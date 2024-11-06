@@ -1,0 +1,42 @@
+<div class="admin-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Admin Dashboard</h2>
+      <div class="admin-logo">
+        <span>Admin</span>
+        <img src="path/to/admin-logo.png" alt="Admin Logo" />
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li (click)="navigateToDashboard()">Dashboard</li>
+        <li class="selected">Create Manager</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create New Manager</h3>
+      <form (ngSubmit)="onSubmit()" class="create-manager-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" [(ngModel)]="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" [(ngModel)]="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="groups">Number of Groups</label>
+          <input type="number" id="groups" [(ngModel)]="groups" name="groups" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <div *ngIf="confirmationMessage" class="confirmation-message">
+          {{ confirmationMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+  
