@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 interface LoginResponse {
   success: boolean;
   message: string;
-  token?: string; // backend returns a token on successful login
+  redirectURL?: string; // backend returns a redirectURL for redirection
+  token?: string; // if using tokens, token can be stored here
 }
 
 @Injectable({

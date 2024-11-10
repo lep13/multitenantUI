@@ -1,42 +1,47 @@
 <div class="admin-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <h2>Admin Dashboard</h2>
-      <div class="admin-logo">
-        <span>Admin</span>
-        <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
+  <div class="top-bar">
+    <h2>Admin Dashboard</h2>
+    <div class="admin-logo">
+      <span>Admin</span>
+      <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <ul>
+      <li (click)="navigateToDashboard()">Dashboard</li>
+      <li class="selected">Create Manager</li>
+      <li (click)="navigateToDeleteManager()">Delete Manager</li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h3>Create New Manager</h3>
+    <form (ngSubmit)="onSubmit()" class="create-manager-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" required />
+        <p *ngIf="errorMessage === 'Please enter a username.'" class="error-message">{{ errorMessage }}</p>
       </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" required />
+        <p *ngIf="errorMessage.includes('Password')" class="error-message">{{ errorMessage }}</p>
+      </div>
+      <div class="form-group">
+        <label for="groups">Number of Groups</label>
+        <input type="number" id="groups" [(ngModel)]="groups" name="groups" required min="1" max="10"/>
+        <p *ngIf="errorMessage.includes('Number of groups')" class="error-message">{{ errorMessage }}</p>
+      </div>
+      <button type="submit" class="btn">Create</button>
+    </form>
   </div>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <ul>
-        <li (click)="navigateToDashboard()">Dashboard</li>
-        <li class="selected">Create Manager</li>
-        <li [class.selected]="currentPage === 'delete-manager'" (click)="navigateToDeleteManager()">Delete Manager</li>
-      </ul>
-    </div>
-  
-    <!-- Main Content -->
-    <div class="content">
-      <h3>Create New Manager</h3>
-      <form (ngSubmit)="onSubmit()" class="create-manager-form">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" [(ngModel)]="username" name="username" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" [(ngModel)]="password" name="password" required />
-        </div>
-        <div class="form-group">
-          <label for="groups">Number of Groups</label>
-          <input type="number" id="groups" [(ngModel)]="groups" name="groups" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-        <div *ngIf="confirmationMessage" class="confirmation-message">
-          {{ confirmationMessage }}
-        </div>
-      </form>
+
+  <!-- Modal for confirmation messages -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <p>{{ confirmationMessage }}</p>
+      <button (click)="closeModal()" class="btn">OK</button>
     </div>
   </div>
-  
+</div>
