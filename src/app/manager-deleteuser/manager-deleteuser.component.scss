@@ -1,0 +1,54 @@
+.delete-user-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+  
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+  
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+  
+      input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
+  
+    .btn {
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #c9302c;
+      }
+    }
+  
+    .success-message {
+      color: #5cb85c;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  
+    .error-message {
+      color: #d9534f;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  }
+  

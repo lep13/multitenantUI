@@ -1,3 +1,5 @@
+// server.js
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -19,15 +21,34 @@ const managerSchema = new mongoose.Schema({
   username: String,
   group_limit: Number
 });
-const Manager = mongoose.model('Manager', managerSchema, 'managers'); // Connects to the 'managers' collection
+const Manager = mongoose.model('Manager', managerSchema, 'managers');
 
-// API endpoint to get all managers
+// Define group schema and model
+const groupSchema = new mongoose.Schema({
+  group_name: String,
+  members: [String],
+  manager: String,
+  budget: Number
+});
+const Group = mongoose.model('Group', groupSchema, 'groups');
+
+// API endpoint to get all managers (for admin dashboard)
 app.get('/api/managers', async (req, res) => {
   try {
-    const managers = await Manager.find({}, 'username group_limit'); // Select only username and group_limit fields
+    const managers = await Manager.find({}, 'username group_limit');
     res.json(managers);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching managers' });
+  }
+});
+
+// API endpoint to get all groups (for manager dashboard)
+app.get('/api/groups', async (req, res) => {
+  try {
+    const groups = await Group.find({}, 'group_name members manager budget');
+    res.json(groups);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching groups' });
   }
 });
 

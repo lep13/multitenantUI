@@ -1,0 +1,30 @@
+<h2>Create Group</h2>
+
+<div>
+  <label>Group Name</label>
+  <input [(ngModel)]="groupName" placeholder="Enter group name" />
+</div>
+
+<div>
+  <label>Manager Username</label>
+  <input [(ngModel)]="managerUsername" placeholder="Enter manager username" />
+</div>
+
+<div>
+  <label>Add Users</label>
+  <input [(ngModel)]="newUser" placeholder="Enter username" />
+  <button (click)="addUser()">Add User</button>
+</div>
+
+<div *ngFor="let user of users">
+  {{ user }} <button (click)="removeUser(user)">Remove</button>
+</div>
+
+<div>
+  <label>Budget</label>
+  <input [(ngModel)]="budget" placeholder="Enter budget" type="number" />
+</div>
+
+<button (click)="createGroup()">Create Group</button>
+
+<p *ngIf="responseMessage">{{ responseMessage }}</p>

@@ -1,0 +1,30 @@
+<div class="manager-dashboard">
+    <h2>Manager Dashboard</h2>
+    <button routerLink="/create-user" class="btn btn-secondary">Create User</button>
+  
+    <div *ngIf="groups.length > 0; else noData">
+      <table>
+        <thead>
+          <tr>
+            <th>Group Name</th>
+            <th>Members</th>
+            <th>Manager</th>
+            <th>Budget</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let group of groups">
+            <td>{{ group.group_name }}</td>
+            <td>{{ group.members.join(', ') || 'No members' }}</td>
+            <td>{{ group.manager }}</td>
+            <td>{{ group.budget || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noData>
+      <p>No groups data available.</p>
+    </ng-template>
+  </div>
+  

@@ -26,12 +26,12 @@ interface ApiResponse {
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:8080'; // Update with your Go server's URL
+  private goApiUrl = 'http://localhost:8080'; // Go server for CRUD operations
 
   constructor(private http: HttpClient) {}
 
   createManager(data: CreateManagerRequest): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.apiUrl}/create-manager`, data, {
+    return this.http.post<ApiResponse>(`${this.goApiUrl}/create-manager`, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -39,7 +39,7 @@ export class AdminService {
   }
 
   deleteManager(data: RemoveManagerRequest): Observable<ApiResponse> {
-    return this.http.request<ApiResponse>('delete', `${this.apiUrl}/delete-manager`, {
+    return this.http.request<ApiResponse>('delete', `${this.goApiUrl}/delete-manager`, {
       body: data,
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

@@ -10,12 +10,24 @@ import { AdminComponent } from './app/admin/admin.component';
 import { AdminCreateManagerComponent } from './app/admin-create-manager/admin-create-manager.component';
 import { AdminDeleteManagerComponent } from './app/admin-delete-manager/admin-delete-manager.component';
 
+import { ManagerComponent } from './app/manager/manager.component';
+import { ManagerCreateUserComponent } from './app/manager-createuser/manager-createuser.component';
+import { ManagerDeleteUserComponent } from './app/manager-deleteuser/manager-deleteuser.component';
+import { ManagerCreateGroupComponent } from './app/manager-creategroup/manager-creategroup.component';
+import { ManagerUpdateGroupComponent } from './app/manager-updategroup/manager-updategroup.component';
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'admin', component: AdminComponent },
   { path: 'create-manager', component: AdminCreateManagerComponent },
   { path: 'delete-manager', component: AdminDeleteManagerComponent },
+
+  { path: 'manager', component: ManagerComponent },
+  { path: 'create-user', component: ManagerCreateUserComponent },
+  { path: 'delete-user', component: ManagerDeleteUserComponent },
+  { path: 'create-group', component: ManagerCreateGroupComponent },
+  { path: 'update-group', component: ManagerUpdateGroupComponent },
 ];
 
 bootstrapApplication(AppComponent, {
