@@ -1,20 +1,49 @@
-<div class="delete-user-container">
-    <h2>Delete User</h2>
-    <form (ngSubmit)="onDeleteUser()">
+<div class="manager-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Manager Dashboard</h2>
+      <div class="manager-logo">
+        <span>Manager</span>
+        <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li (click)="navigateToDashboard()">Dashboard</li>
+        <li (click)="navigateToCreateUser()">Create User</li>
+        <li class="selected">Delete User</li>
+        <li (click)="navigateToCreateGroup()">Create Group</li>
+        <li (click)="navigateToUpdateGroup()">Update Group</li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Delete User</h3>
       <div class="form-group">
         <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          [(ngModel)]="username"
-          name="username"
-          placeholder="Enter username to delete"
-          required
-        />
+        <input type="text" [(ngModel)]="username" id="username" name="username" placeholder="Enter username to delete" required />
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
       </div>
-      <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
-    <p *ngIf="message" class="success-message">{{ message }}</p>
-    <p *ngIf="error" class="error-message">{{ error }}</p>
-  </div>
-  
+      <button (click)="openConfirmationModal()" class="btn btn-danger">Delete</button>
+
+      <!-- Confirmation Modal -->
+      <div *ngIf="isConfirmationModalOpen" class="modal-overlay">
+        <div class="modal-content">
+          <p>Are you sure you want to delete user {{ username }}?</p>
+          <button (click)="confirmDelete()" class="btn btn-danger">Yes</button>
+          <button (click)="closeConfirmationModal('cancelled')" class="btn btn-secondary">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Success/Error Modal -->
+      <div *ngIf="isFeedbackModalOpen" class="modal-overlay">
+        <div class="modal-content">
+          <p>{{ feedbackMessage }}</p>
+          <button (click)="closeFeedbackModal()" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+</div>

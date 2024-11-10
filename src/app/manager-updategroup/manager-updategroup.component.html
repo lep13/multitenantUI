@@ -1,36 +1,25 @@
 <h2>Update Group</h2>
+<label for="managerUsername">Enter Manager Username:</label>
+<input id="managerUsername" [(ngModel)]="managerUsername" placeholder="Enter manager username" />
+<button (click)="fetchGroups()">Fetch Groups</button>
 
-<!-- Input field to enter manager username -->
-<div>
-  <label for="managerUsername">Enter Manager Username:</label>
-  <input id="managerUsername" type="text" [(ngModel)]="managerUsername" placeholder="Manager Username" />
-  <button (click)="fetchGroups()">Fetch Groups</button>
-</div>
+<p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
 
-<!-- Display error message if fetching groups fails -->
-<p *ngIf="responseMessage" class="error-message">{{ responseMessage }}</p>
-
-<!-- Dropdown to select a group once groups are fetched -->
 <div *ngIf="groups.length > 0">
   <label for="groupSelect">Select Group:</label>
   <select id="groupSelect" (change)="onSelectGroup($event)">
-    <option *ngFor="let group of groups" [value]="group._id">
-      {{ group.group_name }}
-    </option>
+    <option *ngFor="let group of groups" [value]="group._id">{{ group.group_name }}</option>
   </select>
 </div>
 
-<!-- Display selected group details for editing -->
 <div *ngIf="selectedGroup" class="group-details">
   <h3>Group Details: {{ selectedGroup.group_name }}</h3>
   
-  <!-- Input field to update the budget -->
   <label for="budget">Budget:</label>
   <input id="budget" type="number" [(ngModel)]="newBudget" />
   <button (click)="updateBudget()">Update Budget</button>
 
-  <!-- List of users in the group with option to remove each -->
-  <h4>Group Members:</h4>
+  <h4>Members:</h4>
   <ul>
     <li *ngFor="let user of selectedGroup.members">
       {{ user }}
@@ -38,6 +27,3 @@
     </li>
   </ul>
 </div>
-
-<!-- Display response message after actions -->
-<p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
