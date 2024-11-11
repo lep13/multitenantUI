@@ -1,5 +1,3 @@
-// manager.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -76,29 +74,18 @@ export class ManagerService {
     }
 
     // Fetch groups for a specific manager
-    listGroups(managerUsername: string): Observable<ApiResponse> {
-      return this.http.get<ApiResponse>(`${this.goApiUrl}/list-groups?username=${encodeURIComponent(managerUsername)}`, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-        }),
-      });
-    }        
-
-    // Remove user from group
-    removeUserFromGroup(manager: string, groupName: string, user: string): Observable<any> {
-      return this.http.post<any>(`${this.goApiUrl}/remove-user`, {
-        username: manager,
-        group_name: groupName,
-        user: user,
-      });
+    getGroupsByManager(managerUsername: string): Observable<any> {
+      const url = `${this.goApiUrl}/list-groups?username=${encodeURIComponent(managerUsername)}`;
+      return this.http.get(url);
     }
-
-    // Update budget for a group
+  
     updateGroupBudget(manager: string, groupName: string, budget: number): Observable<any> {
-      return this.http.post<any>(`${this.goApiUrl}/update-budget`, {
-        manager: manager,
-        group_name: groupName,
-        budget: budget,
-      });
-  }
+      const url = `${this.goApiUrl}/update-budget`;
+      return this.http.put(url, { manager, group_name: groupName, budget });
+    }
+  
+    removeUserFromGroup(manager: string, groupName: string, user: string): Observable<any> {
+      const url = `${this.goApiUrl}/remove-user`;
+      return this.http.delete(url, { body: { username: manager, group_name: groupName, user } });
+    }
 }
