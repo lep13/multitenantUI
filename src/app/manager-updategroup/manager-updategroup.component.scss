@@ -1,15 +1,261 @@
-.update-group-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .group-details {
-    margin-top: 20px;
-  }
-  
-  .response-message {
-    color: red;
-    font-weight: bold;
-  }
-  
+.manager-page {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+
+    .top-bar {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #f4f4f4;
+        border-bottom: 1px solid #ddd;
+        font-size: 1.2em;
+    }
+
+    .manager-logo {
+        display: flex;
+        align-items: center;
+
+        span {
+            margin-right: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .sidebar {
+        grid-row: 2 / -1;
+        padding: 0;
+        background-color: #f8f8f8;
+        border-right: 1px solid #ddd;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 25px 20px;
+                cursor: pointer;
+                color: #333;
+                font-weight: bold;
+                transition: background-color 0.3s;
+                border-bottom: 1px solid #ddd;
+
+                &:hover {
+                    background-color: #e0e0e0;
+                }
+
+                &.selected {
+                    background-color: #cecece;
+                    font-weight: bold;
+                    color: #000;
+                }
+            }
+        }
+    }
+
+    .content {
+        padding: 50px;
+
+        h3 {
+            font-size: 1.4rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+
+            label {
+                font-weight: bold;
+                margin-bottom: 10px;
+                font-size: large;
+                display: block;
+            }
+
+            input {
+                width: 100%;
+                max-width: 300px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-top: 5px;
+            }
+
+            select {
+                width: 100%;
+                max-width: 300px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-top: 5px;
+            }
+
+            .response-message,
+            .error-message {
+                color: #d9534f;
+                font-size: 0.875rem;
+                margin-top: 5px;
+            }
+        }
+
+        .group-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+
+            h4 {
+                margin-bottom: 15px;
+                font-size: 1.2rem;
+                color: #555;
+                font-weight: bold;
+            }
+
+            .user-list {
+                margin-top: 15px;
+
+                li {
+                    font-size: 0.95rem;
+                    color: #333;
+                }
+            }
+        }
+
+        .fetch-groups-btn,
+        .update-btn,
+        .add-user-btn,
+        .remove-user-btn,
+        .refresh-btn,
+        .create-group {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            &:active {
+                transform: scale(1);
+            }
+        }
+
+        .fetch-groups-btn {
+            background-color: #007bff;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+
+        .update-btn {
+            background-color: #5cb85c;
+
+            &:hover {
+                background-color: #4cae4c;
+            }
+        }
+
+        .add-user-btn {
+            background-color: #5bc0de;
+
+            &:hover {
+                background-color: #31b0d5;
+            }
+        }
+
+        .remove-user-btn {
+            background-color: #d9534f;
+
+            &:hover {
+                background-color: #c9302c;
+            }
+        }
+
+        .refresh-btn {
+            background-color: #f0ad4e;
+
+            &:hover {
+                background-color: #ec971f;
+            }
+        }
+
+        .create-group {
+            background-color: #007bff;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 12px;
+        width: 320px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.1s ease;
+
+            &:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+
+            &:active {
+                transform: scale(1);
+            }
+        }
+    }
+}

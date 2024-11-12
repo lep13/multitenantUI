@@ -1,35 +1,73 @@
-<div class="update-group-page">
-    <label for="managerName">Enter Manager Username:</label>
-    <input type="text" id="managerName" [(ngModel)]="managerUsername" />
-    <button (click)="fetchGroups()">Fetch Groups</button>
+<div class="manager-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <h2>Manager Dashboard</h2>
+        <div class="manager-logo">
+            <span>Manager</span>
+            <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
+        </div>
+    </div>
 
-    <label for="groupSelect">Select Group:</label>
-    <select id="groupSelect" (change)="onGroupSelect($event)">
-        <option value="" disabled selected>Select a group</option>
-        <option *ngFor="let group of groups" [value]="group.group_name">{{ group.group_name }}</option>
-      </select>                
-           
-    <div *ngIf="selectedGroup" class="group-details">
-        <h3>Group Details: {{ selectedGroup.group_name }}</h3>
-        <p>Current Budget: {{ selectedGroup.budget }}</p>
-        
-        <label for="newBudget">New Budget:</label>
-        <input id="newBudget" type="number" [(ngModel)]="newBudget" />
-        <button (click)="updateBudget()">Update Budget</button>
-        
-        <label for="userToAdd">Add User:</label>
-        <input id="userToAdd" type="text" [(ngModel)]="userToAdd" placeholder="Enter user to add" />
-        <button (click)="addUser()">Add User</button>
-        
-        <label for="userToRemove">Remove User:</label>
-        <input id="userToRemove" type="text" [(ngModel)]="userToRemove" placeholder="Enter user to remove" />
-        <button (click)="removeUser()">Remove User</button>
-        
+    <!-- Sidebar -->
+    <div class="sidebar">
         <ul>
-            <li *ngFor="let user of selectedGroup.members">{{ user }}</li>
+            <li (click)="navigateToDashboard()">Dashboard</li>
+            <li (click)="navigateToCreateUser()">Create User</li>
+            <li (click)="navigateToDeleteUser()">Delete User</li>
+            <li (click)="navigateToCreateGroup()">Create Group</li>
+            <li class="selected">Update Group</li>
         </ul>
     </div>
 
-    <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
-    <button (click)="refreshGroupDetails()">Refresh</button>
+    <!-- Content -->
+    <div class="content">
+        <h3>Update Group</h3>
+
+        <div class="form-group">
+            <label for="managerName">Enter Manager Username:</label>
+            <input type="text" id="managerName" [(ngModel)]="managerUsername" placeholder="Manager username" />
+            <button class="fetch-groups-btn" (click)="fetchGroups()">Fetch Groups</button>
+            <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
+        </div>
+
+        <div *ngIf="groups.length > 0" class="form-group">
+            <label for="groupSelect">Select Group:</label>
+            <select id="groupSelect" (change)="onGroupSelect($event)">
+                <option value="" disabled selected>Select a group</option>
+                <option *ngFor="let group of groups" [value]="group.group_name">{{ group.group_name }}</option>
+            </select>
+        </div>
+
+        <div *ngIf="selectedGroup" class="group-details">
+            <h4>Group Details: {{ selectedGroup.group_name }}</h4>
+            <p>Current Budget: {{ selectedGroup.budget }}</p>
+
+            <div class="form-group">
+                <label for="newBudget">New Budget:</label>
+                <input id="newBudget" type="number" [(ngModel)]="newBudget" placeholder="Enter new budget" />
+                <button class="update-btn" (click)="updateBudget()">Update Budget</button>
+                <p *ngIf="newBudget && newBudget > 5000" class="error-message">Budget cannot exceed 5000.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="userToAdd">Add User:</label>
+                <input id="userToAdd" type="text" [(ngModel)]="userToAdd" placeholder="Enter user to add" />
+                <button class="add-user-btn" (click)="addUser()">Add User</button>
+                <p *ngIf="userAddErrorMessage" class="error-message">{{ userAddErrorMessage }}</p>
+            </div>
+
+            <div class="form-group">
+                <label for="userToRemove">Remove User:</label>
+                <input id="userToRemove" type="text" [(ngModel)]="userToRemove" placeholder="Enter user to remove" />
+                <button class="remove-user-btn" (click)="removeUser()">Remove User</button>
+                <p *ngIf="userRemoveErrorMessage" class="error-message">{{ userRemoveErrorMessage }}</p>
+            </div>
+
+            <ul class="user-list">
+                <li *ngFor="let user of selectedGroup.members">{{ user }}</li>
+            </ul>
+
+            <button class="refresh-btn" (click)="refreshGroupDetails()">Refresh Group Details</button>
+        </div>
+    </div>
 </div>

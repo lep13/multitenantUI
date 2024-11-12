@@ -20,11 +20,11 @@ interface DeleteUserResponse {
   message: string;
 }
 
-interface ApiResponse {
-  status: string;
-  message: string;
-  data?: any;
-}
+// interface ApiResponse {
+//   status: string;
+//   message: string;
+//   data?: any;
+// }
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +72,12 @@ export class ManagerService {
     addBudget(managerUsername: string, groupName: string, budget: number): Observable<any> {
       return this.http.post<any>(`${this.goApiUrl}/add-budget`, { manager: managerUsername, group_name: groupName, budget });
     }
+
+      // Method to check if a user is already in another group
+      isUserInAnotherGroup(username: string): Observable<any> {
+        const url = `${this.goApiUrl}/check-user-group?username=${encodeURIComponent(username)}`;
+        return this.http.get<any>(url); // Ensure typing here
+      }      
 
     // Fetch groups for a specific manager
     getGroupsByManager(managerUsername: string): Observable<any> {

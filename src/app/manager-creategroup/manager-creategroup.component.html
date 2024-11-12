@@ -1,30 +1,64 @@
-<h2>Create Group</h2>
-
-<div>
-  <label>Group Name</label>
-  <input [(ngModel)]="groupName" placeholder="Enter group name" />
-</div>
-
-<div>
-  <label>Manager Username</label>
-  <input [(ngModel)]="managerUsername" placeholder="Enter manager username" />
-</div>
-
-<div>
-  <label>Add Users</label>
-  <input [(ngModel)]="newUser" placeholder="Enter username" />
-  <button (click)="addUser()">Add User</button>
-</div>
-
-<div *ngFor="let user of users">
-  {{ user }} <button (click)="removeUser(user)">Remove</button>
-</div>
-
-<div>
-  <label>Budget</label>
-  <input [(ngModel)]="budget" placeholder="Enter budget" type="number" />
-</div>
-
-<button (click)="createGroup()">Create Group</button>
-
-<p *ngIf="responseMessage">{{ responseMessage }}</p>
+<div class="manager-page">
+    <div class="top-bar">
+      <h2>Manager Dashboard</h2>
+      <div class="manager-logo">
+        <span>Manager</span>
+        <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
+      </div>
+    </div>
+  
+    <div class="sidebar">
+      <ul>
+        <li (click)="navigateToDashboard()">Dashboard</li>
+        <li (click)="navigateToCreateUser()">Create User</li>
+        <li (click)="navigateToDeleteUser()">Delete User</li>
+        <li class="selected">Create Group</li>
+        <li (click)="navigateToUpdateGroup()">Update Group</li>
+      </ul>
+    </div>
+  
+    <div class="content">
+      <h3>Create Group</h3>
+      <div class="form-group">
+        <label for="groupName">Group Name</label>
+        <input type="text" id="groupName" [(ngModel)]="groupName" placeholder="Enter group name" required />
+        <p *ngIf="groupNameErrorMessage" class="error-message">{{ groupNameErrorMessage }}</p>
+      </div>
+  
+      <div class="form-group">
+        <label for="managerUsername">Manager Username</label>
+        <input type="text" id="managerUsername" [(ngModel)]="managerUsername" placeholder="Enter manager username" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Add Users</label>
+        <input [(ngModel)]="newUser" placeholder="Enter username" />
+        <button class="add-user-btn" (click)="addUser()">Add User</button>
+        <p *ngIf="userNotExistErrorMessage" class="error-message">{{ userNotExistErrorMessage }}</p>
+      </div>
+  
+      <div class="user-list">
+        <div *ngFor="let user of users" class="user-item">
+          {{ user }}
+          <button class="remove-user" (click)="removeUser(user)">Remove</button>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="budget">Budget</label>
+        <input type="number" id="budget" [(ngModel)]="budget" placeholder="Enter budget" />
+        <p *ngIf="budget && budget > 5000" class="error-message">Budget cannot exceed 5000.</p>
+      </div>
+  
+      <button class="create-group" (click)="createGroup()">Create Group</button>
+    </div>
+  
+    <!-- Success Modal -->
+    <div *ngIf="isModalOpen" class="modal-overlay">
+      <div class="modal-content">
+        <p>{{ responseMessage }}</p>
+        <button (click)="closeModal()" class="btn">OK</button>
+      </div>
+    </div>
+  </div>
+  
