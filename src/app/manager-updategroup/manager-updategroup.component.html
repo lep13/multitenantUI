@@ -7,7 +7,7 @@
             <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
         </div>
     </div>
-
+ 
     <!-- Sidebar -->
     <div class="sidebar">
         <ul>
@@ -18,18 +18,22 @@
             <li class="selected">Update Group</li>
         </ul>
     </div>
-
+ 
     <!-- Content -->
     <div class="content">
         <h3>Update Group</h3>
-
+ 
         <div class="form-group">
             <label for="managerName">Enter Manager Username:</label>
-            <input type="text" id="managerName" [(ngModel)]="managerUsername" placeholder="Manager username" />
+            <!-- <input type="text" id="managerName" [(ngModel)]="managerUsername" placeholder="Manager username" /> -->
+            <select [(ngModel)]="managerUsername" id="managerUsername" required>
+                <option value="" selected hidden>Select a manager</option>
+                <option *ngFor="let manager of managers" [value]="manager.username">{{ manager.username }}</option>
+              </select>
             <button class="fetch-groups-btn" (click)="fetchGroups()">Fetch Groups</button>
             <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
         </div>
-
+ 
         <div *ngIf="groups.length > 0" class="form-group">
             <label for="groupSelect">Select Group:</label>
             <select id="groupSelect" (change)="onGroupSelect($event)">
@@ -37,36 +41,43 @@
                 <option *ngFor="let group of groups" [value]="group.group_name">{{ group.group_name }}</option>
             </select>
         </div>
-
+ 
         <div *ngIf="selectedGroup" class="group-details">
             <h4>Group Details: {{ selectedGroup.group_name }}</h4>
             <p>Current Budget: {{ selectedGroup.budget }}</p>
-
+ 
             <div class="form-group">
                 <label for="newBudget">New Budget:</label>
                 <input id="newBudget" type="number" [(ngModel)]="newBudget" placeholder="Enter new budget" />
                 <button class="update-btn" (click)="updateBudget()">Update Budget</button>
                 <p *ngIf="newBudget && newBudget > 5000" class="error-message">Budget cannot exceed 5000.</p>
             </div>
-
+ 
             <div class="form-group">
                 <label for="userToAdd">Add User:</label>
-                <input id="userToAdd" type="text" [(ngModel)]="userToAdd" placeholder="Enter user to add" />
+                <!-- <input id="userToAdd" type="text" [(ngModel)]="userToAdd" placeholder="Enter user to add" /> -->
+                <select id="userToAdd" [(ngModel)]="userToAdd" class="form-control" required>
+                    <option value="" selected hidden>Select a user</option>
+                    <option *ngFor="let user of availableUsernames" [value]="user">{{ user }}</option>
+                  </select>
                 <button class="add-user-btn" (click)="addUser()">Add User</button>
                 <p *ngIf="userAddErrorMessage" class="error-message">{{ userAddErrorMessage }}</p>
             </div>
-
+ 
             <div class="form-group">
                 <label for="userToRemove">Remove User:</label>
                 <input id="userToRemove" type="text" [(ngModel)]="userToRemove" placeholder="Enter user to remove" />
                 <button class="remove-user-btn" (click)="removeUser()">Remove User</button>
                 <p *ngIf="userRemoveErrorMessage" class="error-message">{{ userRemoveErrorMessage }}</p>
             </div>
-
-            <ul class="user-list">
-                <li *ngFor="let user of selectedGroup.members">{{ user }}</li>
-            </ul>
-
+ 
+            <div class="form-group">
+                <label> Current Users:</label>
+                <ul class="user-list">
+                    <li *ngFor="let user of selectedGroup.members">{{ user }}</li>
+                </ul>
+            </div>
+ 
             <button class="refresh-btn" (click)="refreshGroupDetails()">Refresh Group Details</button>
         </div>
     </div>

@@ -1,47 +1,51 @@
 <div class="admin-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <h2>Admin Dashboard</h2>
-      <div class="admin-logo">
-        <span>Admin</span>
-        <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
-      </div>
-    </div>
-  
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <ul>
-        <li (click)="navigateToDashboard()">Dashboard</li>
-        <li (click)="navigateToCreateManager()">Create Manager</li>
-        <li class="selected">Delete Manager</li>
-      </ul>
-    </div>
-  
-  <!-- Main Content -->
-  <div class="content">
-    <h3>Delete Manager</h3>
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" [(ngModel)]="username" id="username" name="username" placeholder="Enter username to delete" required class="form-control" />
-        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-    </div>
-    <button (click)="openConfirmationModal()" class="btn btn-danger">Delete</button>
-
-    <!-- Confirmation Modal -->
-    <div *ngIf="isConfirmationModalOpen" class="modal-overlay">
-      <div class="modal-content">
-        <p>Are you sure you want to delete manager {{ username }}?</p>
-        <button (click)="confirmDelete()" class="btn btn-danger">Yes</button>
-        <button (click)="closeConfirmationModal('cancelled')" class="btn btn-secondary">Cancel</button>
-      </div>
-    </div>
-
-    <!-- Success/Error Modal -->
-    <div *ngIf="isFeedbackModalOpen" class="modal-overlay">
-      <div class="modal-content">
-        <p>{{ feedbackMessage }}</p>
-        <button (click)="closeFeedbackModal()" class="btn btn-primary">OK</button>
-      </div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <h2>Admin Dashboard</h2>
+    <div class="admin-logo">
+      <span>Admin</span>
+      <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
     </div>
   </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li (click)="navigateToDashboard()">Dashboard</li>
+      <li (click)="navigateToCreateManager()">Create Manager</li>
+      <li class="selected">Delete Manager</li>
+    </ul>
+  </div>
+
+<!-- Main Content -->
+<div class="content">
+  <h3>Delete Manager</h3>
+  <div class="form-group">
+      <label for="username">Username</label>
+      <!-- <input type="text" [(ngModel)]="username" id="username" name="username" placeholder="Enter username to delete" required class="form-control" /> -->
+      <select [(ngModel)]="username" id="username" name="username" required class="form-control">
+        <option value="" selected hidden>Select a username</option>
+        <option *ngFor="let manager of managers" [value]="manager.username">{{ manager.username }}</option>
+      </select>
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+  <button (click)="openConfirmationModal()" class="btn btn-danger">Delete</button>
+
+  <!-- Confirmation Modal -->
+  <div *ngIf="isConfirmationModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <p>Are you sure you want to delete manager {{ username }}?</p>
+      <button (click)="confirmDelete()" class="btn btn-danger">Yes</button>
+      <button (click)="closeConfirmationModal('cancelled')" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Success/Error Modal -->
+  <div *ngIf="isFeedbackModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <p>{{ feedbackMessage }}</p>
+      <button (click)="closeFeedbackModal()" class="btn btn-primary">OK</button>
+    </div>
+  </div>
+</div>
 </div>

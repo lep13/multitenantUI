@@ -3,7 +3,7 @@ import { AdminService } from '../services/admin.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+ 
 @Component({
   selector: 'app-admin-delete-manager',
   standalone: true,
@@ -11,24 +11,40 @@ import { Router } from '@angular/router';
   templateUrl: './admin-delete-manager.component.html',
   styleUrl: './admin-delete-manager.component.scss'
 })
-
+ 
 export class AdminDeleteManagerComponent {
   username: string = '';
+  managers: { username: string }[] = []; // List of manager usernames for the dropdown
   errorMessage: string = ''; // Display error message if username is empty
   feedbackMessage: string = ''; // Message shown in the feedback modal
   isConfirmationModalOpen: boolean = false; // Track confirmation modal state
   isFeedbackModalOpen: boolean = false; // Track feedback modal state
-
+ 
   constructor(private adminService: AdminService, private router: Router) {}
-
+ 
+  ngOnInit(): void {
+    this.loadManagerUsernames();
+  }
+ 
+  loadManagerUsernames() {
+    this.adminService.getManagerUsernames().subscribe(
+      (data) => {
+        this.managers = data;
+      },
+      (error) => {
+        console.error('Failed to load manager usernames', error);
+      }
+    );
+  }
+ 
   navigateToDashboard() {
     this.router.navigate(['/admin']);
   }
-
+ 
   navigateToCreateManager() {
     this.router.navigate(['/create-manager']);
   }
-
+ 
   openConfirmationModal() {
     if (!this.username.trim()) {
       this.errorMessage = 'Please enter a username to delete.';
@@ -38,7 +54,7 @@ export class AdminDeleteManagerComponent {
       this.isConfirmationModalOpen = true; // Open confirmation modal
     }
   }
-
+ 
   // Close confirmation modal and show cancellation feedback
   closeConfirmationModal(action: string) {
     this.isConfirmationModalOpen = false; // Close confirmation modal
@@ -47,7 +63,7 @@ export class AdminDeleteManagerComponent {
       this.isFeedbackModalOpen = true; // Show feedback modal
     }
   }
-
+ 
   // Confirm deletion and handle success or failure feedback
   confirmDelete() {
     this.isConfirmationModalOpen = false; // Close confirmation modal on confirmation
@@ -68,7 +84,7 @@ export class AdminDeleteManagerComponent {
       }
     );
   }
-
+ 
     // Close feedback modal
     closeFeedbackModal() {
       this.isFeedbackModalOpen = false;

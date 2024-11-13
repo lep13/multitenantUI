@@ -3,7 +3,7 @@ import { ManagerService } from '../services/manager.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+ 
 @Component({
   selector: 'app-manager-creategroup',
   standalone: true,
@@ -14,8 +14,10 @@ import { Router } from '@angular/router';
 export class ManagerCreateGroupComponent {
   groupName: string = '';
   managerUsername: string = '';
+  managers: { username: string }[] = []; // List of manager usernames for the dropdown
   newUser: string = '';
   users: string[] = [];
+  availableUsernames: string[] = []; // List of available usernames for the dropdown
   budget: number | null = null;
   addUserErrorMessage: string | null = null;
   responseMessage: string | null = null;
@@ -23,32 +25,59 @@ export class ManagerCreateGroupComponent {
   errorMessage: string | null = null;
   userNotExistErrorMessage: string | null = null;
   groupNameErrorMessage: string | null = null;
-
+ 
   constructor(private managerService: ManagerService, private router: Router) {}
-
+ 
+  ngOnInit(): void {
+    this.loadManagerUsernames();
+    this.loadUsernames();
+  }
+ 
+  loadManagerUsernames() {
+    this.managerService.getManagerUsernames().subscribe(
+      (data) => {
+        this.managers = data;
+      },
+      (error) => {
+        console.error('Failed to load manager usernames', error);
+      }
+    );
+  }
+ 
+  loadUsernames() {
+    this.managerService.getUsernames().subscribe(
+      (data) => {
+        this.availableUsernames = data;
+      },
+      (error) => {
+        console.error('Failed to load usernames', error);
+      }
+    );
+  }
+ 
   navigateToDashboard() {
     this.router.navigate(['/manager']);
   }
-
+ 
   navigateToCreateUser() {
     this.router.navigate(['/create-user']);
   }
-
+ 
   navigateToDeleteUser() {
     this.router.navigate(['/delete-user']);
   }
-
+ 
   navigateToUpdateGroup() {
     this.router.navigate(['/update-group']);
   }
-
+ 
   addUser() {
     // Check if the users list already has 2 users
     if (this.users.length >= 2) {
       this.userNotExistErrorMessage = 'A group cannot have more than 2 users.';
       return;
     }
-
+ 
     if (this.newUser && !this.users.includes(this.newUser)) {
       // Check if the user is already in another group
       this.managerService.isUserInAnotherGroup(this.newUser).subscribe(
@@ -78,12 +107,12 @@ export class ManagerCreateGroupComponent {
       this.userNotExistErrorMessage = 'User is already a member of another group or does not exist.';
     }
   }
-
+ 
   removeUser(user: string) {
     this.users = this.users.filter(u => u !== user);
     this.userNotExistErrorMessage = null; // Clear the error when a user is removed
   }
-
+ 
   async createGroup() {
     // Validate group name
     if (!this.groupName.trim()) {
@@ -92,13 +121,13 @@ export class ManagerCreateGroupComponent {
     } else {
       this.groupNameErrorMessage = null; // Clear the error if group name is provided
     }
-
+ 
     // Validate user list
     if (this.users.length === 0) {
       this.userNotExistErrorMessage = 'You must add at least one user to create a group.';
       return;
     }
-
+ 
     try {
       const createGroupResponse = await this.managerService.createGroup(this.managerUsername, this.groupName).toPromise();
       if (createGroupResponse.status === 'error') {
@@ -106,7 +135,7 @@ export class ManagerCreateGroupComponent {
         this.isModalOpen = true;
         return;
       }
-
+ 
       for (const user of this.users) {
         const addUserResponse = await this.managerService.addUserToGroup(this.managerUsername, this.groupName, user).toPromise();
         if (addUserResponse.status === 'error') {
@@ -115,7 +144,7 @@ export class ManagerCreateGroupComponent {
           return;
         }
       }
-
+ 
       if (this.budget !== null && this.budget <= 5000) {
         const addBudgetResponse = await this.managerService.addBudget(this.managerUsername, this.groupName, this.budget).toPromise();
         if (addBudgetResponse.status === 'error') {
@@ -127,7 +156,7 @@ export class ManagerCreateGroupComponent {
         this.userNotExistErrorMessage = 'Budget cannot exceed 5000.';
         return;
       }
-
+ 
       this.responseMessage = 'Group created successfully with users and budget added!';
       this.isModalOpen = true;
     } catch (error: any) {
@@ -136,7 +165,7 @@ export class ManagerCreateGroupComponent {
       console.error('Error:', error);
     }
   }
-
+ 
   closeModal() {
     this.isModalOpen = false;
   }

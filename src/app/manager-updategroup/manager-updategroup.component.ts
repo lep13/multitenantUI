@@ -3,16 +3,16 @@ import { ManagerService } from '../services/manager.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-
+ 
+ 
 interface Group {
   _id: string;
   group_name: string;
   members: string[];
   manager: string;
-  budget?: number; 
+  budget?: number;
 }
-
+ 
 @Component({
   selector: 'app-manager-updategroup',
   standalone: true,
@@ -20,9 +20,11 @@ interface Group {
   templateUrl: './manager-updategroup.component.html',
   styleUrl: './manager-updategroup.component.scss'
 })
-
+ 
 export class ManagerUpdateGroupComponent implements OnInit {
   managerUsername: string = '';
+  managers: { username: string }[] = []; // List of manager usernames for the dropdown
+  availableUsernames: string[] = [];
   groups: Group[] = [];
   selectedGroup: Group | null = null;
   newBudget: number | null = null;
@@ -31,27 +33,52 @@ export class ManagerUpdateGroupComponent implements OnInit {
   userToRemove: string = '';
   userAddErrorMessage: string | null = null;
   userRemoveErrorMessage: string | null = null;
-
+ 
   constructor(private managerService: ManagerService, private router: Router) {}
-
-  ngOnInit(): void {}
-
+ 
+  ngOnInit(): void {
+    this.loadManagerUsernames();
+    this.loadUsernames();
+  }
+ 
+  loadManagerUsernames() {
+    this.managerService.getManagerUsernames().subscribe(
+      (data) => {
+        this.managers = data;
+      },
+      (error) => {
+        console.error('Failed to load manager usernames', error);
+      }
+    );
+  }
+ 
+  loadUsernames() {
+    this.managerService.getUsernames().subscribe(
+      (data) => {
+        this.availableUsernames = data;
+      },
+      (error) => {
+        console.error('Failed to load usernames', error);
+      }
+    );
+  }
+ 
   navigateToDashboard() {
     this.router.navigate(['/manager']);
   }
-
+ 
   navigateToCreateUser() {
     this.router.navigate(['/create-user']);
   }
-
+ 
   navigateToDeleteUser() {
     this.router.navigate(['/delete-user']);
   }
-
+ 
   navigateToCreateGroup() {
     this.router.navigate(['/create-group']);
   }
-
+ 
   fetchGroups() {
     this.managerService.getGroupsByManager(this.managerUsername).subscribe(
       (response) => {
@@ -67,15 +94,15 @@ export class ManagerUpdateGroupComponent implements OnInit {
       }
     );
   }
-
+ 
   onGroupSelect(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const groupName = selectElement.value;
-
+ 
     this.selectedGroup = this.groups.find(group => group.group_name === groupName) || null;
     this.responseMessage = '';
   }
-
+ 
   refreshGroupDetails() {
     if (this.selectedGroup) {
       this.managerService.getGroupsByManager(this.managerUsername).subscribe(
@@ -98,7 +125,7 @@ export class ManagerUpdateGroupComponent implements OnInit {
       this.responseMessage = 'No group selected to refresh.';
     }
   }
-
+ 
   updateBudget() {
     if (this.selectedGroup && this.newBudget && this.newBudget <= 5000) {
       this.managerService.updateGroupBudget(this.managerUsername, this.selectedGroup.group_name, this.newBudget).subscribe(
@@ -113,7 +140,7 @@ export class ManagerUpdateGroupComponent implements OnInit {
       this.responseMessage = 'Budget cannot exceed 5000.';
     }
   }
-
+ 
   addUser() {
     if (this.selectedGroup && this.userToAdd.trim()) {
       this.managerService.addUserToGroup(this.managerUsername, this.selectedGroup.group_name, this.userToAdd).subscribe(
@@ -132,7 +159,7 @@ export class ManagerUpdateGroupComponent implements OnInit {
       );
     }
   }
-
+ 
   removeUser() {
     if (this.selectedGroup && this.userToRemove.trim()) {
       this.managerService.removeUserFromGroup(this.managerUsername, this.selectedGroup.group_name, this.userToRemove).subscribe(
