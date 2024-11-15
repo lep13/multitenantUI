@@ -30,7 +30,7 @@ interface DeleteUserResponse {
   providedIn: 'root'
 })
 export class ManagerService {
-  private apiUrl = 'http://localhost:5000/api'; // Use Node.js server for displaying group data
+  private apiUrl = 'http://localhost:5000/api'; // Node.js server for displaying group data
   private goApiUrl = 'http://localhost:8080'; // Go server for CRUD operations
  
   constructor(private http: HttpClient) {}
@@ -45,14 +45,14 @@ export class ManagerService {
       return this.http.get<Group[]>(`${this.apiUrl}/groups`);
     }
  
-    // Fetch usernames for users with the tag "user" (for delete user dropdown)
+    // Fetch usernames for the dropdown
     getUsernames(): Observable<string[]> {
-      return this.http.get<string[]>(`${this.apiUrl}/users`);
+      return this.http.get<string[]>(`${this.apiUrl}/users`); // Ensure the correct endpoint is used
     }
  
     // Create user - Add user (uses Go server)
-    createUser(username: string, password: string): Observable<CreateUserResponse> {
-      const data = { username, password };
+    createUser(username: string, email: string, password: string): Observable<CreateUserResponse> {
+      const data = { username, email, password };
       return this.http.post<CreateUserResponse>(`${this.goApiUrl}/create-user`, data, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -74,13 +74,21 @@ export class ManagerService {
       return this.http.post<any>(`${this.goApiUrl}/create-group`, { username: managerUsername, group_name: groupName });
     }
  
-    addUserToGroup(managerUsername: string, groupName: string, user: string): Observable<any> {
-      console.log('Adding user to group:', { managerUsername, groupName, user });
-      return this.http.post<any>(`${this.goApiUrl}/add-user`, { username: managerUsername, group_name: groupName, user });
-    }    
+    addUserToGroup(managerUsername: string, groupID: string, user: string): Observable<any> {
+      console.log('Adding user to group:', { managerUsername, groupID, user });
+      return this.http.post<any>(`${this.goApiUrl}/add-user`, {
+        manager: managerUsername,
+        group_id: groupID,
+        username: user,
+      });
+    }
  
-    addBudget(managerUsername: string, groupName: string, budget: number): Observable<any> {
-      return this.http.post<any>(`${this.goApiUrl}/add-budget`, { manager: managerUsername, group_name: groupName, budget });
+    addBudget(managerUsername: string, groupID: string, budget: number): Observable<any> {
+      return this.http.post<any>(`${this.goApiUrl}/add-budget`, {
+        manager: managerUsername,
+        group_id: groupID,
+        budget: budget,
+      });
     }
  
       // Method to check if a user is already in another group
@@ -100,8 +108,10 @@ export class ManagerService {
       return this.http.put(url, { manager, group_name: groupName, budget });
     }
  
-    removeUserFromGroup(manager: string, groupName: string, user: string): Observable<any> {
+    removeUserFromGroup(manager: string, groupID: string, user: string): Observable<any> {
       const url = `${this.goApiUrl}/remove-user`;
-      return this.http.delete(url, { body: { username: manager, group_name: groupName, user } });
+      return this.http.delete(url, {
+        body: { manager, group_id: groupID, username: user },
+      });
     }
 }

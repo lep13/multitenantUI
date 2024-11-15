@@ -1,0 +1,72 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>User Dashboard</h2>
+      <div class="user-logo">
+        <span>User</span>
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Group Details</h3>
+  
+      <br />
+  
+      <div class="group-details">
+        <p><strong>Manager:</strong> Manager 1</p>
+        <p><strong>Members:</strong></p>
+        <ul>
+          <li>Member 1</li>
+          <li>Member 2</li>
+        </ul>
+  
+        <!-- Ring Chart -->
+        <div class="ring-chart-container">
+          <canvas id="ringChart" height="400px" width="400px"></canvas>
+        </div>
+      </div>
+  
+      <!-- Dynamic Table -->
+      <div class="service-table">
+        <h3>Service Details</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Service Provider</th>
+                <th>Service</th>
+                <th>Status</th>
+                <th>Estimated Cost</th>
+                <th>Date Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let service of services; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ service.username }}</td>
+                <td>{{ service.provider }}</td>
+                <td>{{ service.service }}</td>
+                <td>{{ service.status }}</td>
+                <td>{{ service.estimated_cost }}</td>
+                <td>{{ service.date_created }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

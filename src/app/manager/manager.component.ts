@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../filter.pipe'; // Import the filter pipe
 
 interface Group {
-  _id: string;
+  // group_id: string; // Updated to include group_id
   group_name: string;
   members: string[];
   manager: string;
@@ -44,7 +44,7 @@ export class ManagerComponent implements OnInit {
 
   navigateToDashboard() {
     this.currentPage = 'dashboard';
-    // this.router.navigate(['/manager']);
+    this.router.navigate(['/manager']);
   }
 
   navigateToCreateUser() {

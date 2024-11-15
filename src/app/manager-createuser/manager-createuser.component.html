@@ -7,7 +7,7 @@
       <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
     </div>
   </div>
-
+ 
   <!-- Sidebar -->
   <div class="sidebar">
     <ul>
@@ -18,7 +18,7 @@
       <li (click)="navigateToUpdateGroup()">Update Group</li>
     </ul>
   </div>
-
+ 
   <!-- Main Content -->
   <div class="content">
     <h3>Create New User</h3>
@@ -27,6 +27,12 @@
         <label for="username">Username</label>
         <input type="text" id="username" [(ngModel)]="username" name="username" required />
         <p *ngIf="errorMessage === 'Please enter a username.'" class="error-message">{{ errorMessage }}</p>
+      </div>
+ 
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" required />
+        <p *ngIf="errorMessage === 'Please enter a valid email address.'" class="error-message">{{ errorMessage }}</p>
       </div>
      
       <div class="form-group">
@@ -39,7 +45,7 @@
       <button type="submit" class="btn">Create</button>
     </form>
   </div>
-
+ 
   <!-- Modal for confirmation messages -->
   <div *ngIf="isModalOpen" class="modal-overlay">
     <div class="modal-content">

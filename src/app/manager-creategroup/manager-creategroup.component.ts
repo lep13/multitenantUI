@@ -17,8 +17,10 @@ export class ManagerCreateGroupComponent {
   managers: { username: string }[] = []; // List of manager usernames for the dropdown
   newUser: string = '';
   users: string[] = [];
+  currentUsers: string[] = []; // Array to hold users until group is created
   availableUsernames: string[] = []; // List of available usernames for the dropdown
   budget: number | null = null;
+  groupID: string = ''; // Property to store the created group ID after createGroup is called
   addUserErrorMessage: string | null = null;
   responseMessage: string | null = null;
   isModalOpen: boolean = false;
@@ -109,7 +111,7 @@ export class ManagerCreateGroupComponent {
   }
  
   removeUser(user: string) {
-    this.users = this.users.filter(u => u !== user);
+    this.users = this.users.filter((u) => u !== user);
     this.userNotExistErrorMessage = null; // Clear the error when a user is removed
   }
  
@@ -119,7 +121,7 @@ export class ManagerCreateGroupComponent {
       this.groupNameErrorMessage = 'Group name is required.';
       return;
     } else {
-      this.groupNameErrorMessage = null; // Clear the error if group name is provided
+      this.groupNameErrorMessage = null;
     }
  
     // Validate user list
@@ -128,41 +130,105 @@ export class ManagerCreateGroupComponent {
       return;
     }
  
+    // Validate budget
+    if (this.budget === null || this.budget <= 0) {
+      this.userNotExistErrorMessage = 'Budget must be greater than zero.';
+      return;
+    }
+ 
+    if (this.budget > 5000) {
+      this.userNotExistErrorMessage = 'Budget cannot exceed 5000.';
+      return;
+    }
+ 
     try {
-      const createGroupResponse = await this.managerService.createGroup(this.managerUsername, this.groupName).toPromise();
+      // Save users to currentUsers
+      this.currentUsers = [...this.users];
+ 
+      const createGroupResponse = await this.managerService
+        .createGroup(this.managerUsername, this.groupName)
+        .toPromise();
+ 
       if (createGroupResponse.status === 'error') {
         this.responseMessage = `Failed to create group: ${createGroupResponse.message}`;
         this.isModalOpen = true;
         return;
       }
  
-      for (const user of this.users) {
-        const addUserResponse = await this.managerService.addUserToGroup(this.managerUsername, this.groupName, user).toPromise();
-        if (addUserResponse.status === 'error') {
-          this.responseMessage = `Failed to add user ${user}: ${addUserResponse.message}`;
-          this.isModalOpen = true;
-          return;
-        }
-      }
+      // Store the created group ID AFTER the group is successfully created
+      this.groupID = createGroupResponse.data?.group_id;
  
-      if (this.budget !== null && this.budget <= 5000) {
-        const addBudgetResponse = await this.managerService.addBudget(this.managerUsername, this.groupName, this.budget).toPromise();
-        if (addBudgetResponse.status === 'error') {
-          this.responseMessage = `Failed to add budget: ${addBudgetResponse.message}`;
-          this.isModalOpen = true;
-          return;
-        }
-      } else if (this.budget && this.budget > 5000) {
-        this.userNotExistErrorMessage = 'Budget cannot exceed 5000.';
+      if (!this.groupID) {
+        this.responseMessage = 'Group created, but failed to retrieve group ID.';
+        this.isModalOpen = true;
         return;
       }
  
-      this.responseMessage = 'Group created successfully with users and budget added!';
+      // Add budget to the group
+      await this.addBudgetToGroup();
+ 
+      // Call the function to add users after the group is created
+      this.addUsersToGroup();
+ 
+      this.responseMessage = 'Group created successfully!';
       this.isModalOpen = true;
     } catch (error: any) {
       this.responseMessage = `Error: ${error?.message || 'An error occurred'}`;
       this.isModalOpen = true;
       console.error('Error:', error);
+    }
+  }
+ 
+  async addBudgetToGroup() {
+    if (!this.groupID) {
+      this.responseMessage = 'Cannot add budget. Group ID is missing.';
+      this.isModalOpen = true;
+      return;
+    }
+ 
+    try {
+      const addBudgetResponse = await this.managerService
+        .addBudget(this.managerUsername, this.groupID, this.budget!)
+        .toPromise();
+ 
+      if (addBudgetResponse.status === 'error') {
+        this.responseMessage = `Failed to add budget: ${addBudgetResponse.message}`;
+        this.isModalOpen = true;
+        return;
+      }
+ 
+      console.log('Budget added successfully');
+    } catch (error: any) {
+      console.error('Error while adding budget:', error);
+      this.responseMessage = `Error: ${error?.message || 'An error occurred while adding budget'}`;
+      this.isModalOpen = true;
+    }
+  }
+ 
+  async addUsersToGroup() {
+    if (!this.groupID) {
+      this.responseMessage = 'Cannot add users. Group ID is missing.';
+      this.isModalOpen = true;
+      return;
+    }
+ 
+    try {
+      for (const user of this.currentUsers) {
+        const addUserResponse = await this.managerService
+          .addUserToGroup(this.managerUsername, this.groupID, user)
+          .toPromise();
+        if (addUserResponse.status === 'error') {
+          console.error(`Failed to add user ${user}: ${addUserResponse.message}`);
+        }
+      }
+      // this.responseMessage = 'Users added to the group successfully!';                   //old response
+      this.responseMessage = 'Group created and Users added to the group successfully!';
+      this.currentUsers = []; // Clear the users array after processing
+      this.isModalOpen = true;
+    } catch (error: any) {
+      console.error('Error while adding users:', error);
+      this.responseMessage = `Error: ${error?.message || 'An error occurred while adding users'}`;
+      this.isModalOpen = true;
     }
   }
  

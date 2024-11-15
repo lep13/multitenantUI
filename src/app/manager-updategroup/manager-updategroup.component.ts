@@ -11,6 +11,7 @@ interface Group {
   members: string[];
   manager: string;
   budget?: number;
+  group_id: string;
 }
  
 @Component({
@@ -62,6 +63,7 @@ export class ManagerUpdateGroupComponent implements OnInit {
       }
     );
   }
+ 
  
   navigateToDashboard() {
     this.router.navigate(['/manager']);
@@ -143,37 +145,45 @@ export class ManagerUpdateGroupComponent implements OnInit {
  
   addUser() {
     if (this.selectedGroup && this.userToAdd.trim()) {
-      this.managerService.addUserToGroup(this.managerUsername, this.selectedGroup.group_name, this.userToAdd).subscribe(
+      const groupID = this.selectedGroup.group_id; // Use group_id instead of group_name
+ 
+      this.managerService.addUserToGroup(this.managerUsername, groupID, this.userToAdd).subscribe(
         (response) => {
           if (response.status === 'success') {
-            this.selectedGroup!.members.push(this.userToAdd);
-            this.userToAdd = '';
+            this.selectedGroup!.members.push(this.userToAdd); // Update UI with new user
+            this.userToAdd = ''; // Clear input field
             this.userAddErrorMessage = null;
+            this.responseMessage = response.message; // Set success message
           } else {
-            this.userAddErrorMessage = response.message;
+            this.userAddErrorMessage = response.message; // Set error message from response
           }
         },
         (error) => {
-          this.userAddErrorMessage = 'An error occurred while adding the user.';
+          this.userAddErrorMessage = 'An error occurred while adding the user.'; // Set error message on failure
         }
       );
     }
   }
  
+ 
   removeUser() {
     if (this.selectedGroup && this.userToRemove.trim()) {
-      this.managerService.removeUserFromGroup(this.managerUsername, this.selectedGroup.group_name, this.userToRemove).subscribe(
+      const groupID = this.selectedGroup.group_id; // Use group_id instead of group_name
+ 
+      this.managerService.removeUserFromGroup(this.managerUsername, groupID, this.userToRemove).subscribe(
         (response) => {
           if (response.status === 'success') {
-            this.selectedGroup!.members = this.selectedGroup!.members.filter(u => u !== this.userToRemove);
-            this.userToRemove = '';
+            // Remove user from the local members list
+            this.selectedGroup!.members = this.selectedGroup!.members.filter((u) => u !== this.userToRemove);
+            this.userToRemove = ''; // Clear input field
             this.userRemoveErrorMessage = null;
+            this.responseMessage = response.message; // Set success message
           } else {
-            this.userRemoveErrorMessage = response.message;
+            this.userRemoveErrorMessage = response.message; // Set error message from response
           }
         },
         (error) => {
-          this.userRemoveErrorMessage = 'An error occurred while removing the user.';
+          this.userRemoveErrorMessage = 'An error occurred while removing the user.'; // Set error message on failure
         }
       );
     }
