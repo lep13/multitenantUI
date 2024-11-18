@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 interface LoginResponse {
   success: boolean;
   message: string;
+  token?: string;
   redirectURL?: string;
 }
 
@@ -14,7 +15,7 @@ interface LoginResponse {
   standalone: true,
   imports: [FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   username: string = '';
@@ -27,9 +28,26 @@ export class LoginComponent {
     this.loginService.login(this.username, this.password).subscribe(
       (response: LoginResponse) => {
         if (response.success) {
+          // Save the token to localStorage
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          } else {
+            console.error('No token received from the server.');
+            this.errorMessage = 'No token received. Please contact support.';
+            return;
+          }
+
+          // Navigate to the redirect URL or fallback to '/'
           const redirectUrl = response.redirectURL || '/';
-          console.log('Login successful:', response.message);
-          this.router.navigate([redirectUrl]);
+          console.log('Login successful:', response.message, 'Redirecting to:', redirectUrl);
+
+          // Perform navigation
+          this.router.navigateByUrl(redirectUrl).then((navigated) => {
+            if (!navigated) {
+              console.error('Navigation failed. Check route configuration for:', redirectUrl);
+              this.errorMessage = 'Navigation failed. Please try again.';
+            }
+          });
         } else {
           console.error('Login failed:', response.message);
           this.errorMessage = response.message;

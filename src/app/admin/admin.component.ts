@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../filter.pipe';
 import { UserService } from '../services/user.service';
+import { LogoutComponent } from '../logout/logout.component';
 
 interface Manager {
   username: string;
@@ -15,12 +16,13 @@ interface Manager {
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule, FilterPipe],
+  imports: [FormsModule, CommonModule, FilterPipe, LogoutComponent],
 })
 
 export class AdminComponent {
   searchTerm: string = '';
   users: Manager[] = [];
+  showLogoutPopup = false;
 
   constructor(
     private userService: UserService,
@@ -54,5 +56,14 @@ export class AdminComponent {
   navigateToCreateManager() {
     this.currentPage = 'create-manager';
     this.router.navigate(['/create-manager']);
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
