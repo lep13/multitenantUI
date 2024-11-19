@@ -109,7 +109,7 @@ export class UserComponent implements OnInit {
   }
 
   navigateToCreateService() {
-    this.currentPage = 'create-service';
+    this.router.navigate(['/create-service']);
   }
 
   navigateToDeleteService() {

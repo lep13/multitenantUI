@@ -104,12 +104,22 @@
                 margin-top: 5px;
             }
 
-            .response-message,
+            .response-message{
+                color: #5cb85c;
+                font-size: 0.875rem;
+            }
+
+
             .error-message {
                 color: #d9534f;
                 font-size: 0.875rem;
                 margin-top: 5px;
             }
+        }
+
+        .response-message{
+            color: #5cb85c;
+            font-size: 0.875rem;
         }
 
         .group-details {

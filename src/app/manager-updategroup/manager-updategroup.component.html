@@ -31,7 +31,7 @@
                 <option *ngFor="let manager of managers" [value]="manager.username">{{ manager.username }}</option>
               </select>
             <button class="fetch-groups-btn" (click)="fetchGroups()">Fetch Groups</button>
-            <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
+            <!-- <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p> -->
         </div>
  
         <div *ngIf="groups.length > 0" class="form-group">
@@ -77,6 +77,8 @@
                     <li *ngFor="let user of selectedGroup.members">{{ user }}</li>
                 </ul>
             </div>
+
+            <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p>
  
             <button class="refresh-btn" (click)="refreshGroupDetails()">Refresh Group Details</button>
         </div>

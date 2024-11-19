@@ -16,7 +16,8 @@ import { ManagerDeleteUserComponent } from './app/manager-deleteuser/manager-del
 import { ManagerCreateGroupComponent } from './app/manager-creategroup/manager-creategroup.component';
 import { ManagerUpdateGroupComponent } from './app/manager-updategroup/manager-updategroup.component';
 
-import { UserComponent } from './app//user/user.component';
+import { UserComponent } from './app/user/user.component';
+import { UserCreateServiceComponent } from './app/user-createservice/user-createservice.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'update-group', component: ManagerUpdateGroupComponent },
 
   { path: 'user', component: UserComponent },
+  { path: 'create-service', component: UserCreateServiceComponent },
 ];
 
 bootstrapApplication(AppComponent, {

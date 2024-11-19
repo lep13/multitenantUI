@@ -1,0 +1,48 @@
+<div class="user-createservice-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create Service</h2>
+      <div class="user-logo">
+        <span>User</span>
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li>Dashboard</li>
+        <li class="selected">Create Service</li>
+        <li>Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Select a Cloud Provider</h3>
+      <div class="provider-cards">
+        <div class="card" (click)="selectProvider('aws')">
+          <h4>AWS</h4>
+        </div>
+        <div class="card" (click)="selectProvider('gcp')">
+          <h4>GCP</h4>
+        </div>
+      </div>
+  
+      <div *ngIf="services.length > 0" class="services-dropdown">
+        <label for="serviceSelect">Available Services:</label>
+        <select id="serviceSelect" [(ngModel)]="selectedService">
+          <option value="" disabled selected>Select a service</option>
+          <option *ngFor="let service of services" [value]="service">{{ service }}</option>
+        </select>
+        <button (click)="checkServiceBudget()">Check Budget</button>
+      </div>
+  
+      <div *ngIf="budgetStatusMessage" class="budget-status">
+        <p>{{ budgetStatusMessage }}</p>
+        <p *ngIf="estimatedCost !== null">Estimated Cost: {{ estimatedCost }}</p>
+        <p *ngIf="status !== null">Status: {{ status }}</p>
+      </div>
+    </div>
+  </div>
+  

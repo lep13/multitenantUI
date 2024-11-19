@@ -1,0 +1,113 @@
+.user-createservice-page {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+  
+    .top-bar {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .sidebar {
+      grid-row: 2 / -1;
+      padding: 0;
+      background-color: #f8f8f8;
+      border-right: 1px solid #ddd;
+  
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+  
+        li {
+          padding: 25px 20px;
+          cursor: pointer;
+          color: #333;
+          font-weight: bold;
+          transition: background-color 0.3s;
+          border-bottom: 1px solid #ddd;
+  
+          &.selected {
+            background-color: #cecece;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  
+    .content {
+      padding: 50px;
+  
+      .provider-cards {
+        display: flex;
+        gap: 20px;
+  
+        .card {
+          width: 150px;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #e0e0e0;
+          cursor: pointer;
+          transition: transform 0.3s ease;
+  
+          &:hover {
+            transform: scale(1.05);
+          }
+  
+          h4 {
+            margin: 0;
+          }
+        }
+      }
+  
+      .services-dropdown {
+        margin-top: 30px;
+  
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+  
+        select {
+          padding: 10px;
+          width: 100%;
+          max-width: 300px;
+          margin-bottom: 10px;
+        }
+  
+        button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
+  
+      .budget-status {
+        margin-top: 20px;
+        font-size: 1rem;
+  
+        p {
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+  
