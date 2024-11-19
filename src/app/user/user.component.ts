@@ -113,6 +113,6 @@ export class UserComponent implements OnInit {
   }
 
   navigateToDeleteService() {
-    this.currentPage = 'delete-service';
+    this.router.navigate (['/delete-service']);
   }
 }

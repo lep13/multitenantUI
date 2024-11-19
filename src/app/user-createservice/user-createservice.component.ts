@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-createservice',
@@ -10,12 +11,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './user-createservice.component.html',
   styleUrls: ['./user-createservice.component.scss'],
 })
-
-// navigateToDashboard() {
-//   this.router.navigate(['/user']);
-// }
-
 export class UserCreateServiceComponent {
+  currentPage: string = 'create-service';
   username: string = 'Golang_Developer'; // Example username
   selectedProvider: string | null = null;
   services: string[] = [];
@@ -24,7 +21,7 @@ export class UserCreateServiceComponent {
   estimatedCost: number | null = null;
   status: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   selectProvider(provider: string) {
     this.selectedProvider = provider;
@@ -85,5 +82,18 @@ export class UserCreateServiceComponent {
           this.budgetStatusMessage = 'An error occurred while checking the budget.';
         },
       });
+  }
+
+  // Navigation methods
+  navigateToDashboard() {
+    this.router.navigate(['/user']);
+  }
+
+  navigateToCreateService() {
+    this.currentPage ='/create-service';
+  }
+
+  navigateToDeleteService() {
+    this.router.navigate(['/delete-service']);
   }
 }

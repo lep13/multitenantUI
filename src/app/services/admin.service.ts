@@ -9,6 +9,7 @@ interface CreateManagerResponse {
  
 interface CreateManagerRequest {
   username: string;
+  email: string;
   password: string;
   group_limit: number;
 }
@@ -39,8 +40,8 @@ export class AdminService {
   createManager(data: CreateManagerRequest): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${this.goApiUrl}/create-manager`, data, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+        'Content-Type': 'application/json',
+      }),
     });
   }
  

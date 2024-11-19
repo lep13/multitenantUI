@@ -1,4 +1,4 @@
-<div class="user-createservice-page">
+<div class="user-page">
     <!-- Top Bar -->
     <div class="top-bar">
       <h2>Create Service</h2>
@@ -11,9 +11,9 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <ul>
-        <li>Dashboard</li>
-        <li class="selected">Create Service</li>
-        <li>Delete Service</li>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
       </ul>
     </div>
   

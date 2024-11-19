@@ -106,6 +106,21 @@ app.get('/api/users', async (req, res) => {
     res.status(500).json({ message: 'Error fetching users' });
   }
 });
+
+// API endpoint to get tag and email by username
+app.get('/api/user', async (req, res) => {
+  const { username } = req.query; // Read username from query parameters
+  try {
+    const user = await User.findOne({ username }, 'tag email'); // Fetch tag and email
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ tag: user.tag, email: user.email });
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Error fetching user data' });
+  }
+});
  
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
