@@ -53,7 +53,7 @@ export class ManagerService {
     // Create user - Add user (uses Go server)
     createUser(username: string, email: string, password: string): Observable<CreateUserResponse> {
       const data = { username, email, password };
-      return this.http.post<CreateUserResponse>(`${this.goApiUrl}/create-user`, data, {
+      return this.http.post<CreateUserResponse>(`${this.goApiUrl}/manager/create-user`, data, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
@@ -62,7 +62,7 @@ export class ManagerService {
  
     // Delete user (uses Go server)
     deleteUser(username: string): Observable<DeleteUserResponse> {
-      return this.http.request<DeleteUserResponse>('delete', `${this.goApiUrl}/delete-user`, {
+      return this.http.request<DeleteUserResponse>('delete', `${this.goApiUrl}/manager/delete-user`, {
         body: { username },
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -71,12 +71,12 @@ export class ManagerService {
     }
  
     createGroup(managerUsername: string, groupName: string): Observable<any> {
-      return this.http.post<any>(`${this.goApiUrl}/create-group`, { username: managerUsername, group_name: groupName });
+      return this.http.post<any>(`${this.goApiUrl}/manager/create-group`, { username: managerUsername, group_name: groupName });
     }
  
     addUserToGroup(managerUsername: string, groupID: string, user: string): Observable<any> {
       console.log('Adding user to group:', { managerUsername, groupID, user });
-      return this.http.post<any>(`${this.goApiUrl}/add-user`, {
+      return this.http.post<any>(`${this.goApiUrl}/manager/add-user`, {
         manager: managerUsername,
         group_id: groupID,
         username: user,
@@ -84,7 +84,7 @@ export class ManagerService {
     }
  
     addBudget(managerUsername: string, groupID: string, budget: number): Observable<any> {
-      return this.http.post<any>(`${this.goApiUrl}/add-budget`, {
+      return this.http.post<any>(`${this.goApiUrl}/manager/add-budget`, {
         manager: managerUsername,
         group_id: groupID,
         budget: budget,
@@ -93,23 +93,23 @@ export class ManagerService {
  
       // Method to check if a user is already in another group
       isUserInAnotherGroup(username: string): Observable<any> {
-        const url = `${this.goApiUrl}/check-user-group?username=${encodeURIComponent(username)}`;
+        const url = `${this.goApiUrl}/manager/check-user-group?username=${encodeURIComponent(username)}`;
         return this.http.get<any>(url); // Ensure typing here
       }      
  
     // Fetch groups for a specific manager
     getGroupsByManager(managerUsername: string): Observable<any> {
-      const url = `${this.goApiUrl}/list-groups?username=${encodeURIComponent(managerUsername)}`;
+      const url = `${this.goApiUrl}/manager/list-groups?username=${encodeURIComponent(managerUsername)}`;
       return this.http.get(url);
     }
  
     updateGroupBudget(manager: string, groupName: string, budget: number): Observable<any> {
-      const url = `${this.goApiUrl}/update-budget`;
+      const url = `${this.goApiUrl}/manager/update-budget`;
       return this.http.put(url, { manager, group_name: groupName, budget });
     }
  
     removeUserFromGroup(manager: string, groupID: string, user: string): Observable<any> {
-      const url = `${this.goApiUrl}/remove-user`;
+      const url = `${this.goApiUrl}/manager/remove-user`;
       return this.http.delete(url, {
         body: { manager, group_id: groupID, username: user },
       });
