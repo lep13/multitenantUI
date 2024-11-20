@@ -3,6 +3,7 @@ import { ManagerService } from '../services/manager.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LogoutComponent } from '../logout/logout.component';
  
  
 interface Group {
@@ -17,7 +18,7 @@ interface Group {
 @Component({
   selector: 'app-manager-updategroup',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './manager-updategroup.component.html',
   styleUrl: './manager-updategroup.component.scss'
 })
@@ -34,6 +35,7 @@ export class ManagerUpdateGroupComponent implements OnInit {
   userToRemove: string = '';
   userAddErrorMessage: string | null = null;
   userRemoveErrorMessage: string | null = null;
+  showLogoutPopup = false;
  
   constructor(private managerService: ManagerService, private router: Router) {}
  
@@ -187,5 +189,14 @@ export class ManagerUpdateGroupComponent implements OnInit {
         }
       );
     }
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

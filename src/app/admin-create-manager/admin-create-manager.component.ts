@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
- 
+import { LogoutComponent } from '../logout/logout.component';
+
 @Component({
   selector: 'app-admin-create-manager',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './admin-create-manager.component.html',
   styleUrls: ['./admin-create-manager.component.scss']
 })
@@ -20,6 +21,7 @@ export class AdminCreateManagerComponent {
   confirmationMessage: string = '';
   errorMessage: string = '';
   isModalOpen: boolean = false;
+  showLogoutPopup = false;
  
   constructor(private adminService: AdminService, private router: Router) {}
  
@@ -111,6 +113,14 @@ export class AdminCreateManagerComponent {
         this.openModal('An error occurred while creating the manager.');
       }
     );
+  }
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
  

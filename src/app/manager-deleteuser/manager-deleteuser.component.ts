@@ -3,11 +3,12 @@ import { ManagerService } from '../services/manager.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LogoutComponent } from '../logout/logout.component';
  
 @Component({
   selector: 'app-manager-deleteuser',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LogoutComponent],
   templateUrl: './manager-deleteuser.component.html',
   styleUrl: './manager-deleteuser.component.scss'
 })
@@ -19,6 +20,7 @@ export class ManagerDeleteUserComponent {
   feedbackMessage: string = ''; // Message shown in the feedback modal
   isConfirmationModalOpen: boolean = false; // Track confirmation modal state
   isFeedbackModalOpen: boolean = false; // Track feedback modal state
+  showLogoutPopup = false;
  
   constructor(private managerService: ManagerService, private router: Router) {}
  
@@ -96,5 +98,14 @@ export class ManagerDeleteUserComponent {
   closeFeedbackModal() {
     this.isFeedbackModalOpen = false;
     this.feedbackMessage = ''; // Clear feedback message after modal close
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

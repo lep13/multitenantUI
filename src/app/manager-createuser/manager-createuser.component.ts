@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ManagerService } from '../services/manager.service';
+import { LogoutComponent } from '../logout/logout.component';
  
 @Component({
   selector: 'app-manager-createuser',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './manager-createuser.component.html',
   styleUrls: ['./manager-createuser.component.scss']
 })
@@ -19,6 +20,7 @@ export class ManagerCreateUserComponent {
   confirmationMessage: string = '';
   errorMessage: string = '';
   isModalOpen: boolean = false;
+  showLogoutPopup = false;
  
   constructor(private managerService: ManagerService, private router: Router) {}
  
@@ -103,5 +105,14 @@ export class ManagerCreateUserComponent {
         this.openModal('An error occurred while creating the user.');
       }
     );
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

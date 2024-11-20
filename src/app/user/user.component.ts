@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LogoutComponent } from '../logout/logout.component';
 
 interface Service {
   username: string;
@@ -17,13 +18,14 @@ interface Service {
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   currentPage: string = 'dashboard';
   services: Service[] = [];
+  showLogoutPopup = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -114,5 +116,14 @@ export class UserComponent implements OnInit {
 
   navigateToDeleteService() {
     this.router.navigate (['/delete-service']);
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

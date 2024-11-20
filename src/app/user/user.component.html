@@ -2,9 +2,11 @@
     <!-- Top Bar -->
     <div class="top-bar">
       <h2>User Dashboard</h2>
-      <div class="user-logo">
-        <span>User</span>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <!-- <span>User</span> -->
         <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <!-- Logout Popup -->
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
       </div>
     </div>
   

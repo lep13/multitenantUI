@@ -4,6 +4,7 @@ import { ManagerService } from '../services/manager.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../filter.pipe'; // Import the filter pipe
+import { LogoutComponent } from '../logout/logout.component';
 
 interface Group {
   // group_id: string; // Updated to include group_id
@@ -16,7 +17,7 @@ interface Group {
 @Component({
   selector: 'app-manager',
   standalone: true,
-  imports: [FormsModule, CommonModule, FilterPipe], // Add FilterPipe here
+  imports: [FormsModule, CommonModule, FilterPipe, LogoutComponent], // Add FilterPipe here
   templateUrl: './manager.component.html',
   styleUrls: ['./manager.component.scss']
 })
@@ -24,6 +25,7 @@ export class ManagerComponent implements OnInit {
   searchTerm: string = '';
   groups: Group[] = [];
   currentPage: string = 'dashboard';
+  showLogoutPopup = false;
 
   constructor(
     private managerService: ManagerService,
@@ -65,5 +67,14 @@ export class ManagerComponent implements OnInit {
   navigateToUpdateGroup() {
     this.currentPage = 'update-group';
     this.router.navigate(['/update-group']);
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

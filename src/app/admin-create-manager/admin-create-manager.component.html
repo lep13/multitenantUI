@@ -1,9 +1,11 @@
 <div class="admin-page">
   <div class="top-bar">
     <h2>Admin Dashboard</h2>
-    <div class="admin-logo">
-      <span>Admin</span>
+    <div class="admin-logo" (click)="toggleLogoutPopup()">
+      <!-- <span>Admin</span> -->
       <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
+      <!-- Logout Popup -->
+      <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
     </div>
   </div>
  
