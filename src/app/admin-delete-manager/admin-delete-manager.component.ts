@@ -3,11 +3,12 @@ import { AdminService } from '../services/admin.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LogoutComponent } from '../logout/logout.component';
  
 @Component({
   selector: 'app-admin-delete-manager',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './admin-delete-manager.component.html',
   styleUrl: './admin-delete-manager.component.scss'
 })
@@ -19,6 +20,7 @@ export class AdminDeleteManagerComponent {
   feedbackMessage: string = ''; // Message shown in the feedback modal
   isConfirmationModalOpen: boolean = false; // Track confirmation modal state
   isFeedbackModalOpen: boolean = false; // Track feedback modal state
+  showLogoutPopup = false;
  
   constructor(private adminService: AdminService, private router: Router) {}
  
@@ -89,5 +91,14 @@ export class AdminDeleteManagerComponent {
     closeFeedbackModal() {
       this.isFeedbackModalOpen = false;
       this.feedbackMessage = ''; // Clear feedback message after modal close
+    }
+
+    toggleLogoutPopup() {
+      this.showLogoutPopup = !this.showLogoutPopup;
+    }
+  
+    handleLogout() {
+      localStorage.removeItem('token');
+      this.router.navigate(['/login']);
     }
   }

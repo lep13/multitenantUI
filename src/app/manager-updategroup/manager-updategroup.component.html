@@ -2,9 +2,11 @@
     <!-- Top Bar -->
     <div class="top-bar">
         <h2>Manager Dashboard</h2>
-        <div class="manager-logo">
-            <span>Manager</span>
-            <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
+        <div class="manager-logo" (click)="toggleLogoutPopup()">
+            <!-- <span>Manager</span> -->
+            <img src="assets/manager.svg" alt="Manager Logo" class="logo-image" />
+            <!-- Logout Popup -->
+          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
         </div>
     </div>
  
@@ -24,20 +26,21 @@
         <h3>Update Group</h3>
  
         <div class="form-group">
-            <label for="managerName">Enter Manager Username:</label>
+            <label for="managerName">Manager Username: <span style="font-weight: lighter;">{{managerUsername}}</span></label>
             <!-- <input type="text" id="managerName" [(ngModel)]="managerUsername" placeholder="Manager username" /> -->
-            <select [(ngModel)]="managerUsername" id="managerUsername" required>
+            <!-- <select [(ngModel)]="managerUsername" id="managerUsername" required>
                 <option value="" selected hidden>Select a manager</option>
                 <option *ngFor="let manager of managers" [value]="manager.username">{{ manager.username }}</option>
               </select>
             <button class="fetch-groups-btn" (click)="fetchGroups()">Fetch Groups</button>
-            <!-- <p *ngIf="responseMessage" class="response-message">{{ responseMessage }}</p> -->
-        </div>
+        </div> -->
+
+        <br>
  
         <div *ngIf="groups.length > 0" class="form-group">
             <label for="groupSelect">Select Group:</label>
             <select id="groupSelect" (change)="onGroupSelect($event)">
-                <option value="" disabled selected>Select a group</option>
+                <option value="" selected hidden>Select a group</option>
                 <option *ngFor="let group of groups" [value]="group.group_name">{{ group.group_name }}</option>
             </select>
         </div>

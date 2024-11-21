@@ -2,9 +2,11 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <h2>Manager Dashboard</h2>
-    <div class="manager-logo">
-      <span>Manager</span>
-      <img src="assets/manager_logo.png" alt="Manager Logo" class="logo-image" />
+    <div class="manager-logo" (click)="toggleLogoutPopup()">
+      <!-- <span>Manager</span> -->
+      <img src="assets/manager.svg" alt="Manager Logo" class="logo-image" />
+      <!-- Logout Popup -->
+      <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
     </div>
   </div>
  

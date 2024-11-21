@@ -3,11 +3,12 @@ import { ManagerService } from '../services/manager.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LogoutComponent } from '../logout/logout.component';
  
 @Component({
   selector: 'app-manager-creategroup',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './manager-creategroup.component.html',
   styleUrls: ['./manager-creategroup.component.scss']
 })
@@ -27,6 +28,7 @@ export class ManagerCreateGroupComponent {
   errorMessage: string | null = null;
   userNotExistErrorMessage: string | null = null;
   groupNameErrorMessage: string | null = null;
+  showLogoutPopup = false;
  
   constructor(private managerService: ManagerService, private router: Router) {}
  
@@ -234,5 +236,14 @@ export class ManagerCreateGroupComponent {
  
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

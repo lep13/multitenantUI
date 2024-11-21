@@ -38,7 +38,7 @@ export class AdminService {
   }
  
   createManager(data: CreateManagerRequest): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.goApiUrl}/create-manager`, data, {
+    return this.http.post<ApiResponse>(`${this.goApiUrl}/admin/create-manager`, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -46,7 +46,7 @@ export class AdminService {
   }
  
   deleteManager(data: RemoveManagerRequest): Observable<ApiResponse> {
-    return this.http.request<ApiResponse>('delete', `${this.goApiUrl}/delete-manager`, {
+    return this.http.request<ApiResponse>('delete', `${this.goApiUrl}/admin/delete-manager`, {
       body: data,
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

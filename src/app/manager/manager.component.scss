@@ -17,8 +17,9 @@
     }
   
     .manager-logo {
-      display: flex;
-      align-items: center;
+        display: inline-block; /* Ensure the container takes minimal space */
+        position: relative; /* Set relative positioning for the logout popup */
+        overflow: visible;
   
       span {
         margin-right: 8px;

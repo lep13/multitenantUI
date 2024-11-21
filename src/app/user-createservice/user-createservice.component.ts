@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LogoutComponent } from '../logout/logout.component';
 
 @Component({
   selector: 'app-user-createservice',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LogoutComponent],
   templateUrl: './user-createservice.component.html',
   styleUrls: ['./user-createservice.component.scss'],
 })
@@ -23,6 +24,7 @@ export class UserCreateServiceComponent {
   budgetStatusMessage: string | null = null;
   estimatedCost: number | null = null;
   status: string | null = null;
+  showLogoutPopup = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -129,5 +131,14 @@ export class UserCreateServiceComponent {
 
   navigateToDeleteService() {
     this.router.navigate(['/delete-service']);
+  }
+
+  toggleLogoutPopup() {
+    this.showLogoutPopup = !this.showLogoutPopup;
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
