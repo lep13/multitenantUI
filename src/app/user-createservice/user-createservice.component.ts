@@ -17,6 +17,9 @@ export class UserCreateServiceComponent {
   selectedProvider: string | null = null;
   services: string[] = [];
   selectedService: string | null = null;
+  sessionId: string | null = null; // To store session ID
+  showModal: boolean = false;
+  modalMessage: string = ''; // Message for the modal
   budgetStatusMessage: string | null = null;
   estimatedCost: number | null = null;
   status: string | null = null;
@@ -28,10 +31,12 @@ export class UserCreateServiceComponent {
 
     // Start session
     this.http
-      .get(`http://localhost:8080/user/start-session?username=${this.username}&provider=${provider}`)
+      .get<{ session_id: string }>(
+        `http://localhost:8080/user/start-session?username=${this.username}&provider=${provider}`
+      )
       .subscribe({
-        next: () => {
-          // Fetch services for the selected provider
+        next: (response) => {
+          this.sessionId = response.session_id;
           this.fetchServices(provider);
         },
         error: (error) => {
@@ -42,7 +47,9 @@ export class UserCreateServiceComponent {
 
   fetchServices(provider: string) {
     this.http
-      .get<{ services: string[] }>(`http://localhost:8080/user/get-cloud-services?provider=${provider}`)
+      .get<{ services: string[] }>(
+        `http://localhost:8080/user/get-cloud-services?provider=${provider}`
+      )
       .subscribe({
         next: (response) => {
           this.services = response.services;
@@ -53,35 +60,62 @@ export class UserCreateServiceComponent {
       });
   }
 
-  checkServiceBudget() {
-    if (!this.selectedService) {
-      this.budgetStatusMessage = 'Please select a service.';
+  updateSession() {
+    if (!this.sessionId || !this.selectedService) {
+      console.error('Session ID or selected service is missing');
       return;
     }
 
-    // Send request to check budget and estimated cost for the selected service
+    // Call update-session API
     this.http
-      .get<{
+      .post('http://localhost:8080/user/update-session', {
+        session_id: this.sessionId,
+        service: this.selectedService,
+      })
+      .subscribe({
+        next: () => {
+          console.log('Session updated successfully');
+        },
+        error: (error) => {
+          console.error('Error updating session:', error);
+        },
+      });
+  }
+
+  checkServiceBudget() {
+    if (!this.sessionId) {
+      this.modalMessage = 'Session ID is missing.';
+      this.showModal = true;
+      return;
+    }
+
+    // Call calculate-cost API
+    this.http
+      .post<{
         budget: number;
         estimated_cost: number;
         message: string;
         status: string;
-      }>(
-        `http://localhost:8080/user/check-budget?username=${this.username}&service=${encodeURIComponent(
-          this.selectedService
-        )}`
-      )
+      }>('http://localhost:8080/user/calculate-cost', {
+        session_id: this.sessionId,
+      })
       .subscribe({
         next: (response) => {
-          this.budgetStatusMessage = response.message;
+          this.modalMessage = response.message;
+          this.showModal = true;
           this.estimatedCost = response.estimated_cost;
           this.status = response.status;
         },
         error: (error) => {
           console.error('Error checking budget:', error);
-          this.budgetStatusMessage = 'An error occurred while checking the budget.';
+          this.modalMessage = 'An error occurred while checking the budget.';
+          this.showModal = true;
         },
       });
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 
   // Navigation methods
@@ -90,7 +124,7 @@ export class UserCreateServiceComponent {
   }
 
   navigateToCreateService() {
-    this.currentPage ='/create-service';
+    this.currentPage = '/create-service';
   }
 
   navigateToDeleteService() {
