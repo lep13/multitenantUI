@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LogoutComponent } from '../logout/logout.component';
+import { InfoService } from '../services/info.service';
  
  
 interface Group {
@@ -25,7 +26,6 @@ interface Group {
  
 export class ManagerUpdateGroupComponent implements OnInit {
   managerUsername: string = '';
-  managers: { username: string }[] = []; // List of manager usernames for the dropdown
   availableUsernames: string[] = [];
   groups: Group[] = [];
   selectedGroup: Group | null = null;
@@ -37,22 +37,12 @@ export class ManagerUpdateGroupComponent implements OnInit {
   userRemoveErrorMessage: string | null = null;
   showLogoutPopup = false;
  
-  constructor(private managerService: ManagerService, private router: Router) {}
+  constructor(private managerService: ManagerService, private router: Router, private infoService: InfoService) {}
  
   ngOnInit(): void {
-    this.loadManagerUsernames();
     this.loadUsernames();
-  }
- 
-  loadManagerUsernames() {
-    this.managerService.getManagerUsernames().subscribe(
-      (data) => {
-        this.managers = data;
-      },
-      (error) => {
-        console.error('Failed to load manager usernames', error);
-      }
-    );
+    this.populateActualManager();
+    this.fetchGroups();
   }
  
   loadUsernames() {
@@ -64,6 +54,16 @@ export class ManagerUpdateGroupComponent implements OnInit {
         console.error('Failed to load usernames', error);
       }
     );
+  }
+
+  // Populate actualManager using InfoService
+  populateActualManager() {
+    const username = this.infoService.getUsername();
+    if (username) {
+      this.managerUsername = username;
+    } else {
+      console.error('Failed to fetch manager username from token.');
+    }
   }
  
  
@@ -89,6 +89,7 @@ export class ManagerUpdateGroupComponent implements OnInit {
         if (response.status === 'success') {
           this.groups = response.data;
           this.responseMessage = '';
+          console.log(response, "grp");
         } else {
           this.responseMessage = response.message;
         }
