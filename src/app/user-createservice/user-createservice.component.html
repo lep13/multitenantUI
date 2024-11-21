@@ -33,17 +33,23 @@
   
       <div *ngIf="services.length > 0" class="services-dropdown">
         <label for="serviceSelect">Available Services:</label>
-        <select id="serviceSelect" [(ngModel)]="selectedService">
+        <select
+          id="serviceSelect"
+          [(ngModel)]="selectedService"
+          (change)="updateSession()"
+        >
           <option value="" disabled selected>Select a service</option>
           <option *ngFor="let service of services" [value]="service">{{ service }}</option>
         </select>
         <button (click)="checkServiceBudget()">Check Budget</button>
       </div>
   
-      <div *ngIf="budgetStatusMessage" class="budget-status">
-        <p>{{ budgetStatusMessage }}</p>
-        <p *ngIf="estimatedCost !== null">Estimated Cost: {{ estimatedCost }}</p>
-        <p *ngIf="status !== null">Status: {{ status }}</p>
+      <!-- Modal -->
+      <div *ngIf="showModal" class="modal-overlay">
+        <div class="modal-content">
+          <p>{{ modalMessage }}</p>
+          <button class="btn" (click)="closeModal()">OK</button>
+        </div>
       </div>
     </div>
   </div>
