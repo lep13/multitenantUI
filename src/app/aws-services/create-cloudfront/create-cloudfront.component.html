@@ -1,0 +1,114 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create CloudFront Distribution</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create a CloudFront Distribution</h3>
+      <form (ngSubmit)="createCloudFront()" #createCloudFrontForm="ngForm">
+        <div class="form-group">
+          <label for="originDomainName">Origin Domain Name</label>
+          <input
+            type="text"
+            id="originDomainName"
+            class="form-control"
+            [(ngModel)]="originDomainName"
+            name="originDomainName"
+            required
+            #originDomainNameField="ngModel"
+          />
+          <div *ngIf="originDomainNameField.invalid && originDomainNameField.touched" class="error">
+            Origin Domain Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="comment">Comment</label>
+          <input
+            type="text"
+            id="comment"
+            class="form-control"
+            [(ngModel)]="comment"
+            name="comment"
+            required
+            #commentField="ngModel"
+          />
+          <div *ngIf="commentField.invalid && commentField.touched" class="error">
+            Comment is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="minTTL">Minimum TTL (seconds)</label>
+          <input
+            type="number"
+            id="minTTL"
+            class="form-control"
+            [(ngModel)]="minTTL"
+            name="minTTL"
+            required
+            #minTTLField="ngModel"
+          />
+          <div *ngIf="minTTLField.invalid && minTTLField.touched" class="error">
+            Minimum TTL is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="bucketName">Bucket Name</label>
+          <input
+            type="text"
+            id="bucketName"
+            class="form-control"
+            [(ngModel)]="bucketName"
+            name="bucketName"
+            required
+            #bucketNameField="ngModel"
+          />
+          <div *ngIf="bucketNameField.invalid && bucketNameField.touched" class="error">
+            Bucket Name is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createCloudFrontForm.invalid">
+          Create Distribution
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,130 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create EC2 Instance</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-amazon-ec2-elastic-compute-cloud'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create an EC2 Instance</h3>
+      <form (ngSubmit)="createEC2Instance()" #createEC2Form="ngForm">
+        <div class="form-group">
+          <label for="instanceType">Instance Type</label>
+          <input
+            type="text"
+            id="instanceType"
+            class="form-control"
+            [(ngModel)]="instanceType"
+            name="instanceType"
+            required
+            #instanceTypeField="ngModel"
+          />
+          <div *ngIf="instanceTypeField.invalid && instanceTypeField.touched" class="error">
+            Instance Type is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="amiId">AMI ID</label>
+          <input
+            type="text"
+            id="amiId"
+            class="form-control"
+            [(ngModel)]="amiId"
+            name="amiId"
+            required
+            #amiIdField="ngModel"
+          />
+          <div *ngIf="amiIdField.invalid && amiIdField.touched" class="error">
+            AMI ID is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="keyName">Key Name</label>
+          <input
+            type="text"
+            id="keyName"
+            class="form-control"
+            [(ngModel)]="keyName"
+            name="keyName"
+            required
+            #keyNameField="ngModel"
+          />
+          <div *ngIf="keyNameField.invalid && keyNameField.touched" class="error">
+            Key Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="subnetId">Subnet ID</label>
+          <input
+            type="text"
+            id="subnetId"
+            class="form-control"
+            [(ngModel)]="subnetId"
+            name="subnetId"
+            required
+            #subnetIdField="ngModel"
+          />
+          <div *ngIf="subnetIdField.invalid && subnetIdField.touched" class="error">
+            Subnet ID is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="securityGroupId">Security Group ID</label>
+          <input
+            type="text"
+            id="securityGroupId"
+            class="form-control"
+            [(ngModel)]="securityGroupId"
+            name="securityGroupId"
+            required
+            #securityGroupIdField="ngModel"
+          />
+          <div *ngIf="securityGroupIdField.invalid && securityGroupIdField.touched" class="error">
+            Security Group ID is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="instanceName">Instance Name</label>
+          <input
+            type="text"
+            id="instanceName"
+            class="form-control"
+            [(ngModel)]="instanceName"
+            name="instanceName"
+            required
+            #instanceNameField="ngModel"
+          />
+          <div *ngIf="instanceNameField.invalid && instanceNameField.touched" class="error">
+            Instance Name is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createEC2Form.invalid">
+          Create Instance
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  

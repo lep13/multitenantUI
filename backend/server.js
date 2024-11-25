@@ -23,6 +23,7 @@ const Manager = mongoose.model('Manager', managerSchema, 'managers');
  
 // Define group schema and model
 const groupSchema = new mongoose.Schema({
+  group_id: String,
   group_name: String,
   members: [String],
   manager: String,
@@ -40,25 +41,57 @@ const serviceSchema = new mongoose.Schema({
   timestamp: Date,
   groupname: String,
   group_budget: Number,
+  group_id: String,
   service_status: String,
 });
 
 const Service = mongoose.model('Service', serviceSchema, 'services');
 
-// API endpoint to get all services
-app.get('/api/services', async (req, res) => {
+// API endpoint to get the group of a user by username (will return manager name as well + members array)
+app.get('/api/user-group', async (req, res) => {
+  const { username } = req.query;
+
+  if (!username) {
+    return res.status(400).json({ message: 'Username is required' });
+  }
+
   try {
+    // Query the groups collection to find the group for the given username
+    const group = await Group.findOne({ members: username }, 'group_id manager members'); // Include `members`
+    if (!group) {
+      return res.status(404).json({ message: 'Group not found' });
+    }
+
+    // Return group ID, manager, and members
+    res.json({ group_id: group.group_id, manager: group.manager, members: group.members });
+  } catch (error) {
+    console.error('Error fetching user group:', error);
+    res.status(500).json({ message: 'Error fetching user group' });
+  }
+});
+
+// API endpoint to get all services for a specific group
+app.get('/api/services', async (req, res) => {
+  const { group_id } = req.query;
+
+  if (!group_id) {
+    return res.status(400).json({ message: 'Group ID is required' });
+  }
+
+  try {
+    // Query services based on the group ID
     const services = await Service.find(
-      {},
+      { group_id },
       'username provider service status estimated_cost timestamp service_status'
     );
+
     const formattedServices = services.map((service) => ({
       username: service.username,
       provider: service.provider,
       service: service.service,
-      status: service.service_status, // Use `service_status` field for the status
+      status: service.service_status,
       estimated_cost: service.estimated_cost,
-      date_created: service.timestamp.toISOString().split('T')[0], // Extract date only
+      date_created: service.timestamp.toISOString().split('T')[0],
     }));
     res.json(formattedServices);
   } catch (error) {

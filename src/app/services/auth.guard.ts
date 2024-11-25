@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
       const allowedRoutes = {
         admin: ['/admin', '/create-manager', '/delete-manager'],
         manager: ['/manager', '/create-user', '/delete-user', '/create-group', '/update-group'],
-        user: ['/user', '/create-service', '/delete-service'],
+        user: ['/user', '/create-service', '/delete-service', '/create-amazon-ec2-elastic-compute-cloud', '/create-amazon-s3-simple-storage-service', '/create-amazon-rds-relational-database-service', '/create-aws-cloudfront', '/create-amazon-vpc-virtual-private-cloud', '/create-amazon-dynamodb', '/create-compute-engine', '/create-cloud-storage', '/create-google-kubernetes-engine-gke', '/create-bigquery', '/create-cloud-sql'],
       };
 
       // Validate role for the requested route

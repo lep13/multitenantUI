@@ -1,0 +1,146 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create Google Kubernetes Engine Cluster</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create a Kubernetes Cluster</h3>
+      <form (ngSubmit)="createGKECluster()" #createGKEForm="ngForm">
+        <div class="form-group">
+          <label for="clusterName">Cluster Name</label>
+          <input
+            type="text"
+            id="clusterName"
+            class="form-control"
+            [(ngModel)]="clusterName"
+            name="clusterName"
+            required
+            #clusterNameField="ngModel"
+          />
+          <div *ngIf="clusterNameField.invalid && clusterNameField.touched" class="error">
+            Cluster Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="zone">Zone</label>
+          <input
+            type="text"
+            id="zone"
+            class="form-control"
+            [(ngModel)]="zone"
+            name="zone"
+            required
+            #zoneField="ngModel"
+          />
+          <div *ngIf="zoneField.invalid && zoneField.touched" class="error">
+            Zone is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="machineType">Machine Type</label>
+          <input
+            type="text"
+            id="machineType"
+            class="form-control"
+            [(ngModel)]="machineType"
+            name="machineType"
+            required
+            #machineTypeField="ngModel"
+          />
+          <div *ngIf="machineTypeField.invalid && machineTypeField.touched" class="error">
+            Machine Type is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="network">Network</label>
+          <input
+            type="text"
+            id="network"
+            class="form-control"
+            [(ngModel)]="network"
+            name="network"
+            required
+            #networkField="ngModel"
+          />
+          <div *ngIf="networkField.invalid && networkField.touched" class="error">
+            Network is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="subnetwork">Subnetwork</label>
+          <input
+            type="text"
+            id="subnetwork"
+            class="form-control"
+            [(ngModel)]="subnetwork"
+            name="subnetwork"
+            required
+            #subnetworkField="ngModel"
+          />
+          <div *ngIf="subnetworkField.invalid && subnetworkField.touched" class="error">
+            Subnetwork is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="nodeCount">Node Count</label>
+          <input
+            type="number"
+            id="nodeCount"
+            class="form-control"
+            [(ngModel)]="nodeCount"
+            name="nodeCount"
+            required
+            #nodeCountField="ngModel"
+          />
+          <div *ngIf="nodeCountField.invalid && nodeCountField.touched" class="error">
+            Node Count is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createGKEForm.invalid">
+          Create Cluster
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  
