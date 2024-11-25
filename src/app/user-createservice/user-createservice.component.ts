@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LogoutComponent } from '../logout/logout.component';
+import { Tooltip } from 'bootstrap';
 
 @Component({
   selector: 'app-user-createservice',
@@ -12,7 +13,7 @@ import { LogoutComponent } from '../logout/logout.component';
   templateUrl: './user-createservice.component.html',
   styleUrls: ['./user-createservice.component.scss'],
 })
-export class UserCreateServiceComponent {
+export class UserCreateServiceComponent implements AfterViewInit {
   currentPage: string = 'create-service';
   username: string = 'Golang_Developer'; // Example username
   selectedProvider: string | null = null;
@@ -28,6 +29,14 @@ export class UserCreateServiceComponent {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  ngAfterViewInit(): void {
+    // Initialize Bootstrap tooltips
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+      new Tooltip(tooltipTriggerEl);
+    });
+  }
+
   selectProvider(provider: string) {
     this.selectedProvider = provider;
 
@@ -38,6 +47,9 @@ export class UserCreateServiceComponent {
       )
       .subscribe({
         next: (response) => {
+          // Store the session ID in localStorage
+          localStorage.setItem('sessionId', response.session_id);
+          console.log('Session ID stored in localStorage:', response.session_id);
           this.sessionId = response.session_id;
           this.fetchServices(provider);
         },
@@ -70,13 +82,17 @@ export class UserCreateServiceComponent {
 
     // Call update-session API
     this.http
-      .post('http://localhost:8080/user/update-session', {
-        session_id: this.sessionId,
-        service: this.selectedService,
-      })
+      .post(
+        'http://localhost:8080/user/update-session',
+        {
+          session_id: this.sessionId,
+          service: this.selectedService,
+        },
+        { responseType: 'text' } // Explicitly set response type to text
+      )
       .subscribe({
-        next: () => {
-          console.log('Session updated successfully');
+        next: (response) => {
+          console.log('Session updated successfully:', response);
         },
         error: (error) => {
           console.error('Error updating session:', error);
@@ -126,11 +142,29 @@ export class UserCreateServiceComponent {
   }
 
   navigateToCreateService() {
-    this.currentPage = '/create-service';
+    this.router.navigate(['/create-service']);
   }
 
   navigateToDeleteService() {
     this.router.navigate(['/delete-service']);
+  }
+
+  normalizeServiceName(service: string): string {
+    return service
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[()]/g, '') // Remove parentheses
+      .replace(/[^a-z0-9-]/g, ''); // Remove special characters
+  }
+
+  navigateToCreateServiceComponent() {
+    if (this.selectedService) {
+      const normalizedRoute = this.normalizeServiceName(this.selectedService);
+      const serviceRoute = `/create-${normalizedRoute}`;
+      this.router.navigate([serviceRoute]);
+    } else {
+      console.error('No service selected to navigate.');
+    }
   }
 
   toggleLogoutPopup() {

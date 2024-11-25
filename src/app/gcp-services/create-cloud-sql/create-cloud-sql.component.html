@@ -1,0 +1,98 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create Cloud SQL Instance</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create a Cloud SQL Instance</h3>
+      <form (ngSubmit)="createCloudSQLInstance()" #createCloudSQLForm="ngForm">
+        <div class="form-group">
+          <label for="instanceName">Instance Name</label>
+          <input
+            type="text"
+            id="instanceName"
+            class="form-control"
+            [(ngModel)]="instanceName"
+            name="instanceName"
+            required
+            #instanceNameField="ngModel"
+          />
+          <div *ngIf="instanceNameField.invalid && instanceNameField.touched" class="error">
+            Instance Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="tier">Tier</label>
+          <input
+            type="text"
+            id="tier"
+            class="form-control"
+            [(ngModel)]="tier"
+            name="tier"
+            required
+            #tierField="ngModel"
+          />
+          <div *ngIf="tierField.invalid && tierField.touched" class="error">
+            Tier is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="databaseVersion">Database Version</label>
+          <input
+            type="text"
+            id="databaseVersion"
+            class="form-control"
+            [(ngModel)]="databaseVersion"
+            name="databaseVersion"
+            required
+            #databaseVersionField="ngModel"
+          />
+          <div *ngIf="databaseVersionField.invalid && databaseVersionField.touched" class="error">
+            Database Version is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createCloudSQLForm.invalid">
+          Create Instance
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  

@@ -1,56 +1,64 @@
 <div class="user-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <h2>Create Service</h2>
-      <div class="user-logo" (click)="toggleLogoutPopup()">
-        <!-- <span>User</span> -->
-        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
-        <!-- Logout Popup -->
-        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
-      </div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <h2>Create Service</h2>
+    <div class="user-logo" (click)="toggleLogoutPopup()">
+      <!-- <span>User</span> -->
+      <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+      <!-- Logout Popup -->
+      <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
     </div>
-  
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <ul>
-        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
-        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
-        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
-      </ul>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+      <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+      <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h3>Select a Cloud Provider</h3>
+    <div class="provider-cards">
+      <div class="card" (click)="selectProvider('aws')" data-bs-toggle="tooltip" title="">
+        <img src="assets/aws.svg" alt="AWS Logo" class="card-img-top">
+        <div class="card-body text-center">
+          <h4 class="card-title">AWS</h4>
+          <p class="card-text">Explore and deploy AWS services with ease.</p>
+        </div>
+      </div>
+
+      <div class="card" (click)="selectProvider('gcp')" data-bs-toggle="tooltip" title="">
+        <img src="assets/gcp.svg" alt="GCP Logo" class="card-img-top">
+        <div class="card-body text-center">
+          <h4 class="card-title">Google Cloud</h4>
+          <p class="card-text">Deploy scalable Google Cloud services.</p>
+        </div>
+      </div>
+
     </div>
-  
-    <!-- Main Content -->
-    <div class="content">
-      <h3>Select a Cloud Provider</h3>
-      <div class="provider-cards">
-        <div class="card" (click)="selectProvider('aws')">
-          <h4>AWS</h4>
-        </div>
-        <div class="card" (click)="selectProvider('gcp')">
-          <h4>GCP</h4>
-        </div>
-      </div>
-  
-      <div *ngIf="services.length > 0" class="services-dropdown">
-        <label for="serviceSelect">Available Services:</label>
-        <select
-          id="serviceSelect"
-          [(ngModel)]="selectedService"
-          (change)="updateSession()"
-        >
-          <option value="" disabled selected>Select a service</option>
-          <option *ngFor="let service of services" [value]="service">{{ service }}</option>
-        </select>
-        <button (click)="checkServiceBudget()">Check Budget</button>
-      </div>
-  
-      <!-- Modal -->
-      <div *ngIf="showModal" class="modal-overlay">
-        <div class="modal-content">
-          <p>{{ modalMessage }}</p>
-          <button class="btn" (click)="closeModal()">OK</button>
-        </div>
+
+    <div *ngIf="services.length > 0" class="services-dropdown">
+      <label for="serviceSelect">Available Services:</label>
+      <select id="serviceSelect" [(ngModel)]="selectedService" (change)="updateSession()">
+        <option value="" disabled selected>Select a service</option>
+        <option *ngFor="let service of services" [value]="service">{{ service }}</option>
+      </select>
+      <button (click)="checkServiceBudget()">Check Budget</button>
+    </div>
+
+    <!-- Modal -->
+    <div *ngIf="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <p>{{ modalMessage }}</p>
+        <button class="btn btn-primary" (click)="navigateToCreateServiceComponent()">
+          Create {{ selectedService }}
+        </button>
+        <button class="btn btn-cancel" (click)="closeModal()">Cancel</button>
       </div>
     </div>
   </div>
-  
+</div>

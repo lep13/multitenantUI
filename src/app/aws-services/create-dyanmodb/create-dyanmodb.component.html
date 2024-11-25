@@ -1,0 +1,98 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create Amazon DynamoDB Table</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create a DynamoDB Table</h3>
+      <form (ngSubmit)="createDynamoDB()" #createDynamoDBForm="ngForm">
+        <div class="form-group">
+          <label for="tableName">Table Name</label>
+          <input
+            type="text"
+            id="tableName"
+            class="form-control"
+            [(ngModel)]="tableName"
+            name="tableName"
+            required
+            #tableNameField="ngModel"
+          />
+          <div *ngIf="tableNameField.invalid && tableNameField.touched" class="error">
+            Table Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="readCapacity">Read Capacity</label>
+          <input
+            type="number"
+            id="readCapacity"
+            class="form-control"
+            [(ngModel)]="readCapacity"
+            name="readCapacity"
+            required
+            #readCapacityField="ngModel"
+          />
+          <div *ngIf="readCapacityField.invalid && readCapacityField.touched" class="error">
+            Read Capacity is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="writeCapacity">Write Capacity</label>
+          <input
+            type="number"
+            id="writeCapacity"
+            class="form-control"
+            [(ngModel)]="writeCapacity"
+            name="writeCapacity"
+            required
+            #writeCapacityField="ngModel"
+          />
+          <div *ngIf="writeCapacityField.invalid && writeCapacityField.touched" class="error">
+            Write Capacity is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createDynamoDBForm.invalid">
+          Create Table
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  

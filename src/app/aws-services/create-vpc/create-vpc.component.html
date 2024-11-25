@@ -1,0 +1,82 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create Amazon VPC</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create a Virtual Private Cloud (VPC)</h3>
+      <form (ngSubmit)="createVPC()" #createVPCForm="ngForm">
+        <div class="form-group">
+          <label for="cidrBlock">CIDR Block</label>
+          <input
+            type="text"
+            id="cidrBlock"
+            class="form-control"
+            [(ngModel)]="cidrBlock"
+            name="cidrBlock"
+            required
+            #cidrBlockField="ngModel"
+          />
+          <div *ngIf="cidrBlockField.invalid && cidrBlockField.touched" class="error">
+            CIDR Block is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            [(ngModel)]="name"
+            name="name"
+            required
+            #nameField="ngModel"
+          />
+          <div *ngIf="nameField.invalid && nameField.touched" class="error">
+            Name is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createVPCForm.invalid">
+          Create VPC
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  

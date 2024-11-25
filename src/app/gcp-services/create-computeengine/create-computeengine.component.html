@@ -1,0 +1,178 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h2>Create Compute Engine Instance</h2>
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create a Compute Engine Instance</h3>
+      <form (ngSubmit)="createComputeEngine()" #createComputeEngineForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            [(ngModel)]="name"
+            name="name"
+            required
+            #nameField="ngModel"
+          />
+          <div *ngIf="nameField.invalid && nameField.touched" class="error">
+            Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="zone">Zone</label>
+          <input
+            type="text"
+            id="zone"
+            class="form-control"
+            [(ngModel)]="zone"
+            name="zone"
+            required
+            #zoneField="ngModel"
+          />
+          <div *ngIf="zoneField.invalid && zoneField.touched" class="error">
+            Zone is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="machineType">Machine Type</label>
+          <input
+            type="text"
+            id="machineType"
+            class="form-control"
+            [(ngModel)]="machineType"
+            name="machineType"
+            required
+            #machineTypeField="ngModel"
+          />
+          <div *ngIf="machineTypeField.invalid && machineTypeField.touched" class="error">
+            Machine Type is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="imageProject">Image Project</label>
+          <input
+            type="text"
+            id="imageProject"
+            class="form-control"
+            [(ngModel)]="imageProject"
+            name="imageProject"
+            required
+            #imageProjectField="ngModel"
+          />
+          <div *ngIf="imageProjectField.invalid && imageProjectField.touched" class="error">
+            Image Project is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="imageFamily">Image Family</label>
+          <input
+            type="text"
+            id="imageFamily"
+            class="form-control"
+            [(ngModel)]="imageFamily"
+            name="imageFamily"
+            required
+            #imageFamilyField="ngModel"
+          />
+          <div *ngIf="imageFamilyField.invalid && imageFamilyField.touched" class="error">
+            Image Family is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="network">Network</label>
+          <input
+            type="text"
+            id="network"
+            class="form-control"
+            [(ngModel)]="network"
+            name="network"
+            required
+            #networkField="ngModel"
+          />
+          <div *ngIf="networkField.invalid && networkField.touched" class="error">
+            Network is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="subnetwork">Subnetwork</label>
+          <input
+            type="text"
+            id="subnetwork"
+            class="form-control"
+            [(ngModel)]="subnetwork"
+            name="subnetwork"
+            required
+            #subnetworkField="ngModel"
+          />
+          <div *ngIf="subnetworkField.invalid && subnetworkField.touched" class="error">
+            Subnetwork is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="serviceAccount">Service Account</label>
+          <input
+            type="text"
+            id="serviceAccount"
+            class="form-control"
+            [(ngModel)]="serviceAccount"
+            name="serviceAccount"
+            required
+            #serviceAccountField="ngModel"
+          />
+          <div *ngIf="serviceAccountField.invalid && serviceAccountField.touched" class="error">
+            Service Account is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createComputeEngineForm.invalid">
+          Create Instance
+        </button>
+      </form>
+  
+      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
+        {{ responseMessage }}
+      </div>
+    </div>
+  </div>
+  

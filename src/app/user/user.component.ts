@@ -5,6 +5,8 @@ import { Chart } from 'chart.js/auto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LogoutComponent } from '../logout/logout.component';
+import { InfoService } from '../services/info.service';
+import { FilterPipe } from '../filter.pipe';
 
 interface Service {
   username: string;
@@ -18,31 +20,71 @@ interface Service {
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [FormsModule, CommonModule, LogoutComponent],
+  imports: [FormsModule, CommonModule, FilterPipe, LogoutComponent],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   currentPage: string = 'dashboard';
   services: Service[] = [];
+  userGroupId: string | null = null; // Group ID of the logged-in user
+  managerName: string | null = null; // Manager name of the user's group
   showLogoutPopup = false;
+  searchTerm: string = '';
+  groupMembers: string[] = []; // Members of the user's group
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private infoService: InfoService) {}
 
   ngOnInit(): void {
-    this.fetchServices();
+    // this.fetchServices();
     this.renderRingChart();
+    this.fetchUserGroup();
   }
 
+  // Fetch the group information of the logged-in user
+  fetchUserGroup(): void {
+    const username = this.infoService.getUsername();
+    if (username) {
+      this.http
+        .get<{ group_id: string; manager: string; members: string[] }>(
+          `http://localhost:5000/api/user-group?username=${username}`
+        )
+        .subscribe(
+          (response) => {
+            this.userGroupId = response.group_id; // Get the group ID of the user
+            this.managerName = response.manager; // Get the manager's name
+            this.groupMembers = response.members; // Get the group members
+            this.fetchServices(); // Fetch services after the group is loaded
+          },
+          (error) => {
+            console.error('Error fetching user group:', error);
+          }
+        );
+    } else {
+      console.error('Username not found');
+    }
+  }
+
+  // Fetch services belonging to the user's group
   fetchServices() {
-    this.http.get<Service[]>('http://localhost:5000/api/services').subscribe(
-      (data) => {
-        this.services = data;
-      },
-      (error) => {
-        console.error('Error fetching services:', error);
-      }
-    );
+    if (!this.userGroupId) {
+      console.error('User group ID not found');
+      return;
+    }
+
+    // Call the API with group filter
+    this.http
+      .get<Service[]>(
+        `http://localhost:5000/api/services?group_id=${this.userGroupId}`
+      )
+      .subscribe(
+        (data) => {
+          this.services = data;
+        },
+        (error) => {
+          console.error('Error fetching services:', error);
+        }
+      );
   }
 
   renderRingChart() {
