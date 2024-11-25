@@ -57,11 +57,36 @@ export class CreateDynamoDBComponent {
           console.log('DynamoDB Table created successfully:', response.message);
           this.responseMessage = response.message;
           this.responseStatus = 'success';
+          this.finalizeSession('completed'); // Call finalizeSession if the creation was successful
         },
         error: (error) => {
           console.error('Error creating DynamoDB Table:', error);
           this.responseMessage = error.error.message || 'An error occurred.';
           this.responseStatus = 'error';
+        },
+      });
+  }
+
+  // Finalize the session
+  finalizeSession(status: string) {
+    if (!this.sessionId) {
+      console.error('Session ID is missing. Cannot finalize session.');
+      return;
+    }
+
+    const payload = {
+      session_id: this.sessionId,
+      status: status,
+    };
+
+    this.http
+      .post<{ message: string }>('http://localhost:8080/user/complete-session', payload)
+      .subscribe({
+        next: (response) => {
+          console.log('Session finalized successfully:', response.message);
+        },
+        error: (error) => {
+          console.error('Error finalizing session:', error);
         },
       });
   }
