@@ -53,6 +53,7 @@ export class CreateCloudStorageComponent {
           console.log('Cloud Storage Bucket created successfully:', response.message);
           this.responseMessage = response.message;
           this.responseStatus = 'success';
+          this.finalizeSession('completed'); // Call finalizeSession if the creation was successful
         },
         error: (error) => {
           console.error('Error creating Cloud Storage Bucket:', error);
@@ -61,6 +62,30 @@ export class CreateCloudStorageComponent {
         },
       });
   }
+
+    // Finalize the session
+    finalizeSession(status: string) {
+      if (!this.sessionId) {
+        console.error('Session ID is missing. Cannot finalize session.');
+        return;
+      }
+  
+      const payload = {
+        session_id: this.sessionId,
+        status: status,
+      };
+  
+      this.http
+        .post<{ message: string }>('http://localhost:8080/user/complete-session', payload)
+        .subscribe({
+          next: (response) => {
+            console.log('Session finalized successfully:', response.message);
+          },
+          error: (error) => {
+            console.error('Error finalizing session:', error);
+          },
+        });
+    }
 
   navigateToDashboard() {
     this.router.navigate(['/user']);
