@@ -19,6 +19,11 @@ interface DeleteUserResponse {
   status: string;
   message: string;
 }
+
+interface Manager {
+  username: string;
+  group_limit: number;
+}
  
 // interface ApiResponse {
 //   status: string;
@@ -34,6 +39,11 @@ export class ManagerService {
   private goApiUrl = 'http://localhost:8080'; // Go server for CRUD operations
  
   constructor(private http: HttpClient) {}
+
+    // Fetch managers for group limit
+    getManagers(): Observable<Manager[]> {
+      return this.http.get<Manager[]>(`${this.apiUrl}/managers`);
+    }
  
     // Fetch manager usernames for the dropdown
     getManagerUsernames(): Observable<{ username: string }[]> {
@@ -49,6 +59,11 @@ export class ManagerService {
     getUsernames(): Observable<string[]> {
       return this.http.get<string[]>(`${this.apiUrl}/users`); // Ensure the correct endpoint is used
     }
+
+    getServicesByGroup(groupId: string): Observable<any[]> {
+      const url = `${this.apiUrl}/services?group_id=${groupId}`;
+      return this.http.get<any[]>(url); // Ensure the returned data matches the backend response
+    }    
  
     // Create user - Add user (uses Go server)
     createUser(username: string, email: string, password: string): Observable<CreateUserResponse> {

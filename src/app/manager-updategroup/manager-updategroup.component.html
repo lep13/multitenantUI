@@ -1,14 +1,16 @@
 <div class="manager-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <h2>Manager Dashboard</h2>
-        <div class="manager-logo" (click)="toggleLogoutPopup()">
-            <!-- <span>Manager</span> -->
-            <img src="assets/manager.svg" alt="Manager Logo" class="logo-image" />
-            <!-- Logout Popup -->
-          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
-        </div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <h2>Manager Dashboard</h2>
+    <div class="top-right-icons">
+    <i class="fas fa-bell notification-icon"></i>
+    <div class="manager-logo" (click)="toggleLogoutPopup()">
+      <img src="assets/manager.svg" alt="Manager Logo" class="logo-image" />
+      <!-- Logout Popup -->
+      <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
     </div>
+  </div>
+  </div>
  
     <!-- Sidebar -->
     <div class="sidebar">
@@ -26,7 +28,7 @@
         <h3>Update Group</h3>
  
         <div class="form-group">
-            <label for="managerName">Manager Username: <span style="font-weight: lighter;">{{managerUsername}}</span></label>
+            <!-- <label for="managerName">Manager Username: <span style="font-weight: lighter;">{{managerUsername}}</span></label> -->
             <!-- <input type="text" id="managerName" [(ngModel)]="managerUsername" placeholder="Manager username" /> -->
             <!-- <select [(ngModel)]="managerUsername" id="managerUsername" required>
                 <option value="" selected hidden>Select a manager</option>

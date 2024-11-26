@@ -2,12 +2,14 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <h2>Manager Dashboard</h2>
+    <div class="top-right-icons">
+    <i class="fas fa-bell notification-icon"></i>
     <div class="manager-logo" (click)="toggleLogoutPopup()">
-      <!-- <span>Manager</span> -->
       <img src="assets/manager.svg" alt="Manager Logo" class="logo-image" />
       <!-- Logout Popup -->
       <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
     </div>
+  </div>
   </div>
 
   <!-- Sidebar -->
@@ -23,38 +25,101 @@
 
   <!-- Main Content -->
   <div class="content">
-    <!-- Styled Search Bar -->
-    <div class="search-bar">
-      <input type="text" placeholder="Search by group name" [(ngModel)]="searchTerm" />
-      <span class="search-icon">
-        <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
-      </span>
+    <h1>Hi, {{ managerUsername }}!</h1>
+    <div class="dropdown-group">
+      <label for="groupDropdown">Your Groups:</label>
+      <select id="groupDropdown" (change)="onGroupSelect($event)">
+        <option value="" disabled selected>Select a group</option>
+        <option *ngFor="let group of groups" [value]="group.group_name">{{ group.group_name }}</option>
+      </select>
     </div>
-    <!-- Styled Group List -->
-    <div class="group-list">
-      <h3>Groups</h3>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Group Name</th>
-              <th>Members</th>
-              <th>Manager</th>
-              <th>Budget</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let group of groups | filter: searchTerm : 'group_name'; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ group.group_name }}</td>
-              <td>{{ group.members.join(', ') || 'No members' }}</td>
-              <td>{{ group.manager }}</td>
-              <td>{{ group.budget || 'N/A' }}</td>
-            </tr>
-          </tbody>
-        </table>
+    
+
+
+
+    <div class="charts-container container">
+  <!-- First Row -->
+  <div class="row mb-4">
+    <!-- Thin Graph (Members) -->
+    <div class="col-md-4">
+      <div class="chart-area small-chart">
+        <h5 [class.centered]="!selectedGroup">Your Groups</h5>
+        <div *ngIf="selectedGroup; else placeholder" class="group-data">
+          <div class="group-box created">
+            <p>Groups Created</p>
+            <h2>{{ groupsCreated || 0 }}</h2>
+          </div>
+          <div class="group-box limit">
+            <p>Group Limit</p>
+            <h2>{{ groupLimit || 'N/A' }}</h2>
+          </div>
+        </div>
+        <ng-template #placeholder>
+          <!-- Placeholder for when no group is selected -->
+        </ng-template>
       </div>
-    </div>
+    </div>    
+    
+        <!-- Wide Graph (Budget Usage) -->
+        <div class="col-md-6">
+          <div class="chart-area wide-chart">
+            <h5>Budget Usage</h5>
+            <div *ngIf="selectedGroup; else placeholderContent" class="ring-chart-container">
+              <div class="chart">
+                <canvas id="ringChart"></canvas>
+              </div>
+              <div class="ring-chart-legend">
+                <p><span class="legend-box consumed"></span>Consumed Budget</p>
+                <p><span class="legend-box remaining"></span>Remaining Budget</p>
+              </div>
+            </div>
+            <ng-template #placeholderContent>
+              <!-- <div class="chart-placeholder">Budget Usage</div> -->
+            </ng-template>
+          </div>
+        </div>      
+    
+        <!-- Small Graph (Group Info) -->
+        <div class="col-md-3">
+          <div class="chart-area small-chart">
+            <h5>Members</h5>
+            <ul class="user-list">
+              <li *ngFor="let user of members">{{ user || 'N/A' }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Second Row -->
+      <div class="row">
+        <!-- AWS Services -->
+        <div class="col-md-4">
+          <div class="chart-area medium-chart">
+            <h5>AWS Services</h5>
+            <canvas id="awsChart"></canvas> <!-- Chart container -->          
+          </div>
+        </div>
+    
+        <!-- GCP Services -->
+        <div class="col-md-4">
+          <div class="chart-area tall-chart">
+            <h5>GCP Services</h5>
+            <canvas id="gcpChart"></canvas>
+          </div>
+        </div>
+    
+        <!-- Service Costs -->
+        <div class="col-md-4">
+          <div class="chart-area large-chart">
+            <h5>Service Costs</h5>
+            <p>Cost Breakdown of Services</p>
+          </div>
+        </div>
+      </div>
+    </div>    
+
+
+
+
   </div>
 </div>

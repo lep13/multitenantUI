@@ -74,6 +74,7 @@ export class CreateEc2Component {
           console.log(this.sessionId, 'session');
           this.responseMessage = response.message;
           this.responseStatus = 'success';
+          
         },
         error: (error) => {
           this.responseMessage = error.error.message || 'An error occurred.';

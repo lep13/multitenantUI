@@ -29,6 +29,8 @@ export class UserComponent implements OnInit {
   services: Service[] = [];
   userGroupId: string | null = null; // Group ID of the logged-in user
   managerName: string | null = null; // Manager name of the user's group
+  groupName: string | null = null;  
+  totalbudget: string | null = null;
   showLogoutPopup = false;
   searchTerm: string = '';
   groupMembers: string[] = []; // Members of the user's group
@@ -46,13 +48,14 @@ export class UserComponent implements OnInit {
     const username = this.infoService.getUsername();
     if (username) {
       this.http
-        .get<{ group_id: string; manager: string; members: string[] }>(
+        .get<{ group_id: string; manager: string; members: string[]; group_name:string }>(
           `http://localhost:5000/api/user-group?username=${username}`
         )
         .subscribe(
           (response) => {
             this.userGroupId = response.group_id; // Get the group ID of the user
             this.managerName = response.manager; // Get the manager's name
+            this.groupName = response.group_name;
             this.groupMembers = response.members; // Get the group members
             this.fetchServices(); // Fetch services after the group is loaded
           },

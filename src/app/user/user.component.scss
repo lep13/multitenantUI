@@ -102,13 +102,14 @@
         margin-bottom: 40px;
 
         .member-list{
-          width: 30%;
+          width: 60%;
           display: flex;
+          font-size: 1rem;
 
           .mem-align{
             // margin: 100px;
             justify-content: center;
-            padding-top: 40%;
+            padding: 20%;
           }
         }
    
