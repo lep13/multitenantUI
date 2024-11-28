@@ -196,6 +196,38 @@
           width: 100% !important; /* Ensure the chart takes full width of the container */
           height: 200px !important; /* Set a fixed height */
         }
+
+        .chart-area h5 .service-logo {
+          width: 24px; /* Limit the width of the logo */
+          height: 20px; /* Maintain aspect ratio */
+          margin-right: 8px; /* Add spacing between the logo and the text */
+          vertical-align: middle; /* Align the logo vertically with the text */
+          display: inline-block; /* Ensure it behaves as inline content */
+        }             
+
+        .chart-area h5 i{
+          position: relative; /* Ensure the icon is properly positioned relative to the text */
+          font-size: 1.2rem; /* Adjust header font size */
+          color: #333;
+          margin-bottom: 10px;
+          transition: transform 0.3s ease-in-out;
+        
+          &:before {
+            content: attr(data-icon); /* Use the data-icon attribute as content */
+            font-family: 'Font Awesome 5 Free'; /* Ensure Font Awesome is applied */
+            font-weight: 900; /* Font Awesome solid style */
+            margin-right: 8px; /* Space between the icon and the text */
+            color: #555; /* Adjust icon color */
+          }
+        
+          &.centered {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0; /* Centered heading when no group is selected */
+          }
+        }        
     
         .chartjs-render-monitor {
           display: block;
@@ -225,7 +257,7 @@
     
         /* Chart Sizes */
         &.small-chart {
-          height: 200px; /* Fixed height for small chart */
+          height: 220px; /* Fixed height for small chart */
           width: 350px; /* Fixed width for small chart */
     
           .group-data {
@@ -254,32 +286,94 @@
     
               h2 {
                 font-size: 2.5rem; /* Larger size for better visibility */
+                font-weight:bold;
                 margin: 5px 0;
               }
             }
     
             .created {
               height: 100px;
-              background-color: #e8f5e9c3; /* Light green */
+              background-color: #E8F8F5; 
               h2 {
-                color: #388e3c; /* Dark green */
+                color: #148F77; /*groups created*/
               }
             }
     
             .limit {
               height: 100px;
-              background-color: #e3f2fdc9; /* Light blue */
+              background-color: #F4ECF7 ; /* lavender */
               h2 {
-                color: #1976d2; /* Dark blue */
+                color: #6C3483 ; /* purple */
               }
             }
           }
         }
+
+        &.small-chart {
+          height: 220px; /* Fixed height for small chart */
+          width: 350px; /* Fixed width for small chart */
+        
+          .member-data {
+            display: flex;
+            flex-direction: column; /* Stack the cards vertically */
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Add spacing between cards */
+            width: 100%;
+            height: 100%;
+        
+            .member-box {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              background: #FFEBB6 ; /* pastel yellow */
+              border-radius: 10px;
+              padding: 10px;
+              width: 80%; /* Center-align the card by reducing its width */
+              text-align: center;
+        
+              p {
+                font-size: 1rem; /* Font size for member names */
+                color: #B7950B ; /* golden */
+                margin: 0;
+                font-weight: bold;
+              }
+        
+              &:nth-child(2) {
+                background: #D4EFDF ; /* soft green */
+                p {
+                  color: #229954 ; /* forest green */
+                }
+              }
+            }
+          }
+        
+          h5 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease-in-out;
+        
+            &.centered {
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 0; /* Centered heading when no members are available */
+            }
+          }
+        
+          p {
+            font-size: 0.9rem; /* Slightly smaller font */
+            color: #666;
+          }
+        }        
     
         &.wide-chart {
-          height: 200px;
+          height: 220px;
           width: 550px;
-          margin-bottom: 15px;
+          margin-bottom: 5px;
     
           .ring-chart-container {
             display: flex;
@@ -345,18 +439,18 @@
         }
     
         &.medium-chart {
-          height: 400px;
-          width: 400px;
+          height: 340px;
+          width: 403px;
         }
     
         &.tall-chart {
-          height: 400px;
-          width: 450px;
+          height: 340px;
+          width: 403px;
         }
     
         &.large-chart {
-          height: 400px;
-          width: 400px;
+          height: 340px;
+          width: 430px;
         }
       }
     }

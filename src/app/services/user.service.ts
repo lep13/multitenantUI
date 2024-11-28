@@ -15,6 +15,12 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  getGroupBudget(groupId: string) {
+    return this.http.get<{ group_name: string; budget: number }>(
+      `http://localhost:5000/api/group-name?group_id=${groupId}`
+    );
+  }  
+
   getManagers(): Observable<Manager[]> {
     return this.http.get<Manager[]>(this.apiUrl);
   }

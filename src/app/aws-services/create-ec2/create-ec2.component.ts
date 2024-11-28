@@ -74,11 +74,7 @@ export class CreateEc2Component {
           console.log(this.sessionId, 'session');
           this.responseMessage = response.message;
           this.responseStatus = 'success';
-<<<<<<< HEAD
-          
-=======
           this.finalizeSession('completed'); // Call finalizeSession if the creation was successful
->>>>>>> 1f2d2ef478035befa8d185888432e199a54da732
         },
         error: (error) => {
           this.responseMessage = error.error.message || 'An error occurred.';

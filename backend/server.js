@@ -158,3 +158,26 @@ app.get('/api/user', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// API endpoint to get the group name and budget by group ID
+app.get('/api/group-name', async (req, res) => {
+  const { group_id } = req.query;
+
+  if (!group_id) {
+    return res.status(400).json({ message: 'Group ID is required' });
+  }
+
+  try {
+    // Query the groups collection to find the group by group ID
+    const group = await Group.findOne({ group_id }, 'group_name budget'); // Include budget in the response
+    if (!group) {
+      return res.status(404).json({ message: 'Group not found' });
+    }
+
+    // Return group name and budget
+    res.json({ group_name: group.group_name, budget: group.budget });
+  } catch (error) {
+    console.error('Error fetching group name and budget:', error);
+    res.status(500).json({ message: 'Error fetching group name and budget' });
+  }
+});

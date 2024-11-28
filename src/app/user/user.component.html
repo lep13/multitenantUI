@@ -1,14 +1,16 @@
 <div class="user-page">
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <h2>User Dashboard</h2>
-    <div class="user-logo" (click)="toggleLogoutPopup()">
-      <!-- <span>User</span> -->
-      <img src="assets/user.svg" alt="User Logo" class="logo-image" />
-      <!-- Logout Popup -->
-      <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h3>User Dashboard</h3>
+      <div class="top-right-icons">
+        <!-- <i class="fas fa-bell notification-icon"></i> -->
+        <div class="user-logo" (click)="toggleLogoutPopup()">
+          <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
+          <!-- Logout Popup -->
+          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+        </div>
+      </div>
     </div>
-  </div>
 
   <!-- Sidebar -->
   <div class="sidebar">
@@ -21,7 +23,92 @@
 
   <!-- Main Content -->
   <div class="content">
+    <h3>Hi, {{ username }}!</h3>
+    <br>
 
+    <div class="dashboard-container">
+      <!-- Row 1: Group Details and Budget Usage -->
+      <div class="row">
+        <div class="card group-details">
+          <div class="icon-title">
+            <!-- <img src="assets/group-icon.svg" alt="Group Icon" class="icon" /> -->
+            <h3><i class="fas fa-users"></i>  Group Details</h3>
+          </div>
+          <div class="group-cards">
+            <div class="group-name" style="height: 56px;">
+              <h4>Group Name</h4>
+              <p>{{ groupName || 'You are not assigned to a group.' }}</p>
+            </div>
+            <div class="manager-name" style="height: 56px;">
+              <h4>Manager</h4>
+              <p>{{ managerName || 'Please contact a Manager.' }}</p>
+            </div>
+          </div>
+          <div class="members">
+            <h4>Members</h4>
+            <div class="member-cards">
+              <div *ngFor="let member of groupMembers" class="member-card">
+                <p style="height:15px; padding-top:5px">{{ member }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="card budget-usage">
+          <div class="icon-title">
+            <!-- <img src="assets/budget-icon.svg" alt="Budget Icon" class="icon" /> -->
+            <h3><i class="fas fa-chart-pie"></i> Budget Usage</h3>
+          </div>
+          <div class="ring-chart-container">
+            <div class="chart">
+              <canvas id="ringChart"></canvas>
+            </div>
+            <div class="ring-chart-legend">
+              <p>
+                <span class="legend-box consumed"></span> Consumed Budget
+              </p>
+              <p>
+                <span class="legend-box remaining"></span> Remaining Budget
+              </p>
+            </div>
+          </div>
+        </div>        
+    
+      <!-- Row 2: Total and Running Services -->
+      <div class="row">
+        <div class="card total-services">
+          <div class="icon-title">
+            <h3>Total Services</h3>
+          </div>
+          <div class="services-grid">
+            <div class="service-card">
+              <img src="assets/aws.svg" alt="AWS" class="service-logo" />
+              <p>{{ totalAwsServices }}</p>
+            </div>
+            <div class="service-card">
+              <img src="assets/gcp.svg" alt="GCP" class="service-logo" />
+              <p>{{ totalGcpServices }}</p>
+            </div>
+          </div>
+        </div>
+    
+        <div class="card running-services">
+          <div class="icon-title">
+            <h3>Services Running</h3>
+          </div>
+          <div class="services-grid">
+            <div class="service-card">
+              <img src="assets/aws.svg" alt="AWS" class="service-logo" />
+              <p>{{ runningAwsServices }}</p>
+            </div>
+            <div class="service-card">
+              <img src="assets/gcp.svg" alt="GCP" class="service-logo" />
+              <p>{{ runningGcpServices }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
     <!-- Styled Search Bar -->
     <div class="search-bar">
       <input type="text" placeholder="Search by username" [(ngModel)]="searchTerm" />
@@ -29,31 +116,6 @@
         <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
       </span>
     </div>
-
-    <div class="group-details">
-
-      <div class="member-list">
-        <div class="mem-align">
-          <h3>Group Details</h3>
-          <br>
-          <p><strong>Group Name:</strong>{{groupName || 'N/A'}}</p>
-          <br>
-          <p><strong>Manager:</strong> {{ managerName || 'N/A' }} </p>
-          <br>
-          <p><strong>Members:</strong></p>
-          <ul>
-            <li *ngFor="let member of groupMembers">{{ member }}</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Ring Chart -->
-      <div class="chart-section">
-        <div class="ring-chart-container">
-          <canvas id="ringChart" height="400px" width="400px"></canvas>
-        </div>
-      </div>
-    </div>
-
 
     <!-- Dynamic Table -->
     <div class="service-table">

@@ -1,12 +1,14 @@
 <div class="admin-page">
   <!-- Top Bar -->
   <div class="top-bar">
-    <h2>Admin Dashboard</h2>
-    <div class="admin-logo" (click)="toggleLogoutPopup()">
-      <!-- <span>Admin</span> -->
-      <img src="assets/admin_logo.png" alt="Admin Logo" class="logo-image" />
-      <!-- Logout Popup -->
-      <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+    <h3>Admin Dashboard</h3>
+    <div class="top-right-icons">
+      <!-- <i class="fas fa-bell notification-icon"></i> -->
+      <div class="admin-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/manager.svg" alt="Admin Logo" class="logo-image" />
+        <!-- Logout Popup -->
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      </div>
     </div>
   </div>
 

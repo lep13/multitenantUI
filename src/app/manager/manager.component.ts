@@ -372,7 +372,7 @@ export class ManagerComponent implements OnInit {
               const ctx = chart.ctx;
   
               const titleText = 'Total Budget';
-              const valueText = `${totalBudget}`;
+              const valueText = '$'+`${totalBudget}`;
   
               ctx.save();
               ctx.font = 'bold 14px Arial';
