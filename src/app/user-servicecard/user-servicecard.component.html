@@ -1,0 +1,7 @@
+<div class="service-card" (click)="onCardClick()" [class.selected]="isSelected">
+    <img [src]="getServiceLogo(serviceName)" alt="{{ serviceName }}" class="service-logo" />
+    <div class="service-info">
+      <h5>{{ serviceName }}</h5>
+    </div>
+  </div>
+  

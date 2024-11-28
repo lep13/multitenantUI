@@ -13,7 +13,7 @@ import { LogoutComponent } from '../../logout/logout.component';
   styleUrl: './create-vpc.component.scss'
 })
 export class CreateVPCComponent {
-  currentPage: string = 'create-service';
+  currentPage: string = 'create-amazon-vpc-virtual-private-cloud';
   sessionId: string | null = null;
   cidrBlock: string = '';
   region: string = '';

@@ -95,7 +95,7 @@
 
   .content {
     grid-column: 2 / -1;
-    padding: 40px;
+    padding: 20px;
 
     h1 {
       font-size: 1.8rem;
@@ -226,7 +226,7 @@
         /* Chart Sizes */
         &.small-chart {
           height: 200px; /* Fixed height for small chart */
-          width: 350px; /* Fixed width for small chart */
+          width: 300px; /* Fixed width for small chart */
     
           .group-data {
             display: flex;
@@ -278,7 +278,7 @@
     
         &.wide-chart {
           height: 200px;
-          width: 550px;
+          width: 520px;
           margin-bottom: 15px;
     
           .ring-chart-container {
@@ -345,18 +345,18 @@
         }
     
         &.medium-chart {
-          height: 400px;
-          width: 400px;
+          height: 310px;
+          width: 385px;
         }
     
         &.tall-chart {
-          height: 400px;
-          width: 450px;
+          height: 310px;
+          width: 400px;
         }
     
         &.large-chart {
-          height: 400px;
-          width: 400px;
+          height: 310px;
+          width: 335px;
         }
       }
     }

@@ -23,6 +23,7 @@ import { CreateCloudStorageComponent } from './gcp-services/create-cloudstorage/
 import { CreateGkeComponent } from './gcp-services/create-gke/create-gke.component';
 import { CreateBigqueryComponent } from './gcp-services/create-bigquery/create-bigquery.component';
 import { CreateCloudSqlComponent } from './gcp-services/create-cloud-sql/create-cloud-sql.component';
+import { UserDeleteserviceComponent } from './user-deleteservice/user-deleteservice.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'create-google-kubernetes-engine-gke', component: CreateGkeComponent, canActivate: [AuthGuard]},
   { path: 'create-bigquery', component: CreateBigqueryComponent, canActivate: [AuthGuard]},
   { path: 'create-cloud-sql', component: CreateCloudSqlComponent, canActivate: [AuthGuard]},
+  { path: 'delete-service', component: UserDeleteserviceComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

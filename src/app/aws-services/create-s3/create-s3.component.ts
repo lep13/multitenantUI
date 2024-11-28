@@ -13,7 +13,7 @@ import { LogoutComponent } from '../../logout/logout.component';
   styleUrl: './create-s3.component.scss'
 })
 export class CreateS3Component {
-  currentPage: string = 'create-service';
+  currentPage: string = 'create-amazon-s3-simple-storage-service';
   sessionId: string | null = null;
   bucketName: string = '';
   versioning: boolean | null = null;

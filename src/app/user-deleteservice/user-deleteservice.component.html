@@ -1,0 +1,72 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <h2>Delete Service</h2>
+        <div class="user-logo" (click)="toggleLogoutPopup()">
+            <img src="assets/user.svg" alt="User Logo" class="logo-image" />
+            <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+            <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service
+            </li>
+            <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h3>Select a Cloud Provider</h3>
+        <br>
+        <div class="provider-cards" [class.card-selected]="selectedProvider">
+            <div class="card" (click)="selectProvider('aws')" [class.selected]="selectedProvider === 'aws'">
+                <img src="assets/aws.svg" alt="AWS Logo" class="card-img-top">
+                <div class="card-body text-center">
+                    <h4 class="card-title">AWS</h4>
+                </div>
+            </div>
+
+            <div class="card" (click)="selectProvider('gcp')" [class.selected]="selectedProvider === 'gcp'">
+                <img src="assets/gcp.svg" alt="GCP Logo" class="card-img-top">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Google Cloud</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Cards -->
+        <div *ngIf="services.length > 0" class="services-cards">
+            <app-user-servicecard *ngFor="let service of services" [serviceName]="service"
+                [isSelected]="service === selectedService" (cardClicked)="selectService($event)"></app-user-servicecard>
+        </div>
+
+        <!-- Input Field and Delete Button -->
+        <div *ngIf="selectedService" class="delete-section">
+            <input
+                type="text"
+                [(ngModel)]="serviceToDelete"
+                [placeholder]="selectedService === 'AWS CloudFront' ? 'Enter ServiceId of the service you want to delete' : 'Enter Name of the Service you want to delete'"
+            />
+            <button (click)="openConfirmationModal()">Delete</button>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div *ngIf="showModal" class="modal-overlay">
+            <div class="modal-content">
+                <p>Are you sure you want to delete "{{ serviceToDelete }}"?</p>
+                <button class="btn btn-primary" (click)="deleteService()">Yes</button>
+                <button class="btn btn-cancel" (click)="closeModal()">No</button>
+            </div>
+        </div>
+
+        <!-- Response Message -->
+        <div *ngIf="responseMessage" [class.success]="responseStatus === 'success'" [class.error]="responseStatus === 'error'">
+            {{ responseMessage }}
+        </div>
+    </div>
+</div>
