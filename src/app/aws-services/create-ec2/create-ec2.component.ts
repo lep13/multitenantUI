@@ -27,7 +27,9 @@ export class CreateEc2Component {
   instanceName: string = '';
   responseMessage: string | null = null;
   responseStatus: string | null = null;
+  showModal: boolean = false;
   showLogoutPopup = false;
+  status: string = 'completed';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -42,6 +44,7 @@ export class CreateEc2Component {
       console.log(this.sessionId, 'sessionId');
       this.responseMessage = 'Session ID is missing.';
       this.responseStatus = 'error';
+      this.showModal = true;
       return;
     }
 
@@ -74,13 +77,21 @@ export class CreateEc2Component {
           console.log(this.sessionId, 'session');
           this.responseMessage = response.message;
           this.responseStatus = 'success';
-          this.finalizeSession('completed'); // Call finalizeSession if the creation was successful
+          this.showModal = true;
         },
         error: (error) => {
           this.responseMessage = error.error.message || 'An error occurred.';
           this.responseStatus = 'error';
+          this.showModal = true;
         },
       });
+  }
+
+  handleModalOk() {
+    if (this.responseStatus === 'success') {
+      this.finalizeSession('completed');
+    }
+    this.showModal = false;
   }
 
     // Finalize the session
@@ -89,17 +100,20 @@ export class CreateEc2Component {
         console.error('Session ID is missing. Cannot finalize session.');
         return;
       }
-  
+    
       const payload = {
         session_id: this.sessionId,
         status: status,
       };
-  
+
+      
+    
       this.http
-        .post<{ message: string }>('http://localhost:8080/user/complete-session', payload)
+        .post('http://localhost:8080/user/complete-session', payload, { responseType: 'text' }) // Set responseType to 'text'
         .subscribe({
           next: (response) => {
-            console.log('Session finalized successfully:', response.message);
+            console.log('Session finalized successfully:', response);
+            // Handle success here if needed
           },
           error: (error) => {
             console.error('Error finalizing session:', error);

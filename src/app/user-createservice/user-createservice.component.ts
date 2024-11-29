@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LogoutComponent } from '../logout/logout.component';
 import { Tooltip } from 'bootstrap';
+import { InfoService } from '../services/info.service';
 
 @Component({
   selector: 'app-user-createservice',
@@ -15,7 +16,7 @@ import { Tooltip } from 'bootstrap';
 })
 export class UserCreateServiceComponent implements AfterViewInit {
   currentPage: string = 'create-service';
-  username: string = 'Golang_Developer'; // Example username
+  username: string = ''; // Example username
   selectedProvider: string | null = null;
   services: string[] = [];
   selectedService: string | null = null;
@@ -27,7 +28,7 @@ export class UserCreateServiceComponent implements AfterViewInit {
   status: string | null = null;
   showLogoutPopup = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private infoService: InfoService) {}
 
   ngAfterViewInit(): void {
     // Initialize Bootstrap tooltips
@@ -39,11 +40,14 @@ export class UserCreateServiceComponent implements AfterViewInit {
 
   selectProvider(provider: string) {
     this.selectedProvider = provider;
+    const username = this.infoService.getUsername();
 
     // Start session
+
+    console.log(username);
     this.http
       .get<{ session_id: string }>(
-        `http://localhost:8080/user/start-session?username=${this.username}&provider=${provider}`
+        `http://localhost:8080/user/start-session?username=${username}&provider=${provider}`
       )
       .subscribe({
         next: (response) => {
