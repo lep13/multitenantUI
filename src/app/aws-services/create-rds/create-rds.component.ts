@@ -25,6 +25,7 @@ export class CreateRdsComponent {
   subnetGroupName: string = '';
   responseMessage: string | null = null;
   responseStatus: string | null = null;
+  showModal: boolean = false;
   showLogoutPopup = false;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -44,6 +45,7 @@ export class CreateRdsComponent {
       console.error('Session ID is missing.');
       this.responseMessage = 'Session ID is missing.';
       this.responseStatus = 'error';
+      this.showModal = true;
       return;
     }
 
@@ -59,21 +61,34 @@ export class CreateRdsComponent {
       subnet_group_name: this.subnetGroupName,
     };
 
-    this.http
-      .post<{ message: string }>('http://localhost:8080/user/create-rds-instance', payload)
-      .subscribe({
-        next: (response) => {
-          console.log('RDS Instance created successfully:', response.message);
-          this.responseMessage = response.message;
-          this.responseStatus = 'success';
-          this.finalizeSession('completed'); // Call finalizeSession if the creation was successful
-        },
-        error: (error) => {
-          console.error('Error creating RDS instance:', error);
-          this.responseMessage = error.error.message || 'An error occurred.';
-          this.responseStatus = 'error';
-        },
-      });
+    // Define expected response structure
+    interface CreateRDSResponse {
+      message: string;
+      result?: any;
+      config?: any;
+    }
+    
+    this.http.post<CreateRDSResponse>('http://localhost:8080/user/create-rds-instance', payload).subscribe({
+      next: (response) => {
+        console.log('RDS Instance created successfully:', response);
+        this.responseMessage = response.message;
+        this.responseStatus = 'success';
+        this.showModal = true;
+      },
+      error: (error) => {
+        console.error('Error creating RDS instance:', error);
+        this.responseMessage = error.error.message || 'An error occurred during RDS instance creation.';
+        this.responseStatus = 'error';
+        this.showModal = true;
+      },
+    });
+  }
+
+  handleModalOk() {
+    if (this.responseStatus === 'success') {
+      this.finalizeSession('completed');
+    }
+    this.showModal = false;
   }
 
     // Finalize the session
@@ -82,17 +97,20 @@ export class CreateRdsComponent {
         console.error('Session ID is missing. Cannot finalize session.');
         return;
       }
-  
+    
       const payload = {
         session_id: this.sessionId,
         status: status,
       };
-  
+
+      
+    
       this.http
-        .post<{ message: string }>('http://localhost:8080/user/complete-session', payload)
+        .post('http://localhost:8080/user/complete-session', payload, { responseType: 'text' }) // Set responseType to 'text'
         .subscribe({
           next: (response) => {
-            console.log('Session finalized successfully:', response.message);
+            console.log('Session finalized successfully:', response);
+            // Handle success here if needed
           },
           error: (error) => {
             console.error('Error finalizing session:', error);

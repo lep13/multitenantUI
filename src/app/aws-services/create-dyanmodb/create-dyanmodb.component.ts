@@ -21,6 +21,7 @@ export class CreateDynamoDBComponent {
   writeCapacity: number | null = null;
   responseMessage: string | null = null;
   responseStatus: string | null = null;
+  showModal: boolean = false;
   showLogoutPopup = false;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -39,6 +40,7 @@ export class CreateDynamoDBComponent {
       console.error('Session ID is missing.');
       this.responseMessage = 'Session ID is missing.';
       this.responseStatus = 'error';
+      this.showModal = true;
       return;
     }
 
@@ -57,14 +59,22 @@ export class CreateDynamoDBComponent {
           console.log('DynamoDB Table created successfully:', response.message);
           this.responseMessage = response.message;
           this.responseStatus = 'success';
-          this.finalizeSession('completed'); // Call finalizeSession if the creation was successful
+          this.showModal = true;
         },
         error: (error) => {
           console.error('Error creating DynamoDB Table:', error);
           this.responseMessage = error.error.message || 'An error occurred.';
           this.responseStatus = 'error';
+          this.showModal = true;
         },
       });
+  }
+
+  handleModalOk() {
+    if (this.responseStatus === 'success') {
+      this.finalizeSession('completed');
+    }
+    this.showModal = false;
   }
 
   // Finalize the session
