@@ -74,28 +74,60 @@ export class UserDeleteserviceComponent implements OnInit {
 
   deleteService(): void {
     if (!this.serviceToDelete || !this.selectedService || !this.username) return;
-
+  
+    if (this.selectedProvider === 'aws') {
+      this.deleteAWSService();
+    } else if (this.selectedProvider === 'gcp') {
+      this.deleteGCPService();
+    } else {
+      this.responseMessage = 'Invalid provider selected.';
+      this.responseStatus = 'error';
+    }
+  }
+  
+  deleteAWSService(): void {
     const payload: any = {
       service_type: this.selectedService,
     };
-
+  
     if (this.selectedService === 'AWS CloudFront') {
       payload.service_id = this.serviceToDelete;
     } else {
       payload.service_name = this.serviceToDelete;
     }
-    console.log(payload, 'payload');
-
+  
     this.http
       .post(`http://localhost:8080/user/delete-aws-service?username=${this.username}`, payload)
       .subscribe({
         next: (response: any) => {
-          this.responseMessage = response.message || 'Service deleted successfully!';
+          this.responseMessage = response.message || 'AWS Service deleted successfully!';
           this.responseStatus = 'success';
           this.closeModal();
         },
         error: (error) => {
-          this.responseMessage = error.error.message || 'Failed to delete service.';
+          this.responseMessage = error.error.message || 'Failed to delete AWS service.';
+          this.responseStatus = 'error';
+          this.closeModal();
+        },
+      });
+  }
+  
+  deleteGCPService(): void {
+    const payload: any = {
+      service_type: this.selectedService,
+      service_name: this.serviceToDelete,
+    };
+  
+    this.http
+      .post(`http://localhost:8080/user/delete-gcp-service?username=${this.username}`, payload)
+      .subscribe({
+        next: (response: any) => {
+          this.responseMessage = response.message || 'GCP Service deleted successfully!';
+          this.responseStatus = 'success';
+          this.closeModal();
+        },
+        error: (error) => {
+          this.responseMessage = error.error.message || 'Failed to delete GCP service.';
           this.responseStatus = 'error';
           this.closeModal();
         },

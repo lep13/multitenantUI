@@ -142,9 +142,15 @@
         </button>
       </form>
   
-      <div *ngIf="responseMessage" class="response" [ngClass]="responseStatus">
-        {{ responseMessage }}
+      <!-- Response Modal -->
+    <div *ngIf="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <p [ngClass]="{'success': responseStatus === 'success', 'error': responseStatus === 'error'}">
+          {{ responseMessage }}
+        </p>
+        <button class="btn btn-primary" (click)="handleModalOk()">OK</button>
       </div>
+    </div>
     </div>
   </div>
   
