@@ -13,7 +13,7 @@ import { LogoutComponent } from '../../logout/logout.component';
   styleUrl: './create-dyanmodb.component.scss'
 })
 export class CreateDynamoDBComponent {
-  currentPage: string = 'create-service';
+  currentPage: string = 'create-amazon-dynamodb';
   sessionId: string | null = null;
   tableName: string = '';
   region: string = '';

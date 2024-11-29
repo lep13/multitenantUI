@@ -58,6 +58,7 @@ export class ManagerComponent implements OnInit {
     this.populateActualManager(); // Fetch manager username
     this.fetchGroups(); // Load groups managed by the manager
     this.fetchGroupLimit(); // Fetch group limit for the manager
+    // this.renderRingChart();
   }
 
   // Populate manager's username and fetch additional profile details
