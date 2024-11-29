@@ -1,16 +1,16 @@
 <div class="user-page">
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <h2>User Dashboard</h2>
-    <div class="top-right-icons">
-      <i class="fas fa-bell notification-icon"></i>
-      <div class="user-logo" (click)="toggleLogoutPopup()">
-        <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
-        <!-- Logout Popup -->
-        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h3>User Dashboard</h3>
+      <div class="top-right-icons">
+        <!-- <i class="fas fa-bell notification-icon"></i> -->
+        <div class="user-logo" (click)="toggleLogoutPopup()">
+          <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
+          <!-- Logout Popup -->
+          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+        </div>
       </div>
     </div>
-  </div>
 
   <!-- Sidebar -->
   <div class="sidebar">

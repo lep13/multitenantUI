@@ -1,10 +1,14 @@
 <div class="user-page">
     <!-- Top Bar -->
     <div class="top-bar">
-      <h2>Create Google Kubernetes Engine Cluster</h2>
-      <div class="user-logo" (click)="toggleLogoutPopup()">
-        <img src="assets/user.svg" alt="User Logo" class="logo-image" />
-        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+      <h3>User Dashboard</h3>
+      <div class="top-right-icons">
+        <!-- <i class="fas fa-bell notification-icon"></i> -->
+        <div class="user-logo" (click)="toggleLogoutPopup()">
+          <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
+          <!-- Logout Popup -->
+          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+        </div>
       </div>
     </div>
   
