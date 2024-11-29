@@ -17,7 +17,7 @@ import { CreateS3Component } from './aws-services/create-s3/create-s3.component'
 import { CreateRdsComponent } from './aws-services/create-rds/create-rds.component';
 import { CreateCloudFrontComponent } from './aws-services/create-cloudfront/create-cloudfront.component';
 import { CreateVPCComponent } from './aws-services/create-vpc/create-vpc.component';
-import { CreateDynamoDBComponent } from './aws-services/create-dyanmodb/create-dyanmodb.component';
+// import { CreateDynamoDBComponent } from './aws-services/create-dyanmodb/create-dyanmodb.component';
 import { CreateComputeEngineComponent } from './gcp-services/create-computeengine/create-computeengine.component';
 import { CreateCloudStorageComponent } from './gcp-services/create-cloudstorage/create-cloudstorage.component';
 import { CreateGkeComponent } from './gcp-services/create-gke/create-gke.component';
@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: 'create-amazon-rds-relational-database-service', component: CreateRdsComponent, canActivate: [AuthGuard]},
   { path: 'create-aws-cloudfront', component: CreateCloudFrontComponent, canActivate: [AuthGuard]},
   { path: 'create-amazon-vpc-virtual-private-cloud', component: CreateVPCComponent, canActivate: [AuthGuard]},
-  { path: 'create-amazon-dynamodb', component: CreateDynamoDBComponent, canActivate: [AuthGuard]},
+  // { path: 'create-amazon-dynamodb', component: CreateDynamoDBComponent, canActivate: [AuthGuard]},
   { path: 'create-compute-engine', component: CreateComputeEngineComponent, canActivate: [AuthGuard]},
   { path: 'create-cloud-storage', component: CreateCloudStorageComponent, canActivate: [AuthGuard]},
   { path: 'create-google-kubernetes-engine-gke', component: CreateGkeComponent, canActivate: [AuthGuard]},
