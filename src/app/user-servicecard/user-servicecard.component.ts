@@ -30,13 +30,11 @@ export class UserServicecardComponent {
       'Amazon VPC (Virtual Private Cloud)': 'https://d2q66yyjeovezo.cloudfront.net/icon/74f8d03e857091589308684a506ba915-4d9c246d4283a8c3150cf0aa442dec10.svg',
   
       // GCP Services
-      'Compute Engine': 'assets/gcp-compute-engine.svg',
-      'Cloud Storage': 'assets/gcp-cloud-storage.svg',
-      'Google Kubernetes Engine (GKE)': 'assets/gcp-gke.svg',
-      'BigQuery': 'assets/gcp-bigquery.svg',
-      'Cloud Functions': 'assets/gcp-cloud-functions.svg',
-      'Cloud SQL': 'assets/gcp-cloud-sql.svg',
-      'Cloud Pub/Sub': 'assets/gcp-cloud-pubsub.svg',
+      'Compute Engine': 'assets/compute-engine.svg',
+      'Cloud Storage': 'assets/cloud-storage.svg',
+      'Google Kubernetes Engine (GKE)': 'assets/gke.svg',
+      'BigQuery': 'assets/bigquery.svg',
+      'Cloud SQL': 'assets/sql.svg',
     };
   
     // Return the corresponding logo or a default logo

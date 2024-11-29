@@ -47,12 +47,9 @@
 
         <!-- Input Field and Delete Button -->
         <div *ngIf="selectedService" class="delete-section">
-            <input
-                type="text"
-                [(ngModel)]="serviceToDelete"
-                [placeholder]="selectedService === 'AWS CloudFront' ? 'Enter ServiceId of the service you want to delete' : 'Enter Name of the Service you want to delete'"
-            />
-            <button (click)="openConfirmationModal()">Delete</button>
+            <input type="text" [(ngModel)]="serviceToDelete"
+                [placeholder]="selectedService === 'AWS CloudFront' ? 'Enter ServiceId of the service you want to delete' : 'Enter Name of the Service you want to delete'" />
+            <button class="btn1" (click)="openConfirmationModal()">Delete</button>
         </div>
 
         <!-- Confirmation Modal -->
@@ -65,7 +62,8 @@
         </div>
 
         <!-- Response Message -->
-        <div *ngIf="responseMessage" [class.success]="responseStatus === 'success'" [class.error]="responseStatus === 'error'">
+        <div *ngIf="responseMessage" [class.success]="responseStatus === 'success'"
+            [class.error]="responseStatus === 'error'">
             {{ responseMessage }}
         </div>
     </div>
