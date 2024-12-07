@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LogoutComponent } from "../../logout/logout.component";
-
+ 
 @Injectable({
   providedIn: 'root',
 })
-
+ 
 @Component({
   selector: 'app-create-ec2',
   standalone: true,
@@ -30,15 +30,15 @@ export class CreateEc2Component {
   showModal: boolean = false;
   showLogoutPopup = false;
   status: string = 'completed';
-
+ 
   constructor(private http: HttpClient, private router: Router) {}
-
+ 
   ngOnInit(): void {
     this.sessionId = localStorage.getItem('sessionId');
     console.log('Session ID fetched on init:', this.sessionId);
   }
-
-
+ 
+ 
   createEC2Instance() {
     if (!this.sessionId) {
       console.log(this.sessionId, 'sessionId');
@@ -47,19 +47,19 @@ export class CreateEc2Component {
       this.showModal = true;
       return;
     }
-
+ 
   // Dynamically fetch session ID from localStorage if not already set
   if (!this.sessionId) {
     this.sessionId = localStorage.getItem('sessionId');
   }
-
+ 
   if (!this.sessionId) {
     console.error('Session ID is missing.');
     this.responseMessage = 'Session ID is missing.';
     this.responseStatus = 'error';
     return;
   }
-
+ 
     const payload = {
       session_id: this.sessionId,
       instance_type: this.instanceType,
@@ -69,7 +69,7 @@ export class CreateEc2Component {
       security_group_id: this.securityGroupId,
       instance_name: this.instanceName,
     };
-
+ 
     this.http
       .post<{ message: string }>('http://localhost:8080/user/create-ec2-instance', payload)
       .subscribe({
@@ -86,28 +86,28 @@ export class CreateEc2Component {
         },
       });
   }
-
+ 
   handleModalOk() {
     if (this.responseStatus === 'success') {
       this.finalizeSession('completed');
     }
     this.showModal = false;
   }
-
+ 
     // Finalize the session
     finalizeSession(status: string) {
       if (!this.sessionId) {
         console.error('Session ID is missing. Cannot finalize session.');
         return;
       }
-    
+   
       const payload = {
         session_id: this.sessionId,
         status: status,
       };
-
-      
-    
+ 
+     
+   
       this.http
         .post('http://localhost:8080/user/complete-session', payload, { responseType: 'text' }) // Set responseType to 'text'
         .subscribe({
@@ -120,24 +120,24 @@ export class CreateEc2Component {
           },
         });
     }
-
-
+ 
+ 
   navigateToDashboard() {
     this.router.navigate(['/user']);
   }
-
+ 
   navigateToCreateService() {
     this.router.navigate(['/create-service']);
   }
-
+ 
   navigateToDeleteService() {
     this.router.navigate(['/delete-service']);
   }
-
+ 
   toggleLogoutPopup() {
     this.showLogoutPopup = !this.showLogoutPopup;
   }
-
+ 
   handleLogout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);

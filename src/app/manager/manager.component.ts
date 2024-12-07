@@ -22,6 +22,11 @@ interface Manager {
   group_limit: number;
 }
 
+interface Notification {
+  message: string;
+  timestamp: string; // Raw timestamp from backend
+}
+
 @Component({
   selector: 'app-manager',
   standalone: true,
@@ -47,6 +52,8 @@ export class ManagerComponent implements OnInit {
   awsChart: Chart | null = null;
   gcpChart: Chart | null = null;
   ringChart: Chart<"doughnut", number[], string> | null = null;
+  notifications: Notification[] = [];
+  showNotifications: boolean = false; // Toggle visibility of notifications
 
   constructor(
     private managerService: ManagerService,
@@ -394,6 +401,40 @@ export class ManagerComponent implements OnInit {
         ],
       });
     }
+  }
+
+  // Fetch notifications for the manager
+  fetchNotifications(): void {
+    if (!this.managerUsername) return;
+
+    this.managerService.getNotifications(this.managerUsername).subscribe(
+      (response) => {
+        if (response.status === 'success') {
+          this.notifications = response.data.map((notif: any) => ({
+            message: notif.message,
+            timestamp: this.formatTimestamp(notif.timestamp),
+          }));
+        }
+      },
+      (error) => {
+        console.error('Error fetching notifications:', error);
+      }
+    );
+  }
+
+  // Toggle the visibility of the notifications box
+  toggleNotifications(): void {
+    this.showNotifications = !this.showNotifications;
+
+    if (this.showNotifications) {
+      this.fetchNotifications(); // Fetch notifications when toggled
+    }
+  }
+
+  // Format the timestamp into a readable format
+  formatTimestamp(timestamp: string): string {
+    const date = new Date(timestamp);
+    return date.toLocaleString(); // Adjust formatting as needed
   }
   
   // Toggle logout popup

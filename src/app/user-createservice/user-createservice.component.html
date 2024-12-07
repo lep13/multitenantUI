@@ -1,16 +1,16 @@
 <div class="user-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <h3>User Dashboard</h3>
-      <div class="top-right-icons">
-        <!-- <i class="fas fa-bell notification-icon"></i> -->
-        <div class="user-logo" (click)="toggleLogoutPopup()">
-          <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
-          <!-- Logout Popup -->
-          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
-        </div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <h3>User Dashboard</h3>
+    <div class="top-right-icons">
+      <!-- <i class="fas fa-bell notification-icon"></i> -->
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
+        <!-- Logout Popup -->
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
       </div>
     </div>
+  </div>
 
   <!-- Sidebar -->
   <div class="sidebar">
@@ -43,24 +43,38 @@
 
     </div>
 
-    <div *ngIf="services.length > 0" class="services-dropdown">
-      <label for="serviceSelect">Available Services:</label>
-      <select id="serviceSelect" [(ngModel)]="selectedService" (change)="updateSession()">
-        <option value="" disabled selected>Select a service</option>
-        <option *ngFor="let service of services" [value]="service">{{ service }}</option>
-      </select>
-      <button (click)="checkServiceBudget()">Check Budget</button>
+    <!-- Services Cards -->
+    <div *ngIf="services.length > 0" class="services-cards">
+      <app-user-servicecard *ngFor="let service of services" [serviceName]="service"
+        [isSelected]="service === selectedService" (cardClicked)="selectService($event)"></app-user-servicecard>
     </div>
 
-    <!-- Modal -->
+    <!-- Primary Modal -->
     <div *ngIf="showModal" class="modal-overlay">
       <div class="modal-content">
         <p>{{ modalMessage }}</p>
-        <button class="btn btn-primary" (click)="navigateToCreateServiceComponent()">
-          Create {{ selectedService }}
-        </button>
-        <button class="btn btn-cancel" (click)="closeModal()">Cancel</button>
+
+        <div class="modal-buttons">
+          <!-- Create Button -->
+          <button *ngIf="status === 'ok'" class="btn btn-primary" (click)="navigateToCreateServiceComponent()">
+            Create {{ selectedService }}
+          </button>
+
+          <!-- Request Manager Button -->
+          <button *ngIf="status === 'denied'" class="btn btn-primary" (click)="sendRequestToManager()">
+            Request Manager
+          </button>
+
+          <!-- Cancel Button -->
+          <button class="btn btn-cancel" (click)="closeModal()">Cancel</button>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+
+    <!-- Secondary Modal for Request Sent -->
+    <div *ngIf="showRequestSentModal" class="modal-overlay">
+      <div class="modal-content">
+        <p>Notification sent to the manager successfully.</p>
+        <button class="btn btn-primary" (click)="closeRequestSentModal()">OK</button>
+      </div>
+    </div>

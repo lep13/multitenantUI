@@ -1,165 +1,108 @@
 <div class="user-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <h3>User Dashboard</h3>
-      <div class="top-right-icons">
-        <!-- <i class="fas fa-bell notification-icon"></i> -->
-        <div class="user-logo" (click)="toggleLogoutPopup()">
-          <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
-          <!-- Logout Popup -->
-          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
-        </div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <h3>User Dashboard</h3>
+    <div class="top-right-icons">
+      <!-- <i class="fas fa-bell notification-icon"></i> -->
+      <div class="user-logo" (click)="toggleLogoutPopup()">
+        <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
+        <!-- Logout Popup -->
+        <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
       </div>
     </div>
-  
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <ul>
-        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
-        <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
-        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
-      </ul>
-    </div>
-  
-    <!-- Main Content -->
-    <div class="content">
-      <h3>Create an RDS Instance</h3>
-      <form (ngSubmit)="createRDSInstance()" #createRdsForm="ngForm">
-        <div class="form-group">
-          <label for="dbName">Database Name</label>
-          <input
-            type="text"
-            id="dbName"
-            class="form-control"
-            [(ngModel)]="dbName"
-            name="dbName"
-            required
-            #dbNameField="ngModel"
-          />
-          <div *ngIf="dbNameField.invalid && dbNameField.touched" class="error">
-            Database Name is required.
-          </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+      <li [class.selected]="currentPage === 'create-service'" (click)="navigateToCreateService()">Create Service</li>
+      <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h3>Create an RDS Instance</h3>
+    <form (ngSubmit)="createRDSInstance()" #createRdsForm="ngForm">
+      <div class="form-group">
+        <label for="dbName">Database Name</label>
+        <input type="text" id="dbName" class="form-control" [(ngModel)]="dbName" name="dbName" required
+          #dbNameField="ngModel" />
+        <div *ngIf="dbNameField.invalid && dbNameField.touched" class="error">
+          Database Name is required.
         </div>
-  
-        <div class="form-group">
-          <label for="instanceId">Instance ID</label>
-          <input
-            type="text"
-            id="instanceId"
-            class="form-control"
-            [(ngModel)]="instanceId"
-            name="instanceId"
-            required
-            #instanceIdField="ngModel"
-          />
-          <div *ngIf="instanceIdField.invalid && instanceIdField.touched" class="error">
-            Instance ID is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="instanceId">Instance ID</label>
+        <input type="text" id="instanceId" class="form-control" [(ngModel)]="instanceId" name="instanceId" required
+          #instanceIdField="ngModel" />
+        <div *ngIf="instanceIdField.invalid && instanceIdField.touched" class="error">
+          Instance ID is required.
         </div>
-  
-        <div class="form-group">
-          <label for="instanceClass">Instance Class</label>
-          <input
-            type="text"
-            id="instanceClass"
-            class="form-control"
-            [(ngModel)]="instanceClass"
-            name="instanceClass"
-            required
-            #instanceClassField="ngModel"
-          />
-          <div *ngIf="instanceClassField.invalid && instanceClassField.touched" class="error">
-            Instance Class is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="instanceClass">Instance Class</label>
+        <input type="text" id="instanceClass" class="form-control" [(ngModel)]="instanceClass" name="instanceClass"
+          required #instanceClassField="ngModel" />
+        <div *ngIf="instanceClassField.invalid && instanceClassField.touched" class="error">
+          Instance Class is required.
         </div>
-  
-        <div class="form-group">
-          <label for="engine">Engine</label>
-          <input
-            type="text"
-            id="engine"
-            class="form-control"
-            [(ngModel)]="engine"
-            name="engine"
-            required
-            #engineField="ngModel"
-          />
-          <div *ngIf="engineField.invalid && engineField.touched" class="error">
-            Engine is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="engine">Engine</label>
+        <input type="text" id="engine" class="form-control" [(ngModel)]="engine" name="engine" required
+          #engineField="ngModel" />
+        <div *ngIf="engineField.invalid && engineField.touched" class="error">
+          Engine is required.
         </div>
-  
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            class="form-control"
-            [(ngModel)]="username"
-            name="username"
-            required
-            #usernameField="ngModel"
-          />
-          <div *ngIf="usernameField.invalid && usernameField.touched" class="error">
-            Username is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" [(ngModel)]="username" name="username" required
+          #usernameField="ngModel" />
+        <div *ngIf="usernameField.invalid && usernameField.touched" class="error">
+          Username is required.
         </div>
-  
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            [(ngModel)]="password"
-            name="password"
-            required
-            #passwordField="ngModel"
-          />
-          <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
-            Password is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required
+          #passwordField="ngModel" />
+        <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+          Password is required.
         </div>
-  
-        <div class="form-group">
-          <label for="allocatedStorage">Allocated Storage (GB)</label>
-          <input
-            type="number"
-            id="allocatedStorage"
-            class="form-control"
-            [(ngModel)]="allocatedStorage"
-            name="allocatedStorage"
-            required
-            #allocatedStorageField="ngModel"
-            [min]="0"
-          />
-          <div *ngIf="allocatedStorageField.invalid && allocatedStorageField.touched" class="error">
-            Allocated Storage is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="allocatedStorage">Allocated Storage (GB)</label>
+        <input type="number" id="allocatedStorage" class="form-control" [(ngModel)]="allocatedStorage"
+          name="allocatedStorage" required #allocatedStorageField="ngModel" [min]="0" />
+        <div *ngIf="allocatedStorageField.invalid && allocatedStorageField.touched" class="error">
+          Allocated Storage is required.
         </div>
-  
-        <div class="form-group">
-          <label for="subnetGroupName">Subnet Group Name</label>
-          <input
-            type="text"
-            id="subnetGroupName"
-            class="form-control"
-            [(ngModel)]="subnetGroupName"
-            name="subnetGroupName"
-            required
-            #subnetGroupNameField="ngModel"
-          />
-          <div *ngIf="subnetGroupNameField.invalid && subnetGroupNameField.touched" class="error">
-            Subnet Group Name is required.
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subnetGroupName">Subnet Group Name</label>
+        <input type="text" id="subnetGroupName" class="form-control" [(ngModel)]="subnetGroupName"
+          name="subnetGroupName" required #subnetGroupNameField="ngModel" />
+        <div *ngIf="subnetGroupNameField.invalid && subnetGroupNameField.touched" class="error">
+          Subnet Group Name is required.
         </div>
-  
-        <button type="submit" class="btn btn-primary" [disabled]="createRdsForm.invalid">
-          Create RDS Instance
-        </button>
-      </form>
-  
-      <!-- Response Modal -->
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="createRdsForm.invalid">
+        Create RDS Instance
+      </button>
+    </form>
+
+    <!-- Response Modal -->
     <div *ngIf="showModal" class="modal-overlay">
       <div class="modal-content">
         <p [ngClass]="{'success': responseStatus === 'success', 'error': responseStatus === 'error'}">
@@ -168,6 +111,5 @@
         <button class="btn btn-primary" (click)="handleModalOk()">OK</button>
       </div>
     </div>
-    </div>
   </div>
-  
+</div>

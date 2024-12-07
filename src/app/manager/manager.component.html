@@ -3,7 +3,17 @@
   <div class="top-bar">
     <h2>Manager Dashboard</h2>
     <div class="top-right-icons">
-      <i class="fas fa-bell notification-icon"></i>
+      
+      <i class="fas fa-bell notification-icon" (click)="toggleNotifications()" title="View Notifications"></i>
+      <div class="notifications-box" *ngIf="showNotifications">
+      <ul>
+        <li *ngFor="let notification of notifications">
+          <p>{{ notification.message }}</p>
+          <span class="timestamp">{{ notification.timestamp }}</span>
+        </li>
+      </ul>
+      </div>
+
       <div class="manager-logo" (click)="toggleLogoutPopup()">
         <img src="assets/manager.svg" alt="Manager Logo" class="logo-image" />
         <!-- Logout Popup -->

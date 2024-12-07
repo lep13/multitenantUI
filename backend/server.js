@@ -47,7 +47,7 @@ const serviceSchema = new mongoose.Schema({
 
 const Service = mongoose.model('Service', serviceSchema, 'services');
 
-// API endpoint to get the group of a user by username (will return manager name as well + members array)
+// API endpoint to get the group of a user by username (will return manager name, budget, and members array)
 app.get('/api/user-group', async (req, res) => {
   const { username } = req.query;
 
@@ -57,13 +57,18 @@ app.get('/api/user-group', async (req, res) => {
 
   try {
     // Query the groups collection to find the group for the given username
-    const group = await Group.findOne({ members: username }, 'group_id manager members'); // Include `members`
+    const group = await Group.findOne({ members: username }, 'group_id manager members budget'); // Include `budget`
     if (!group) {
       return res.status(404).json({ message: 'Group not found' });
     }
 
-    // Return group ID, manager, and members
-    res.json({ group_id: group.group_id, manager: group.manager, members: group.members });
+    // Return group ID, manager, members, and budget
+    res.json({
+      group_id: group.group_id,
+      manager: group.manager,
+      members: group.members,
+      budget: group.budget,
+    });
   } catch (error) {
     console.error('Error fetching user group:', error);
     res.status(500).json({ message: 'Error fetching user group' });
@@ -179,5 +184,57 @@ app.get('/api/group-name', async (req, res) => {
   } catch (error) {
     console.error('Error fetching group name and budget:', error);
     res.status(500).json({ message: 'Error fetching group name and budget' });
+  }
+});
+
+// Define notification schema and model
+const notificationSchema = new mongoose.Schema({
+  manager: String,
+  message: String,
+  timestamp: Date,
+});
+const Notification = mongoose.model('Notification', notificationSchema, 'notifications');
+
+// API endpoint to send a notification to the manager
+app.post('/api/send-notification', async (req, res) => {
+  const { username, manager, requested_service, estimated_cost, budget } = req.body;
+
+  if (!username || !manager || !requested_service || !estimated_cost || budget === undefined) {
+    return res.status(400).json({ message: 'Invalid request payload' });
+  }
+
+  const notification = new Notification({
+    manager,
+    message: `User (${username}) has requested an increase in budget to create the service (${requested_service}) with an estimated cost of ${estimated_cost}. Current budget is ${budget}.`,
+    timestamp: new Date(),
+  });
+
+  try {
+    await notification.save();
+    res.status(200).json({ message: 'Notification sent successfully' });
+  } catch (error) {
+    console.error('Failed to save notification:', error);
+    res.status(500).json({ message: 'Failed to save notification' });
+  }
+});
+
+// API to fetch the last 5 notifications for a manager
+app.get('/api/notifications', async (req, res) => {
+  const { manager } = req.query;
+
+  if (!manager) {
+    return res.status(400).json({ message: 'Manager username is required' });
+  }
+
+  try {
+    // Fetch the last 5 notifications for the given manager
+    const notifications = await Notification.find({ manager })
+      .sort({ timestamp: -1 }) // Sort by newest first
+      .limit(5); // Limit to 5 notifications
+
+    res.json({ status: 'success', data: notifications });
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    res.status(500).json({ status: 'error', message: 'Failed to fetch notifications' });
   }
 });

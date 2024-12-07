@@ -100,12 +100,12 @@ export class UserDeleteserviceComponent implements OnInit {
       .post(`http://localhost:8080/user/delete-aws-service?username=${this.username}`, payload)
       .subscribe({
         next: (response: any) => {
-          this.responseMessage = response.message || 'AWS Service deleted successfully!';
+          this.responseMessage = response.result || 'AWS Service deleted successfully!';
           this.responseStatus = 'success';
           this.closeModal();
         },
         error: (error) => {
-          this.responseMessage = error.error.message || 'Failed to delete AWS service.';
+          this.responseMessage = error.error.result || 'Failed to delete AWS service.';
           this.responseStatus = 'error';
           this.closeModal();
         },
@@ -122,12 +122,12 @@ export class UserDeleteserviceComponent implements OnInit {
       .post(`http://localhost:8080/user/delete-gcp-service?username=${this.username}`, payload)
       .subscribe({
         next: (response: any) => {
-          this.responseMessage = response.message || 'GCP Service deleted successfully!';
+          this.responseMessage = response.result || 'GCP Service deleted successfully!';
           this.responseStatus = 'success';
           this.closeModal();
         },
         error: (error) => {
-          this.responseMessage = error.error.message || 'Failed to delete GCP service.';
+          this.responseMessage = error.error.result || 'Failed to delete GCP service.';
           this.responseStatus = 'error';
           this.closeModal();
         },

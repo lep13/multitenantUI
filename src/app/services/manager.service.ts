@@ -129,4 +129,9 @@ export class ManagerService {
         body: { manager, group_id: groupID, username: user },
       });
     }
+
+    // Fetch the last 5 notifications for a manager
+    getNotifications(manager: string): Observable<any> {
+      return this.http.get(`${this.apiUrl}/notifications?manager=${manager}`);
+    }
 }

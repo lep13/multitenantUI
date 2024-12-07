@@ -1,0 +1,123 @@
+<div class="user-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h3>User Dashboard</h3>
+      <div class="top-right-icons">
+        <div class="user-logo" (click)="toggleLogoutPopup()">
+          <img src="assets/manager.svg" alt="User Logo" class="logo-image" />
+          <!-- Logout Popup -->
+          <app-logout *ngIf="showLogoutPopup" (onLogout)="handleLogout()"></app-logout>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li [class.selected]="currentPage === 'dashboard'" (click)="navigateToDashboard()">Dashboard</li>
+        <li [class.selected]="currentPage === 'create-lambda'" (click)="navigateToCreateLambda()">Create Lambda</li>
+        <li [class.selected]="currentPage === 'delete-service'" (click)="navigateToDeleteService()">Delete Service</li>
+      </ul>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      <h3>Create Lambda Function</h3>
+      <form (ngSubmit)="createLambdaFunction()" #createLambdaForm="ngForm">
+        <div class="form-group">
+          <label for="functionName">Function Name</label>
+          <input
+            type="text"
+            id="functionName"
+            class="form-control"
+            [(ngModel)]="functionName"
+            name="functionName"
+            required
+            #functionNameField="ngModel"
+          />
+          <div *ngIf="functionNameField.invalid && functionNameField.touched" class="error">
+            Function Name is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="handler">Handler</label>
+          <input
+            type="text"
+            id="handler"
+            class="form-control"
+            [(ngModel)]="handler"
+            name="handler"
+            required
+            #handlerField="ngModel"
+          />
+          <div *ngIf="handlerField.invalid && handlerField.touched" class="error">
+            Handler is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="runtime">Runtime</label>
+          <input
+            type="text"
+            id="runtime"
+            class="form-control"
+            [(ngModel)]="runtime"
+            name="runtime"
+            required
+            #runtimeField="ngModel"
+          />
+          <div *ngIf="runtimeField.invalid && runtimeField.touched" class="error">
+            Runtime is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="zipFilePath">ZIP File Path</label>
+          <input
+            type="text"
+            id="zipFilePath"
+            class="form-control"
+            [(ngModel)]="zipFilePath"
+            name="zipFilePath"
+            required
+            #zipFilePathField="ngModel"
+          />
+          <div *ngIf="zipFilePathField.invalid && zipFilePathField.touched" class="error">
+            ZIP File Path is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            [(ngModel)]="region"
+            name="region"
+            required
+            #regionField="ngModel"
+          />
+          <div *ngIf="regionField.invalid && regionField.touched" class="error">
+            Region is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="createLambdaForm.invalid">
+          Create Lambda Function
+        </button>
+      </form>
+  
+      <!-- Response Modal -->
+      <div *ngIf="showModal" class="modal-overlay">
+        <div class="modal-content">
+          <p [ngClass]="{'success': responseStatus === 'success', 'error': responseStatus === 'error'}">
+            {{ responseMessage }}
+          </p>
+          <button class="btn btn-primary" (click)="handleModalOk()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

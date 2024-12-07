@@ -24,6 +24,7 @@ import { CreateGkeComponent } from './gcp-services/create-gke/create-gke.compone
 import { CreateBigqueryComponent } from './gcp-services/create-bigquery/create-bigquery.component';
 import { CreateCloudSqlComponent } from './gcp-services/create-cloud-sql/create-cloud-sql.component';
 import { UserDeleteserviceComponent } from './user-deleteservice/user-deleteservice.component';
+import { CreateLambdaComponent } from './aws-services/create-lambdap/create-lambdap.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'create-service', component: UserCreateServiceComponent, canActivate: [AuthGuard] },
   { path: 'create-amazon-ec2-elastic-compute-cloud', component: CreateEc2Component, canActivate: [AuthGuard]},
   { path: 'create-amazon-s3-simple-storage-service', component: CreateS3Component, canActivate: [AuthGuard]},
+  { path: 'create-aws-lambda', component: CreateLambdaComponent, canActivate: [AuthGuard]},
   { path: 'create-amazon-rds-relational-database-service', component: CreateRdsComponent, canActivate: [AuthGuard]},
   { path: 'create-aws-cloudfront', component: CreateCloudFrontComponent, canActivate: [AuthGuard]},
   { path: 'create-amazon-vpc-virtual-private-cloud', component: CreateVPCComponent, canActivate: [AuthGuard]},
@@ -49,6 +51,7 @@ const routes: Routes = [
   { path: 'create-google-kubernetes-engine-gke', component: CreateGkeComponent, canActivate: [AuthGuard]},
   { path: 'create-bigquery', component: CreateBigqueryComponent, canActivate: [AuthGuard]},
   { path: 'create-cloud-sql', component: CreateCloudSqlComponent, canActivate: [AuthGuard]},
+
   { path: 'delete-service', component: UserDeleteserviceComponent, canActivate: [AuthGuard]},
 ];
 
