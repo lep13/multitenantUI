@@ -2,12 +2,33 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const fs = require('fs');
  
 const app = express();
 const PORT = process.env.PORT || 5000;
  
 app.use(cors());
 app.use(express.json());
+
+// API endpoint to save logs to a file
+app.post('/api/logs', async (req, res) => {
+  const { message, statusCode } = req.body;
+
+  if (!message || statusCode === undefined) {
+    return res.status(400).json({ message: 'Invalid log data' });
+  }
+
+  const logEntry = `${new Date().toISOString()}, ${message}, ${statusCode}\n`;
+
+  fs.appendFile('logs.csv', logEntry, (err) => {
+    if (err) {
+      console.error('Error writing log to file:', err);
+      return res.status(500).json({ message: 'Failed to save log' });
+    }
+
+    res.status(200).json({ message: 'Log saved successfully' });
+  });
+});
  
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)

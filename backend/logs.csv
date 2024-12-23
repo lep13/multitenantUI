@@ -1,0 +1,245 @@
+2024-12-13T07:14:28.373Z, Test log message, 200
+2024-12-13T07:23:01.371Z, Login successful: Login successful Redirecting to: /manager, 200
+2024-12-13T07:24:14.407Z, [object Object] grp, 200
+2024-12-13T07:27:02.394Z, Login error: [object Object], 500
+2024-12-13T07:32:30.719Z, Login error: [object Object], 500
+2024-12-13T07:32:30.720Z, HTTP 401: Http failure response for http://localhost:8080/login: 401 Unauthorized - http://localhost:8080/login, 401
+2024-12-13T07:32:30.756Z, HTTP 200: http://localhost:5000/api/logs, 200
+2024-12-13T07:32:30.882Z, HTTP 200: http://localhost:5000/api/logs, 200
+2024-12-13T07:36:13.481Z, HTTP 200: http://localhost:8080/login, 200
+2024-12-13T07:36:13.552Z, HTTP 200: http://localhost:8080/manager/list-groups?username=ProductManager, 200
+2024-12-13T07:36:13.566Z, HTTP 200: http://localhost:5000/api/user?username=ProductManager, 200
+2024-12-13T07:36:13.568Z, HTTP 200: http://localhost:5000/api/managers, 200
+2024-12-13T07:36:13.710Z, Login successful: Login successful Redirecting to: /manager, 200
+2024-12-13T07:36:30.854Z, ERROR Error: NG04002: Cannot match any routes. URL Segment: 'manag', 500
+2024-12-13T07:36:55.512Z, HTTP 200: http://localhost:8080/login, 200
+2024-12-13T07:36:55.513Z, Login successful: Login successful Redirecting to: /user, 200
+2024-12-13T07:36:55.557Z, HTTP 200: http://localhost:5000/api/user?username=Golang_Developer, 200
+2024-12-13T07:36:55.628Z, HTTP 200: http://localhost:5000/api/user-group?username=Golang_Developer, 200
+2024-12-13T07:36:55.737Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3a41470d7389ff96, 200
+2024-12-13T07:36:55.752Z, HTTP 200: http://localhost:5000/api/services?group_id=3a41470d7389ff96, 200
+2024-12-13T07:36:55.790Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3a41470d7389ff96, 200
+2024-12-13T07:36:58.882Z, HTTP 200: http://localhost:8080/user/start-session?username=Golang_Developer&provider=aws, 200
+2024-12-13T07:36:58.992Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-13T07:37:01.335Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-13T07:37:01.500Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-13T07:37:09.762Z, HTTP 200: http://localhost:8080/user/start-session?username=Golang_Developer&provider=aws, 200
+2024-12-13T07:37:09.786Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-13T07:37:11.314Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-13T07:37:11.438Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-13T07:37:12.374Z, Session ID fetched on init: 42bdf04cfded7d95713f712ce1b022b2-20241213130709, 200
+2024-12-13T07:37:18.630Z, HTTP 200: http://localhost:8080/user/create-vpc, 200
+2024-12-13T07:37:18.636Z, VPC created successfully: VPC created successfully, 200
+2024-12-13T07:37:20.257Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2024-12-13T07:37:20.317Z, Session finalized successfully: Session finalized successfully, 200
+2024-12-13T07:37:32.425Z, HTTP 404: Http failure response for http://localhost:8080/user/create-vpc: 404 Not Found - http://localhost:8080/user/create-vpc, 404
+2024-12-13T07:37:32.435Z, Error creating VPC: [object Object], 500
+2024-12-13T07:37:45.533Z, Error creating VPC: [object Object], 500
+2024-12-13T07:37:45.534Z, HTTP 404: Http failure response for http://localhost:8080/user/create-vpc: 404 Not Found - http://localhost:8080/user/create-vpc, 404
+2024-12-13T07:37:51.822Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-13T07:37:51.830Z, Amazon EC2 (Elastic Compute Cloud),Amazon S3 (Simple Storage Service),AWS Lambda,Amazon RDS (Relational Database Service),AWS CloudFront,Amazon VPC (Virtual Private Cloud) services, 200
+2024-12-13T07:37:53.583Z, Selected service: Amazon VPC (Virtual Private Cloud), 200
+2024-12-13T07:37:55.436Z, Selected service: AWS Lambda, 200
+2024-12-13T07:38:01.585Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Golang_Developer: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Golang_Developer, 500
+2024-12-13T07:38:07.038Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Golang_Developer: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Golang_Developer, 500
+2024-12-13T07:38:08.633Z, Selected service: Amazon VPC (Virtual Private Cloud), 200
+2024-12-13T07:38:17.793Z, HTTP 200: http://localhost:8080/user/delete-aws-service?username=Golang_Developer, 200
+2024-12-13T07:38:43.811Z, ERROR Error: NG04002: Cannot match any routes. URL Segment: 'delete', 500
+2024-12-13T07:38:56.326Z, HTTP 200: http://localhost:8080/login, 200
+2024-12-13T07:38:56.332Z, Login successful: Login successful Redirecting to: /user, 200
+2024-12-13T07:38:56.411Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2024-12-13T07:38:56.425Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2024-12-13T07:38:56.556Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-13T07:38:56.569Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2024-12-13T07:38:56.606Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-13T07:38:59.150Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=gcp, 200
+2024-12-13T07:38:59.225Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=gcp, 200
+2024-12-13T07:39:01.211Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-13T07:39:06.491Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-13T07:39:14.317Z, Session ID fetched on init: 4cb0ae6b745926b5b50745ae1246329f-20241213130859, 200
+2024-12-13T07:39:34.237Z, HTTP 500: Http failure response for http://localhost:8080/user/create-compute-engine: 500 Internal Server Error - http://localhost:8080/user/create-compute-engine, 500
+2024-12-13T07:39:34.238Z, Error creating Compute Engine instance: [object Object], 500
+2024-12-13T07:39:36.420Z, HTTP 500: Http failure response for http://localhost:8080/user/create-compute-engine: 500 Internal Server Error - http://localhost:8080/user/create-compute-engine, 500
+2024-12-13T07:39:36.467Z, Error creating Compute Engine instance: [object Object], 500
+2024-12-13T07:39:46.140Z, HTTP 500: Http failure response for http://localhost:8080/user/create-compute-engine: 500 Internal Server Error - http://localhost:8080/user/create-compute-engine, 500
+2024-12-13T07:39:46.147Z, Error creating Compute Engine instance: [object Object], 500
+2024-12-13T07:40:07.818Z, Compute Engine,Cloud Storage,Google Kubernetes Engine (GKE),BigQuery,Cloud SQL services, 200
+2024-12-13T07:40:07.819Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=gcp, 200
+2024-12-13T07:40:09.338Z, Selected service: Google Kubernetes Engine (GKE), 200
+2024-12-13T07:40:20.127Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-gcp-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-gcp-service?username=Leps66, 500
+2024-12-13T07:40:26.546Z, Selected service: BigQuery, 200
+2024-12-13T07:40:35.242Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-gcp-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-gcp-service?username=Leps66, 500
+2024-12-13T07:40:50.308Z, HTTP 401: Http failure response for http://localhost:8080/login: 401 Unauthorized - http://localhost:8080/login, 401
+2024-12-13T07:40:50.316Z, Login error: [object Object], 500
+2024-12-13T07:40:55.617Z, HTTP 401: Http failure response for http://localhost:8080/login: 401 Unauthorized - http://localhost:8080/login, 401
+2024-12-13T07:40:55.631Z, Login error: [object Object], 500
+2024-12-13T07:41:24.475Z, HTTP 200: http://localhost:8080/login, 200
+2024-12-13T07:41:24.476Z, Login successful: Login successful Redirecting to: /user, 200
+2024-12-13T07:41:24.604Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2024-12-13T07:41:24.638Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2024-12-13T07:41:24.958Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-13T07:41:25.021Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2024-12-13T07:41:25.031Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-13T07:41:26.378Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2024-12-13T07:41:26.466Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-13T07:41:29.576Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-13T07:41:30.510Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-13T07:41:31.701Z, Session ID fetched on init: 31140230595070d0ba157ffa8a8fd347-20241213131126, 200
+2024-12-13T07:41:40.681Z, true ver, 200
+2024-12-13T07:41:41.950Z, HTTP 200: http://localhost:8080/user/create-s3-bucket, 200
+2024-12-13T07:41:41.968Z, Bucket created successfully: S3 bucket created successfully, 200
+2024-12-13T07:41:44.540Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2024-12-13T07:41:44.556Z, Session finalized successfully: Session finalized successfully, 200
+2024-12-13T07:41:52.519Z, true ver, 200
+2024-12-13T07:41:52.626Z, HTTP 404: Http failure response for http://localhost:8080/user/create-s3-bucket: 404 Not Found - http://localhost:8080/user/create-s3-bucket, 404
+2024-12-13T07:41:52.648Z, Error creating bucket: [object Object], 500
+2024-12-13T07:41:55.875Z, true ver, 200
+2024-12-13T07:41:55.987Z, HTTP 404: Http failure response for http://localhost:8080/user/create-s3-bucket: 404 Not Found - http://localhost:8080/user/create-s3-bucket, 404
+2024-12-13T07:41:56.003Z, Error creating bucket: [object Object], 500
+2024-12-13T07:47:20.199Z,Session ID fetched on init - http://localhost:8080/user/create-vpc,200
+2024-12-13T07:47:41.199Z,Bucket created successfully - http://localhost:5000/api/services,200
+2024-12-13T07:47:48.199Z,Selected service: Amazon VPC - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:47:53.199Z,Selected service: Amazon VPC - http://localhost:5000/api/logs,200
+2024-12-13T07:47:59.199Z,Error deleting AWS service - http://localhost:8080/user/get-cloud-services,500
+2024-12-13T07:48:06.199Z,Selected service: Amazon VPC - http://localhost:5000/api/user-group,200
+2024-12-13T07:48:22.199Z,Login error: Unauthorized access - http://localhost:5000/api/logs,401
+2024-12-13T07:48:37.199Z,Selected service: AWS Lambda - http://localhost:5000/api/user-group,200
+2024-12-13T07:48:53.199Z,Session ID fetched on init - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:49:12.199Z,HTTP failure response for endpoint - http://localhost:5000/api/user-group,404
+2024-12-13T07:49:20.199Z,Session finalized successfully - http://localhost:5000/api/services,200
+2024-12-13T07:49:28.199Z,Session ID fetched on init - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:49:52.199Z,Session finalized successfully - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:50:22.199Z,VPC created successfully - http://localhost:8080/user/create-vpc,200
+2024-12-13T07:50:41.199Z,VPC created successfully - http://localhost:8080/user/get-cloud-services,200
+2024-12-13T07:50:43.199Z,Error creating Compute Engine instance - http://localhost:8080/user/create-vpc,500
+2024-12-13T07:50:50.199Z,Session finalized successfully - http://localhost:8080/user/create-vpc,200
+2024-12-13T07:50:56.199Z,Error creating Compute Engine instance - http://localhost:5000/api/user-group,500
+2024-12-13T07:51:12.199Z,Selected service: AWS Lambda - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T07:51:31.199Z,Error deleting AWS service - http://localhost:5000/api/user-group,500
+2024-12-13T07:51:49.199Z,Selected service: Amazon VPC - http://localhost:5000/api/services,200
+2024-12-13T07:52:18.199Z,Selected service: Amazon VPC - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T07:52:24.199Z,Session ID fetched on init - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T07:52:48.199Z,VPC created successfully - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T07:53:06.199Z,Session ID fetched on init - http://localhost:5000/api/user-group,200
+2024-12-13T07:53:07.199Z,Selected service: Amazon VPC - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:53:13.199Z,Selected service: AWS Lambda - http://localhost:8080/user/get-cloud-services,200
+2024-12-13T07:53:21.199Z,Error creating Compute Engine instance - http://localhost:5000/api/group-name,500
+2024-12-13T07:53:45.199Z,Login error: Unauthorized access - http://localhost:5000/api/group-name,401
+2024-12-13T07:53:51.199Z,Session finalized successfully - http://localhost:5000/api/logs,200
+2024-12-13T07:54:06.199Z,Error creating Compute Engine instance - http://localhost:5000/api/services,500
+2024-12-13T07:54:08.199Z,Login successful: Redirecting to /manager - http://localhost:8080/login,200
+2024-12-13T07:54:25.199Z,Session ID fetched on init - http://localhost:8080/user/create-vpc,200
+2024-12-13T07:54:29.199Z,VPC created successfully - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:54:49.199Z,Login error: Unauthorized access - http://localhost:5000/api/user-group,401
+2024-12-13T07:55:15.199Z,Error deleting AWS service - http://localhost:5000/api/logs,500
+2024-12-13T07:55:34.199Z,Service calculation completed - http://localhost:5000/api/services,200
+2024-12-13T07:55:37.199Z,Session ID fetched on init - http://localhost:8080/user/create-vpc,200
+2024-12-13T07:56:04.199Z,Error deleting AWS service - http://localhost:5000/api/logs,500
+2024-12-13T07:56:30.199Z,Bucket created successfully - http://localhost:8080/user/create-vpc,200
+2024-12-13T07:56:57.199Z,Error creating Compute Engine instance - http://localhost:8080/user/get-cloud-services,500
+2024-12-13T07:57:06.199Z,Error creating Compute Engine instance - http://localhost:8080/user/delete-aws-service,500
+2024-12-13T07:57:31.199Z,Session ID fetched on init - http://localhost:5000/api/services,200
+2024-12-13T07:57:42.199Z,Login error: Unauthorized access - http://localhost:8080/user/create-vpc,401
+2024-12-13T07:57:56.199Z,Session finalized successfully - http://localhost:5000/api/user-group,200
+2024-12-13T07:57:57.199Z,Service calculation completed - http://localhost:5000/api/user,200
+2024-12-13T07:58:04.199Z,Error creating Compute Engine instance - http://localhost:5000/api/services,500
+2024-12-13T07:58:32.199Z,Bucket created successfully - http://localhost:5000/api/services,200
+2024-12-13T07:58:54.199Z,HTTP failure response for endpoint - http://localhost:8080/user/delete-aws-service,404
+2024-12-13T07:59:01.199Z,Session ID fetched on init - http://localhost:5000/api/services,200
+2024-12-13T07:59:17.199Z,Selected service: Amazon VPC - http://localhost:8080/user/delete-aws-service,200
+2024-12-13T07:59:30.199Z,Selected service: Amazon VPC - http://localhost:8080/user/get-cloud-services,200
+2024-12-13T07:59:41.199Z,Bucket created successfully - http://localhost:5000/api/user,200
+2024-12-13T08:00:07.199Z,Bucket created successfully - http://localhost:5000/api/user-group,200
+2024-12-13T08:00:24.199Z,Service calculation completed - http://localhost:5000/api/user,200
+2024-12-13T08:00:42.199Z,Service calculation completed - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T08:00:56.199Z,Session finalized successfully - http://localhost:5000/api/user,200
+2024-12-13T08:01:06.199Z,Login error: Unauthorized access - http://localhost:5000/api/services,401
+2024-12-13T08:01:31.199Z,Error creating Compute Engine instance - http://localhost:8080/user/delete-aws-service,500
+2024-12-13T08:01:35.199Z,Selected service: Amazon VPC - http://localhost:5000/api/group-name,200
+2024-12-13T08:01:59.199Z,Login error: Unauthorized access - http://localhost:8080/user/delete-aws-service,401
+2024-12-13T08:02:05.199Z,Selected service: Amazon VPC - http://localhost:5000/api/user-group,200
+2024-12-13T08:02:13.199Z,Error deleting AWS service - http://localhost:8080/login,500
+2024-12-13T08:02:29.199Z,Login successful: Redirecting to /manager - http://localhost:8080/user/create-vpc,200
+2024-12-13T08:02:52.199Z,Session finalized successfully - http://localhost:8080/user/get-cloud-services,200
+2024-12-13T08:03:17.199Z,Login successful: Redirecting to /manager - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T08:03:27.199Z,Session finalized successfully - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T08:03:34.199Z,Login error: Unauthorized access - http://localhost:5000/api/user-group,401
+2024-12-13T08:03:45.199Z,Selected service: AWS Lambda - http://localhost:8080/user/get-cloud-services,200
+2024-12-13T08:03:50.199Z,Error deleting AWS service - http://localhost:5000/api/services,500
+2024-12-13T08:04:02.199Z,Session ID fetched on init - http://localhost:8080/user/create-vpc,200
+2024-12-13T08:04:27.199Z,Session ID fetched on init - http://localhost:8080/login,200
+2024-12-13T08:04:50.199Z,Service calculation completed - http://localhost:5000/api/group-name,200
+2024-12-13T08:05:12.199Z,Selected service: Amazon VPC - http://localhost:5000/api/services,200
+2024-12-13T08:05:17.199Z,Session finalized successfully - http://localhost:5000/api/user-group,200
+2024-12-13T08:05:29.199Z,Service calculation completed - http://localhost:8080/user/get-cloud-services,200
+2024-12-13T08:05:34.199Z,Error creating Compute Engine instance - http://localhost:5000/api/services,500
+2024-12-13T08:05:50.199Z,VPC created successfully - http://localhost:8080/user/create-s3-bucket,200
+2024-12-13T08:06:02.199Z,Login error: Unauthorized access - http://localhost:5000/api/user-group,401
+2024-12-13T08:06:11.199Z,Error creating Compute Engine instance - http://localhost:8080/user/create-vpc,500
+2024-12-13T08:06:38.199Z,Session ID fetched on init - http://localhost:5000/api/user,200
+2024-12-13T08:07:07.199Z,Login error: Unauthorized access - http://localhost:8080/user/delete-aws-service,401
+2024-12-13T08:07:13.199Z,HTTP failure response for endpoint - http://localhost:8080/user/create-s3-bucket,404
+2024-12-13T08:07:27.199Z,Session ID fetched on init - http://localhost:8080/user/create-vpc,200
+2024-12-13T08:07:38.199Z,Login successful: Redirecting to /manager - http://localhost:5000/api/logs,200
+2024-12-13T08:08:08.199Z,Error creating Compute Engine instance - http://localhost:8080/login,500
+2024-12-13T08:08:35.199Z,HTTP failure response for endpoint - http://localhost:8080/login,404
+2024-12-13T08:08:47.199Z,Selected service: Amazon VPC - http://localhost:5000/api/user,200
+2024-12-13T08:09:00.199Z,Error deleting AWS service - http://localhost:8080/user/create-s3-bucket,500
+2024-12-13T08:09:11.199Z,Session finalized successfully - http://localhost:5000/api/services,200
+2024-12-13T08:09:27.199Z,Selected service: Amazon VPC - http://localhost:5000/api/group-name,200
+2024-12-13T08:09:41.199Z,Login error: Unauthorized access - http://localhost:8080/login,401
+2024-12-13T08:10:02.199Z,HTTP failure response for endpoint - http://localhost:8080/login,404
+2024-12-13T08:10:28.199Z,Service calculation completed - http://localhost:8080/user/create-vpc,200
+2024-12-13T08:10:31.199Z,Session finalized successfully - http://localhost:5000/api/user,200
+2024-12-13T08:10:59.199Z,Bucket created successfully - http://localhost:8080/login,200
+2024-12-13T08:11:15.199Z,HTTP failure response for endpoint - http://localhost:5000/api/services,404
+2024-12-13T08:11:24.199Z,Login error: Unauthorized access - http://localhost:8080/user/delete-aws-service,401
+2024-12-13T08:11:36.199Z,HTTP failure response for endpoint - http://localhost:5000/api/user-group,404
+2024-12-13T08:11:41.199Z,Login error: Unauthorized access - http://localhost:5000/api/user-group,401
+2024-12-13T07:51:01.510Z, [vite] server connection lost. Polling for restart..., 200
+2024-12-16T05:02:51.260Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2024-12-16T05:02:51.309Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2024-12-16T05:02:51.567Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:02:51.731Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:02:51.873Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:18.502Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2024-12-16T05:03:18.550Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2024-12-16T05:03:18.628Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:18.657Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:18.759Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:22.576Z, HTTP 401: Http failure response for http://localhost:8080/user/start-session?username=Leps66&provider=aws: 401 Unauthorized - http://localhost:8080/user/start-session?username=Leps66&provider=aws, 401
+2024-12-16T05:03:22.582Z, Error starting session: [object Object], 500
+2024-12-16T05:03:51.568Z, HTTP 200: http://localhost:8080/login, 200
+2024-12-16T05:03:51.576Z, Login successful: Login successful Redirecting to: /user, 200
+2024-12-16T05:03:51.635Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2024-12-16T05:03:51.662Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2024-12-16T05:03:52.015Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:52.054Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:52.057Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2024-12-16T05:03:55.618Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2024-12-16T05:03:55.688Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-16T05:03:58.451Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-16T05:03:59.979Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-16T05:04:01.408Z, Session ID fetched on init: a116227383d8ea7ebfbdaa68c399b54b-20241216103355, 200
+2024-12-16T05:04:08.885Z, HTTP 500: Http failure response for http://localhost:8080/user/create-ec2-instance: 500 Internal Server Error - http://localhost:8080/user/create-ec2-instance, 500
+2024-12-16T05:06:09.728Z, HTTP 200: http://localhost:8080/user/create-ec2-instance, 200
+2024-12-16T05:06:09.736Z, a116227383d8ea7ebfbdaa68c399b54b-20241216103355 session, 200
+2024-12-16T05:06:12.039Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2024-12-16T05:06:12.051Z, Session finalized successfully: Session finalized successfully, 200
+2024-12-16T05:06:16.492Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2024-12-16T05:06:16.564Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-16T05:06:19.153Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-16T05:06:20.223Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-16T05:06:21.387Z, Session ID fetched on init: 00788ae9cf176423ff3ae73b80594b2e-20241216103616, 200
+2024-12-16T05:06:30.269Z, true ver, 200
+2024-12-16T05:06:32.098Z, HTTP 200: http://localhost:8080/user/create-s3-bucket, 200
+2024-12-16T05:06:32.121Z, Bucket created successfully: S3 bucket created successfully, 200
+2024-12-16T05:06:33.981Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2024-12-16T05:06:33.997Z, Session finalized successfully: Session finalized successfully, 200
+2024-12-16T05:06:36.719Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2024-12-16T05:06:36.782Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2024-12-16T05:06:38.195Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2024-12-16T05:06:38.353Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2024-12-16T05:06:45.765Z, HTTP 200: http://localhost:8080/user/create-lambda-function, 200
+2024-12-16T05:06:47.601Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2024-12-16T05:06:47.623Z, Session finalized successfully: Session finalized successfully, 200
