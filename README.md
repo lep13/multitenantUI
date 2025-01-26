@@ -1,27 +1,80 @@
-# MultitenantUI
+# Multitenant Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+A multitenant web application designed to manage cloud resources on AWS and GCP, with role-based access control for admins, managers, and users. The application is divided into two repositories: **Frontend (UI)** and **Backend (API)**.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Role-Based Access Control (RBAC):**
+  - **Admin**: Create/Delete managers.
+  - **Manager**: Create/Delete users, manage groups, monitor budgets and costs, and oversee cloud resources created or deleted by users.
+  - **User**: Create/Delete resources on AWS and GCP, send notifications to managers for budget approvals, and generate alerts.
+- **Cloud Resource Management**: AWS and GCP resources are manipulated using their respective CLI tools.
+- **Notifications**: Automatic notifications sent to managers for resource creation, deletion, alerts, and budget requests.
+- **Database**: MongoDB, with the URI securely fetched from AWS Secrets Manager.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Repositories
 
-## Build
+1. **Frontend (UI)**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   - [Frontend Repository](https://github.com/lep13/multitenantUI)
+   - Built with Angular and Node.js.
+   - Runs on port `4200`, fetching data from the Node.js backend on port `5000` and the Golang API on port `8080`.
 
-## Running unit tests
+2. **Backend (API)**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   - [Backend Repository](https://github.com/lep13/multitenantBackend)
+   - Built with Golang, exposing REST APIs on port `8080`.
+   - MongoDB is used for data storage, with credentials managed via AWS Secrets Manager.
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Setup Instructions
 
-## Further help
+### Frontend
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clone the frontend repository:
+   ```bash
+   git clone https://github.com/lep13/multitenantUI
+   cd multitenantUI
+   npm install
+   ng serve
+
+   cd backend
+   node server.js
+   ```
+2. Ensure the Node.js backend runs on port `5000` and the Golang API on port `8080`.
+
+### Backend
+
+1. Clone the backend repository:
+   ```bash
+   git clone https://github.com/lep13/multitenantBackend
+   cd multitenantBackend
+   go run main.go
+   ```
+2. Ensure MongoDB URI is set in AWS Secrets Manager and accessible.
+
+---
+
+## Cloud Resource Management
+
+- AWS and GCP resources are manipulated on the respective accounts using the AWS CLI and GCP CLI tools. 
+- Ensure AWS and Google CLI are configured
+- Users perform operations like creation, deletion, and updates, while managers monitor and approve budget requests or handle alerts.
+
+---
+
+## Technologies Used
+
+- **Frontend**: Angular, Node.js
+- **Backend**: Golang
+- **Database**: MongoDB
+- **Cloud**: AWS, GCP
+- **Others**: Docker, REST APIs, AWS Secrets Manager
+
+---
+
+For more details, refer to the [Frontend Repo](https://github.com/lep13/multitenantUI) and [Backend Repo](https://github.com/lep13/multitenantBackend).
+
