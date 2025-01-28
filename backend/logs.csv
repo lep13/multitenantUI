@@ -243,3 +243,117 @@
 2024-12-16T05:06:45.765Z, HTTP 200: http://localhost:8080/user/create-lambda-function, 200
 2024-12-16T05:06:47.601Z, HTTP 200: http://localhost:8080/user/complete-session, 200
 2024-12-16T05:06:47.623Z, Session finalized successfully: Session finalized successfully, 200
+2025-01-07T11:12:25.777Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:25.774Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:25.775Z, Login error: [object Object], 500
+2025-01-07T11:12:25.771Z, Login error: [object Object], 500
+2025-01-07T11:12:26.830Z, Login error: [object Object], 500
+2025-01-07T11:12:26.831Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:28.238Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:28.239Z, Login error: [object Object], 500
+2025-01-07T11:12:38.968Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:38.969Z, Login error: [object Object], 500
+2025-01-07T11:12:39.122Z, Login error: [object Object], 500
+2025-01-07T11:12:39.125Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:40.600Z, HTTP 0: Http failure response for http://localhost:8080/login: 0 Unknown Error - http://localhost:8080/login, 500
+2025-01-07T11:12:40.600Z, Login error: [object Object], 500
+2025-01-07T11:14:05.529Z, HTTP 200: http://localhost:8080/login, 200
+2025-01-07T11:14:05.533Z, Login successful: Login successful Redirecting to: /manager, 200
+2025-01-07T11:14:05.589Z, HTTP 200: http://localhost:5000/api/user?username=ProductManager, 200
+2025-01-07T11:14:05.596Z, HTTP 200: http://localhost:5000/api/managers, 200
+2025-01-07T11:14:05.811Z, HTTP 200: http://localhost:8080/manager/list-groups?username=ProductManager, 200
+2025-01-07T11:14:08.659Z, HTTP 200: http://localhost:5000/api/services?group_id=3a41470d7389ff96, 200
+2025-01-07T11:14:08.690Z, HTTP 200: http://localhost:5000/api/services?group_id=3a41470d7389ff96, 200
+2025-01-07T11:14:11.221Z, HTTP 200: http://localhost:5000/api/services?group_id=32a6b2b79b2bc467, 200
+2025-01-07T11:14:11.254Z, HTTP 200: http://localhost:5000/api/services?group_id=32a6b2b79b2bc467, 200
+2025-01-07T11:14:13.771Z, HTTP 200: http://localhost:5000/api/services?group_id=3a41470d7389ff96, 200
+2025-01-07T11:14:13.822Z, HTTP 200: http://localhost:5000/api/services?group_id=3a41470d7389ff96, 200
+2025-01-07T11:30:06.844Z, HTTP 200: http://localhost:5000/api/user?username=ProductManager, 200
+2025-01-07T11:30:06.850Z, HTTP 200: http://localhost:8080/manager/list-groups?username=ProductManager, 200
+2025-01-07T11:30:06.860Z, HTTP 200: http://localhost:5000/api/managers, 200
+2025-01-07T11:30:16.222Z, HTTP 200: http://localhost:8080/login, 200
+2025-01-07T11:30:16.224Z, Login successful: Login successful Redirecting to: /user, 200
+2025-01-07T11:30:16.290Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2025-01-07T11:30:16.324Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2025-01-07T11:30:16.377Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2025-01-07T11:30:16.401Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2025-01-07T11:30:16.448Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2025-01-07T11:30:21.339Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2025-01-07T11:30:21.348Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-07T11:30:23.732Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2025-01-07T11:30:26.878Z, Session ID fetched on init: fa58453a52713036df103345d07ac5a7-20250107170020, 200
+2025-01-07T11:30:26.885Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2025-01-07T11:32:03.676Z, fa58453a52713036df103345d07ac5a7-20250107170020 session, 200
+2025-01-07T11:32:03.677Z, HTTP 200: http://localhost:8080/user/create-ec2-instance, 200
+2025-01-07T11:32:05.573Z, Session finalized successfully: Session finalized successfully, 200
+2025-01-07T11:32:05.577Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2025-01-07T11:35:52.103Z, HTTP 404: Http failure response for http://localhost:8080/user/create-ec2-instance: 404 Not Found - http://localhost:8080/user/create-ec2-instance, 404
+2025-01-07T11:35:54.672Z, HTTP 404: Http failure response for http://localhost:8080/user/create-ec2-instance: 404 Not Found - http://localhost:8080/user/create-ec2-instance, 404
+2025-01-07T11:36:10.494Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2025-01-07T11:36:10.501Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-07T11:36:11.716Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2025-01-07T11:36:12.861Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2025-01-07T11:36:13.816Z, Session ID fetched on init: ae956b288ac01882f3a554ab3d64a946-20250107170610, 200
+2025-01-07T11:36:37.661Z, HTTP 200: http://localhost:8080/user/create-ec2-instance, 200
+2025-01-07T11:36:37.666Z, ae956b288ac01882f3a554ab3d64a946-20250107170610 session, 200
+2025-01-07T11:36:39.202Z, Session finalized successfully: Session finalized successfully, 200
+2025-01-07T11:36:39.207Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2025-01-07T11:45:11.472Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2025-01-07T11:45:11.476Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-07T11:46:31.376Z, HTTP 200: http://localhost:8080/user/update-session, 200
+2025-01-07T11:46:32.224Z, HTTP 200: http://localhost:8080/user/calculate-cost, 200
+2025-01-07T11:46:33.340Z, Session ID fetched on init: 3a54e7fd5dcdb91f80f26c8fc01a60e4-20250107171511, 200
+2025-01-07T11:46:49.620Z, true ver, 200
+2025-01-07T11:46:50.996Z, HTTP 200: http://localhost:8080/user/create-s3-bucket, 200
+2025-01-07T11:46:51.000Z, Bucket created successfully: S3 bucket created successfully, 200
+2025-01-07T11:46:52.393Z, HTTP 200: http://localhost:8080/user/complete-session, 200
+2025-01-07T11:46:52.393Z, Session finalized successfully: Session finalized successfully, 200
+2025-01-07T12:17:07.857Z, HTTP 200: http://localhost:8080/user/start-session?username=Leps66&provider=aws, 200
+2025-01-07T12:17:07.867Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-07T12:43:20.534Z, [vite] server connection lost. Polling for restart..., 200
+2025-01-08T06:33:39.764Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2025-01-08T06:33:39.767Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2025-01-08T06:33:39.801Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:33:39.815Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:33:39.834Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:33:41.743Z, Amazon EC2 (Elastic Compute Cloud),Amazon S3 (Simple Storage Service),AWS Lambda,Amazon RDS (Relational Database Service),AWS CloudFront,Amazon VPC (Virtual Private Cloud) services, 200
+2025-01-08T06:33:41.743Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-08T06:33:42.776Z, Selected service: Amazon EC2 (Elastic Compute Cloud), 200
+2025-01-08T06:33:53.275Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Leps66, 500
+2025-01-08T06:34:18.139Z, HTTP 200: http://localhost:8080/login, 200
+2025-01-08T06:34:18.140Z, Login successful: Login successful Redirecting to: /user, 200
+2025-01-08T06:34:18.191Z, HTTP 200: http://localhost:5000/api/user-group?username=Leps66, 200
+2025-01-08T06:34:18.197Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2025-01-08T06:34:18.241Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:34:18.262Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:34:18.275Z, HTTP 200: http://localhost:5000/api/group-name?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:34:20.272Z, Amazon EC2 (Elastic Compute Cloud),Amazon S3 (Simple Storage Service),AWS Lambda,Amazon RDS (Relational Database Service),AWS CloudFront,Amazon VPC (Virtual Private Cloud) services, 200
+2025-01-08T06:34:20.273Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-08T06:34:21.117Z, Selected service: Amazon EC2 (Elastic Compute Cloud), 200
+2025-01-08T06:34:27.232Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Leps66, 500
+2025-01-08T06:37:42.137Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-08T06:37:42.140Z, Amazon EC2 (Elastic Compute Cloud),Amazon S3 (Simple Storage Service),AWS Lambda,Amazon RDS (Relational Database Service),AWS CloudFront,Amazon VPC (Virtual Private Cloud) services, 200
+2025-01-08T06:37:43.313Z, Selected service: Amazon EC2 (Elastic Compute Cloud), 200
+2025-01-08T06:37:54.973Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Leps66, 500
+2025-01-08T06:38:33.689Z, Amazon EC2 (Elastic Compute Cloud),Amazon S3 (Simple Storage Service),AWS Lambda,Amazon RDS (Relational Database Service),AWS CloudFront,Amazon VPC (Virtual Private Cloud) services, 200
+2025-01-08T06:38:33.693Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-08T06:38:34.452Z, Selected service: Amazon EC2 (Elastic Compute Cloud), 200
+2025-01-08T06:38:39.370Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Leps66, 500
+2025-01-08T06:39:12.085Z, HTTP 200: http://localhost:5000/api/user?username=Leps66, 200
+2025-01-08T06:39:17.041Z, HTTP 200: http://localhost:8080/user/get-cloud-services?provider=aws, 200
+2025-01-08T06:39:17.041Z, Amazon EC2 (Elastic Compute Cloud),Amazon S3 (Simple Storage Service),AWS Lambda,Amazon RDS (Relational Database Service),AWS CloudFront,Amazon VPC (Virtual Private Cloud) services, 200
+2025-01-08T06:39:18.304Z, Selected service: Amazon EC2 (Elastic Compute Cloud), 200
+2025-01-08T06:39:24.811Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Leps66, 500
+2025-01-08T06:39:43.244Z, HTTP 500: Http failure response for http://localhost:8080/user/delete-aws-service?username=Leps66: 500 Internal Server Error - http://localhost:8080/user/delete-aws-service?username=Leps66, 500
+2025-01-08T06:49:44.592Z, HTTP 200: http://localhost:8080/login, 200
+2025-01-08T06:49:44.629Z, Login successful: Login successful Redirecting to: /manager, 200
+2025-01-08T06:49:44.656Z, HTTP 200: http://localhost:5000/api/user?username=ProjectManager, 200
+2025-01-08T06:49:44.660Z, HTTP 200: http://localhost:5000/api/managers, 200
+2025-01-08T06:49:44.861Z, HTTP 200: http://localhost:8080/manager/list-groups?username=ProjectManager, 200
+2025-01-08T06:49:49.997Z, HTTP 200: http://localhost:5000/api/notifications?manager=ProjectManager, 200
+2025-01-08T06:50:30.686Z, HTTP 200: http://localhost:5000/api/user?username=ProjectManager, 200
+2025-01-08T06:50:36.658Z, HTTP 200: http://localhost:5000/api/services?group_id=5064ba6f2cdd3a4a, 200
+2025-01-08T06:50:36.669Z, HTTP 200: http://localhost:5000/api/services?group_id=5064ba6f2cdd3a4a, 200
+2025-01-08T06:50:38.773Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:50:38.813Z, HTTP 200: http://localhost:5000/api/services?group_id=3eff93ed3d33dd9d, 200
+2025-01-08T06:58:13.746Z, [vite] server connection lost. Polling for restart..., 200
